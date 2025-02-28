@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Interfaces;
 using UnityEngine;
 
-public class BaseTile : MonoBehaviour
+public class BaseTile : MonoBehaviour, ITappable
 {
     protected int _x;
     protected int _y;
@@ -19,6 +20,11 @@ public class BaseTile : MonoBehaviour
         _x = x;
         _y = y;
         SetTransform();
+    }
+    
+    public virtual void OnTap()
+    {
+        throw new System.NotImplementedException();
     }
 
     public void SetLayer(int layer)
