@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using Helpers;
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
@@ -24,6 +25,8 @@ public class GameController : MonoBehaviour
         }
     }
 
+    public static event Action<BaseTile> OnUserTapped;
+
     private void Awake()
     {
         if (_instance == null)
@@ -42,5 +45,10 @@ public class GameController : MonoBehaviour
         _grid = new Grid(width, height);
         ServiceLocator.Register<Grid>(_grid);
         _levelLoader = new LevelLoader(_grid, puzzleTransform);
+    }
+
+    public void OnTapPerformed(BaseTile tile = null)
+    {
+        OnUserTapped?.Invoke(tile);
     }
 }
