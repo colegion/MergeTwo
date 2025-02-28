@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Helpers;
 using UnityEditor.Playables;
 using UnityEngine;
 
@@ -20,6 +21,7 @@ public class BaseCell : MonoBehaviour
         _x = x;
         _y = y;
         name = $"{name}{x}_{y}";
+        _grid = ServiceLocator.Get<Grid>();
         _grid.AppendAvailableCells(this);
     }
     
