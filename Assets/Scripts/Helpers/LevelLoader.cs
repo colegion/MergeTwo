@@ -23,8 +23,8 @@ namespace Helpers
             {
                 for (int j = 0; j < height; j++)
                 {
-                    var prefabToUse = j % 2 == 0 ? lightPrefabInstance : darkPrefabInstance;
-                    var cell = Object.Instantiate(prefabToUse, parent);
+                    var prefabToUse = (j + i) % 2 == 0 ? lightPrefabInstance : darkPrefabInstance;
+                    var cell = Object.Instantiate(prefabToUse, new Vector3(i, 0, j), Quaternion.identity, parent.transform);
                     cell.ConfigureSelf(i, j);
                 }
             }
