@@ -35,6 +35,15 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Swipe"",
+                    ""type"": ""Value"",
+                    ""id"": ""e717895b-f679-487d-9af6-6fff04267ee1"",
+                    ""expectedControlType"": ""Delta"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -59,6 +68,17 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Tap"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f27a087c-d5c4-448d-9cf2-a2a9ec507cca"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Swipe"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -68,6 +88,7 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
         // ActionMap
         m_ActionMap = asset.FindActionMap("ActionMap", throwIfNotFound: true);
         m_ActionMap_Tap = m_ActionMap.FindAction("Tap", throwIfNotFound: true);
+        m_ActionMap_Swipe = m_ActionMap.FindAction("Swipe", throwIfNotFound: true);
     }
 
     ~@GameInputActions()
@@ -135,11 +156,13 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_ActionMap;
     private List<IActionMapActions> m_ActionMapActionsCallbackInterfaces = new List<IActionMapActions>();
     private readonly InputAction m_ActionMap_Tap;
+    private readonly InputAction m_ActionMap_Swipe;
     public struct ActionMapActions
     {
         private @GameInputActions m_Wrapper;
         public ActionMapActions(@GameInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Tap => m_Wrapper.m_ActionMap_Tap;
+        public InputAction @Swipe => m_Wrapper.m_ActionMap_Swipe;
         public InputActionMap Get() { return m_Wrapper.m_ActionMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -152,6 +175,9 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
             @Tap.started += instance.OnTap;
             @Tap.performed += instance.OnTap;
             @Tap.canceled += instance.OnTap;
+            @Swipe.started += instance.OnSwipe;
+            @Swipe.performed += instance.OnSwipe;
+            @Swipe.canceled += instance.OnSwipe;
         }
 
         private void UnregisterCallbacks(IActionMapActions instance)
@@ -159,6 +185,9 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
             @Tap.started -= instance.OnTap;
             @Tap.performed -= instance.OnTap;
             @Tap.canceled -= instance.OnTap;
+            @Swipe.started -= instance.OnSwipe;
+            @Swipe.performed -= instance.OnSwipe;
+            @Swipe.canceled -= instance.OnSwipe;
         }
 
         public void RemoveCallbacks(IActionMapActions instance)
@@ -179,5 +208,6 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
     public interface IActionMapActions
     {
         void OnTap(InputAction.CallbackContext context);
+        void OnSwipe(InputAction.CallbackContext context);
     }
 }
