@@ -6,4 +6,9 @@ namespace Helpers
     {
         
     }
+
+    public enum PoolableTypes
+    {
+        
+    }
 }
