@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Helpers
@@ -7,17 +9,37 @@ namespace Helpers
         
     }
 
+    [Serializable]
     public enum ItemType
     {
-        Edible,
+        Food,
         Construction,
         Energy,
         Coin,
+        Producer,
     }
 
     public enum PoolableTypes
     {
         BaseTile,
         
+    }
+
+    [Serializable]
+    public class LevelData
+    {
+        public int boardWidth;
+        public int boardHeight;
+        public List<TileData> tiles;
+        
+    }
+
+    [Serializable]
+    public class TileData
+    {
+        public int xCoord;
+        public int yCoord;
+        public ItemType itemType;
+        public int itemLevel;
     }
 }

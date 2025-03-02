@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using Helpers;
 using JetBrains.Annotations;
+using Pool;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
@@ -11,8 +12,10 @@ public class GameController : MonoBehaviour
     [SerializeField] private int width;
     [SerializeField] private int height;
     [SerializeField] private Transform puzzleTransform;
+    [SerializeField] private PoolController poolController;
+    [SerializeField] private ItemConfigManager itemConfigManager;
     
-    private LevelLoader _levelLoader;
+    private LevelManager _levelManager;
     private Grid _grid;
 
     private static GameController _instance;
@@ -44,7 +47,10 @@ public class GameController : MonoBehaviour
     {
         _grid = new Grid(width, height);
         ServiceLocator.Register<Grid>(_grid);
-        _levelLoader = new LevelLoader(_grid, puzzleTransform);
+        poolController.Initialize();
+        ServiceLocator.Register(poolController);
+        ServiceLocator.Register(itemConfigManager);
+        _levelManager = new LevelManager(_grid, puzzleTransform);
     }
 
     public void OnTapPerformed(BaseTile tile = null)
@@ -86,5 +92,10 @@ public class GameController : MonoBehaviour
 
     private void MoveTileToPosition(BaseTile selectedTile, Vector2 targetPosition)
     {
+    }
+
+    private void OnDestroy()
+    {
+        throw new NotImplementedException();
     }
 }
