@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 public class Grid
 {
-    private BaseCell[,] _world;
+    private BaseCell[,] _board;
     public int Width { get; private set; }
     public int Height { get; private set; }
 
@@ -16,7 +16,7 @@ public class Grid
     {
         Width = width;
         Height = height;
-        _world = new BaseCell[width, height];
+        _board = new BaseCell[width, height];
         _availableCells = new List<BaseCell>();
     }
 
@@ -42,19 +42,19 @@ public class Grid
 
     public void SetCell(BaseCell cell)
     {
-        if (_world[cell.X, cell.Y] != null)
+        if (_board[cell.X, cell.Y] != null)
         {
             Debug.LogError($"Specified coordinate already holds for another cell! Coordinate: {cell.X} {cell.Y}");
         }
         else
         {
-            _world[cell.X, cell.Y] = cell;
+            _board[cell.X, cell.Y] = cell;
         }
     }
 
     public void PlaceTileToParentCell(BaseTile tile)
     {
-        var cell = _world[tile.X, tile.Y];
+        var cell = _board[tile.X, tile.Y];
         if (cell == null)
         {
             Debug.LogWarning($"Given tile has no valid coordinate X: {tile.X} Y: {tile.Y}");
@@ -67,7 +67,7 @@ public class Grid
 
     public void ClearTileOfParentCell(BaseTile tile)
     {
-        var cell = _world[tile.X, tile.Y];
+        var cell = _board[tile.X, tile.Y];
         if (cell == null)
         {
             Debug.LogWarning($"Given tile has no valid coordinate X: {tile.X} Y: {tile.Y}");
@@ -78,9 +78,21 @@ public class Grid
         }
     }
 
+    public List<BaseTile> GetAllTilesOnBoard()
+    {
+        List<BaseTile> allTiles = new List<BaseTile>();
+        foreach (var cell in _board)
+        {
+            var cellTiles = cell.GetAssignedTiles();
+            allTiles.AddRange(cellTiles);
+        }
+
+        return allTiles;
+    }
+
     public Transform GetCellTargetByCoordinate(int x, int y)
     {
-        return _world[x, y].GetTarget();
+        return _board[x, y].GetTarget();
     }
     
 }

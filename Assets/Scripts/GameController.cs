@@ -96,6 +96,21 @@ public class GameController : MonoBehaviour
 
     private void OnDestroy()
     {
-        throw new NotImplementedException();
+        List<TileData> tileData = new List<TileData>();
+        var tiles = _grid.GetAllTilesOnBoard();
+
+        foreach (var tile in tiles)
+        {
+            tileData.Add(tile.GetTileData());
+        }
+
+        var levelData = new LevelData()
+        {
+            boardWidth = _grid.Width,
+            boardHeight = _grid.Height,
+            tiles = tileData
+        };
+        
+        _levelManager.SaveLevel(levelData);
     }
 }

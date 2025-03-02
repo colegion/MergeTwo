@@ -68,6 +68,20 @@ public class BaseCell : MonoBehaviour
         return _tiles.GetValueOrDefault(layer);
     }
 
+    public List<BaseTile> GetAssignedTiles()
+    {
+        List<BaseTile> result = new List<BaseTile>();
+        foreach (var pair in _tiles)
+        {
+            if (pair.Value != null)
+            {
+                result.Add(pair.Value);
+            }
+        }
+
+        return result;
+    }
+
     public Transform GetTarget()
     {
         return target;
