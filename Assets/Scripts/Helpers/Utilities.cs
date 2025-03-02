@@ -7,6 +7,14 @@ namespace Helpers
         
     }
 
+    public enum ItemType
+    {
+        Edible,
+        Construction,
+        Energy,
+        Coin,
+    }
+
     public enum PoolableTypes
     {
         
