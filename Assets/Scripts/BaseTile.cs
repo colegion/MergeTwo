@@ -29,7 +29,12 @@ public class BaseTile : MonoBehaviour, ITappable, IPoolable
         tileView.ConfigureSelf(_itemConfig);
         SetTransform();
     }
-    
+
+    public void OnFocus()
+    {
+        throw new System.NotImplementedException();
+    }
+
     public virtual void OnTap()
     {
         throw new System.NotImplementedException();

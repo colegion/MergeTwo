@@ -38,8 +38,16 @@ public class InputController : MonoBehaviour
         Ray ray = mainCamera.ScreenPointToRay(_startPosition);
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            _selectedTile = hit.collider.GetComponent<BaseTile>();
-            GameController.Instance.OnTapPerformed(_selectedTile);
+            var temp = hit.collider.GetComponent<BaseTile>();
+            if (temp == _selectedTile)
+            {
+                _selectedTile.OnTap();
+            }
+            else
+            {
+                GameController.Instance.OnTapPerformed(_selectedTile);
+                _selectedTile = hit.collider.GetComponent<BaseTile>();
+            }
         }
         else
         {
