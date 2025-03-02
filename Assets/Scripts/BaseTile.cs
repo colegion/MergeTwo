@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class BaseTile : MonoBehaviour, ITappable
 {
+    [SerializeField] private TileView tileView;
+    
     protected int _x;
     protected int _y;
     protected int _layer;
@@ -18,10 +20,12 @@ public class BaseTile : MonoBehaviour, ITappable
 
     private ItemConfig _itemConfig;
     
-    public virtual void ConfigureSelf(int x, int y)
+    public virtual void ConfigureSelf(ItemConfig config, int x, int y)
     {
+        _itemConfig = config;
         _x = x;
         _y = y;
+        tileView.ConfigureSelf(_itemConfig);
         SetTransform();
     }
     

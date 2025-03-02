@@ -17,6 +17,7 @@ namespace Helpers
 
     public enum PoolableTypes
     {
+        BaseTile,
         
     }
 }
