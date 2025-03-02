@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Interfaces;
+using ScriptableObjects;
 using UnityEngine;
 
 public class BaseTile : MonoBehaviour, ITappable
@@ -14,6 +15,8 @@ public class BaseTile : MonoBehaviour, ITappable
     public int Layer => _layer;
 
     protected Grid Grid;
+
+    private ItemConfig _itemConfig;
     
     public virtual void ConfigureSelf(int x, int y)
     {
@@ -52,8 +55,14 @@ public class BaseTile : MonoBehaviour, ITappable
         _y = y;
     }
 
+    public ItemConfig GetItemConfig()
+    {
+        return _itemConfig;
+    }
+
     public void ResetSelf()
     {
+        _itemConfig = null;
         Grid.ClearTileOfParentCell(this);
         gameObject.SetActive(false);
     }

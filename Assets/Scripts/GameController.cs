@@ -51,4 +51,40 @@ public class GameController : MonoBehaviour
     {
         OnUserTapped?.Invoke(tile);
     }
+    
+    public void OnSwipeReleased(BaseTile selectedTile, BaseTile targetTile)
+    {
+        if (selectedTile == null || targetTile == null) return;
+
+        var originConfig = selectedTile.GetItemConfig();
+        var targetConfig = targetTile.GetItemConfig();
+
+        if (originConfig.IsIdentical(targetConfig))
+        {
+            MergeTiles(selectedTile, targetTile);
+        }
+        else
+        {
+            SwapTiles(selectedTile, targetTile);
+        }
+    }
+
+    public void OnSwipeReleased(BaseTile selectedTile, Vector2 targetPosition)
+    {
+        if (selectedTile == null) return;
+        
+        MoveTileToPosition(selectedTile, targetPosition);
+    }
+
+    private void MergeTiles(BaseTile selectedTile, BaseTile targetTile)
+    {
+    }
+
+    private void SwapTiles(BaseTile selectedTile, BaseTile targetTile)
+    {
+    }
+
+    private void MoveTileToPosition(BaseTile selectedTile, Vector2 targetPosition)
+    {
+    }
 }

@@ -74,20 +74,21 @@ public class InputController : MonoBehaviour
         }
 
         _isSwiping = false;
-        
+
         Ray ray = mainCamera.ScreenPointToRay(_endPosition);
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             BaseTile targetTile = hit.collider.GetComponent<BaseTile>();
 
             if (targetTile != null)
-            {
+            { 
+                GameController.Instance.OnSwipeReleased(_selectedTile, targetTile);
             }
             else
             {
+                GameController.Instance.OnSwipeReleased(_selectedTile, _endPosition);
             }
         }
-
         _selectedTile = null;
     }
 }

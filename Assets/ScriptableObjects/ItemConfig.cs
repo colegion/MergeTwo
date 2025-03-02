@@ -17,5 +17,7 @@ namespace ScriptableObjects
         {
             return IsMaxLevel ? null : nextLevelItem;
         }
+        
+        public bool IsIdentical(ItemConfig other) => itemType == other.itemType && level == other.level;
     }
 }
