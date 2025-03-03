@@ -32,12 +32,11 @@ public class BaseTile : MonoBehaviour, ITappable, IPoolable
 
     public void OnFocus()
     {
-        throw new System.NotImplementedException();
     }
 
     public virtual void OnTap()
     {
-        throw new System.NotImplementedException();
+       
     }
 
     public void SetLayer(int layer)

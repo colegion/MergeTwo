@@ -22,6 +22,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "HoldToDrag",
+                    "type": "Button",
+                    "id": "dcb0d8d8-9e28-461a-8b44-5129ac59bafb",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -55,6 +64,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Swipe",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "25804665-89f3-4071-a4b3-1f590359c79f",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Hold(duration=0.1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HoldToDrag",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2fa1d995-ed35-4ee8-b12e-3d3a53cfd3be",
+                    "path": "<Touchscreen>/primaryTouch/tap",
+                    "interactions": "Hold(duration=0.1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HoldToDrag",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

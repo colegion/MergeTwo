@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,8 +9,13 @@ public class InputController : MonoBehaviour
 
     private Vector2 _startPosition;
     private Vector2 _endPosition;
-    private bool _isSwiping;
+    private bool _isSwiping = false;
     private BaseTile _selectedTile;
+
+    private void Start()
+    {
+        Initialize();
+    }
 
     public void Initialize()
     {
@@ -21,19 +27,15 @@ public class InputController : MonoBehaviour
     private void RegisterInputActions()
     {
         _inputActions.ActionMap.Tap.performed += OnTapPerformed;
-        _inputActions.ActionMap.Swipe.started += OnSwipeStarted;
+        _inputActions.ActionMap.HoldToDrag.performed += OnHoldStarted;
+        _inputActions.ActionMap.HoldToDrag.canceled += OnHoldReleased;
         _inputActions.ActionMap.Swipe.performed += OnSwiping;
-        _inputActions.ActionMap.Swipe.canceled += OnSwipeReleased;
     }
 
     private void OnTapPerformed(InputAction.CallbackContext context)
     {
-        _startPosition = Mouse.current.position.ReadValue();
-
-        if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.isPressed)
-        {
-            _startPosition = Touchscreen.current.primaryTouch.position.ReadValue();
-        }
+        Debug.Log("Tap detected");
+        _startPosition = GetPointerPosition();
 
         Ray ray = mainCamera.ScreenPointToRay(_startPosition);
         if (Physics.Raycast(ray, out RaycastHit hit))
@@ -45,19 +47,16 @@ public class InputController : MonoBehaviour
             }
             else
             {
-                GameController.Instance.OnTapPerformed(_selectedTile);
-                _selectedTile = hit.collider.GetComponent<BaseTile>();
+                _selectedTile = temp;
             }
-        }
-        else
-        {
-            GameController.Instance.OnTapPerformed();
         }
     }
 
-    private void OnSwipeStarted(InputAction.CallbackContext context)
+    private void OnHoldStarted(InputAction.CallbackContext context)
     {
+        Debug.Log("Hold started");
         if (_selectedTile == null) return;
+
         _isSwiping = true;
     }
 
@@ -71,32 +70,19 @@ public class InputController : MonoBehaviour
         _selectedTile.transform.position += worldDelta * Time.deltaTime;
     }
 
-    private void OnSwipeReleased(InputAction.CallbackContext context)
+    private void OnHoldReleased(InputAction.CallbackContext context)
     {
         if (_selectedTile == null) return;
-
-        _endPosition = Mouse.current.position.ReadValue();
-        if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.isPressed)
-        {
-            _endPosition = Touchscreen.current.primaryTouch.position.ReadValue();
-        }
+        Debug.Log("Hold released");
 
         _isSwiping = false;
-
-        Ray ray = mainCamera.ScreenPointToRay(_endPosition);
-        if (Physics.Raycast(ray, out RaycastHit hit))
-        {
-            BaseTile targetTile = hit.collider.GetComponent<BaseTile>();
-
-            if (targetTile != null)
-            { 
-                GameController.Instance.OnSwipeReleased(_selectedTile, targetTile);
-            }
-            else
-            {
-                GameController.Instance.OnSwipeReleased(_selectedTile, _endPosition);
-            }
-        }
         _selectedTile = null;
+    }
+
+    private Vector2 GetPointerPosition()
+    {
+        if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.isPressed)
+            return Touchscreen.current.primaryTouch.position.ReadValue();
+        return Mouse.current.position.ReadValue();
     }
 }

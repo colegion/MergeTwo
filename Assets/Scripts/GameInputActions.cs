@@ -44,6 +44,15 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""HoldToDrag"",
+                    ""type"": ""Button"",
+                    ""id"": ""dcb0d8d8-9e28-461a-8b44-5129ac59bafb"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -79,6 +88,28 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Swipe"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""25804665-89f3-4071-a4b3-1f590359c79f"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": ""Hold(duration=0.1)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HoldToDrag"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2fa1d995-ed35-4ee8-b12e-3d3a53cfd3be"",
+                    ""path"": ""<Touchscreen>/primaryTouch/tap"",
+                    ""interactions"": ""Hold(duration=0.1)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HoldToDrag"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -89,6 +120,7 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
         m_ActionMap = asset.FindActionMap("ActionMap", throwIfNotFound: true);
         m_ActionMap_Tap = m_ActionMap.FindAction("Tap", throwIfNotFound: true);
         m_ActionMap_Swipe = m_ActionMap.FindAction("Swipe", throwIfNotFound: true);
+        m_ActionMap_HoldToDrag = m_ActionMap.FindAction("HoldToDrag", throwIfNotFound: true);
     }
 
     ~@GameInputActions()
@@ -157,12 +189,14 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
     private List<IActionMapActions> m_ActionMapActionsCallbackInterfaces = new List<IActionMapActions>();
     private readonly InputAction m_ActionMap_Tap;
     private readonly InputAction m_ActionMap_Swipe;
+    private readonly InputAction m_ActionMap_HoldToDrag;
     public struct ActionMapActions
     {
         private @GameInputActions m_Wrapper;
         public ActionMapActions(@GameInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Tap => m_Wrapper.m_ActionMap_Tap;
         public InputAction @Swipe => m_Wrapper.m_ActionMap_Swipe;
+        public InputAction @HoldToDrag => m_Wrapper.m_ActionMap_HoldToDrag;
         public InputActionMap Get() { return m_Wrapper.m_ActionMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -178,6 +212,9 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
             @Swipe.started += instance.OnSwipe;
             @Swipe.performed += instance.OnSwipe;
             @Swipe.canceled += instance.OnSwipe;
+            @HoldToDrag.started += instance.OnHoldToDrag;
+            @HoldToDrag.performed += instance.OnHoldToDrag;
+            @HoldToDrag.canceled += instance.OnHoldToDrag;
         }
 
         private void UnregisterCallbacks(IActionMapActions instance)
@@ -188,6 +225,9 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
             @Swipe.started -= instance.OnSwipe;
             @Swipe.performed -= instance.OnSwipe;
             @Swipe.canceled -= instance.OnSwipe;
+            @HoldToDrag.started -= instance.OnHoldToDrag;
+            @HoldToDrag.performed -= instance.OnHoldToDrag;
+            @HoldToDrag.canceled -= instance.OnHoldToDrag;
         }
 
         public void RemoveCallbacks(IActionMapActions instance)
@@ -209,5 +249,6 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
     {
         void OnTap(InputAction.CallbackContext context);
         void OnSwipe(InputAction.CallbackContext context);
+        void OnHoldToDrag(InputAction.CallbackContext context);
     }
 }
