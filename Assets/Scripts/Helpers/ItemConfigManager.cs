@@ -9,7 +9,7 @@ namespace Helpers
     public class ItemConfigManager : MonoBehaviour
     {
         // A dictionary to map (ItemType, level) to the corresponding ItemConfig
-        private Dictionary<(ItemType, int), ItemConfig> itemConfigLookup;
+        private Dictionary<(ItemType, int), BaseItemConfig> itemConfigLookup;
 
         // List of Addressable Asset references to ItemConfig objects
         public List<AssetReference> itemConfigReferences;
@@ -17,7 +17,7 @@ namespace Helpers
         private void Start()
         {
             // Initialize the dictionary
-            itemConfigLookup = new Dictionary<(ItemType, int), ItemConfig>();
+            itemConfigLookup = new Dictionary<(ItemType, int), BaseItemConfig>();
 
             // Load all ItemConfig assets asynchronously using Addressables
             LoadItemConfigs();
@@ -28,12 +28,12 @@ namespace Helpers
             // Start loading all ItemConfig assets asynchronously
             foreach (var reference in itemConfigReferences)
             {
-                reference.LoadAssetAsync<ItemConfig>().Completed += OnItemConfigLoaded;
+                reference.LoadAssetAsync<BaseItemConfig>().Completed += OnItemConfigLoaded;
             }
         }
 
         // Callback when an ItemConfig is loaded
-        private void OnItemConfigLoaded(AsyncOperationHandle<ItemConfig> handle)
+        private void OnItemConfigLoaded(AsyncOperationHandle<BaseItemConfig> handle)
         {
             if (handle.Status == AsyncOperationStatus.Succeeded)
             {
@@ -52,7 +52,7 @@ namespace Helpers
         }
 
         // Retrieve an ItemConfig based on ItemType and Level
-        public ItemConfig GetItemConfig(ItemType itemType, int level)
+        public BaseItemConfig GetItemConfig(ItemType itemType, int level)
         {
             return itemConfigLookup.GetValueOrDefault((itemType, level)); 
         }

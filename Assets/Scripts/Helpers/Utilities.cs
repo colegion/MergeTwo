@@ -17,6 +17,7 @@ namespace Helpers
         Energy,
         Coin,
         Producer,
+        Chest
     }
 
     public enum PoolableTypes
@@ -41,5 +42,13 @@ namespace Helpers
         public int yCoord;
         public ItemType itemType;
         public int itemLevel;
+    }
+
+    [Serializable]
+    public class CapacityConfig
+    {
+        public ItemType itemType;
+        public int itemLevel;
+        public int itemCount;
     }
 }

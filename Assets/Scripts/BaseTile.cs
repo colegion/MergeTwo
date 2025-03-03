@@ -19,14 +19,14 @@ public class BaseTile : MonoBehaviour, ITappable, IPoolable
 
     protected Grid Grid;
 
-    private ItemConfig _itemConfig;
+    private BaseItemConfig _baseItemConfig;
     
-    public virtual void ConfigureSelf(ItemConfig config, int x, int y)
+    public virtual void ConfigureSelf(BaseItemConfig config, int x, int y)
     {
-        _itemConfig = config;
+        _baseItemConfig = config;
         _x = x;
         _y = y;
-        tileView.ConfigureSelf(_itemConfig);
+        tileView.ConfigureSelf(_baseItemConfig);
         SetTransform();
     }
 
@@ -64,14 +64,14 @@ public class BaseTile : MonoBehaviour, ITappable, IPoolable
         _y = y;
     }
 
-    public ItemConfig GetItemConfig()
+    public BaseItemConfig GetItemConfig()
     {
-        return _itemConfig;
+        return _baseItemConfig;
     }
 
     private void ResetSelf()
     {
-        _itemConfig = null;
+        _baseItemConfig = null;
         Grid.ClearTileOfParentCell(this);
         tileView.ResetSelf();
         tileView.ToggleVisuals(false);
@@ -81,8 +81,8 @@ public class BaseTile : MonoBehaviour, ITappable, IPoolable
     {
         return new TileData()
         {
-            itemLevel = _itemConfig.level,
-            itemType = _itemConfig.itemType
+            itemLevel = _baseItemConfig.level,
+            itemType = _baseItemConfig.itemType
         };
     }
 

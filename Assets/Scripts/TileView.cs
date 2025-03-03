@@ -9,7 +9,7 @@ public class TileView : MonoBehaviour
     [SerializeField] private GameObject visuals;
     [SerializeField] private SpriteRenderer tileRenderer;
 
-    public void ConfigureSelf(ItemConfig config)
+    public void ConfigureSelf(BaseItemConfig config)
     {
         tileRenderer.sprite = config.itemSprite;
     }
