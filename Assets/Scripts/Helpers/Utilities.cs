@@ -88,6 +88,12 @@ namespace Helpers
     }
 
     [Serializable]
+    public class SpecialStepConfig
+    {
+        public List<int> rewardAmount;
+    }
+
+    [Serializable]
     public class CapacityEntry
     {
         public int itemLevel;
