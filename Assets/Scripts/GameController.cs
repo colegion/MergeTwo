@@ -65,14 +65,14 @@ public class GameController : MonoBehaviour
         var originConfig = selectedTile.GetItemConfig();
         var targetConfig = targetTile.GetItemConfig();
 
-        if (originConfig.IsIdentical(targetConfig))
+        /*if (originConfig.IsIdentical(targetConfig))
         {
             MergeTiles(selectedTile, targetTile);
         }
         else
         {
             SwapTiles(selectedTile, targetTile);
-        }
+        }*/
     }
 
     public void OnSwipeReleased(BaseTile selectedTile, Vector2 targetPosition)

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Helpers;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -8,17 +9,11 @@ namespace ScriptableObjects
     public class BaseItemConfig : ScriptableObject
     {
         public ItemType itemType;
-        public int level;
-        public int maxLevel;
-        public Sprite itemSprite;
-        public bool IsMaxLevel => level >= maxLevel;
-        public BaseItemConfig nextLevelItem;
-        
-        public BaseItemConfig GetNextLevel()
+        public List<StepConfig> steps;
+
+        public StepConfig GetStepByLevel(int level)
         {
-            return IsMaxLevel ? null : nextLevelItem;
+            return steps.Find(s => s.level == level);
         }
-        
-        public bool IsIdentical(BaseItemConfig other) => itemType == other.itemType && level == other.level;
     }
 }

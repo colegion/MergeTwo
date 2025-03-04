@@ -40,10 +40,10 @@ namespace Helpers
                 var itemConfig = handle.Result;
 
                 // Add the loaded ItemConfig to the dictionary
-                itemConfigLookup[(itemConfig.itemType, itemConfig.level)] = itemConfig;
+                //itemConfigLookup[(itemConfig.itemType, itemConfig.level)] = itemConfig;
 
                 // Optionally log the loading process for debugging purposes
-                Debug.Log($"Loaded ItemConfig: {itemConfig.itemType}, Level: {itemConfig.level}");
+                //Debug.Log($"Loaded ItemConfig: {itemConfig.itemType}, Level: {itemConfig.level}");
             }
             else
             {

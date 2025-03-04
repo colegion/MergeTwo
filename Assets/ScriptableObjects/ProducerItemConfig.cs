@@ -7,7 +7,6 @@ namespace ScriptableObjects
     [CreateAssetMenu(fileName = "ProducerItemConfig", menuName = "ScriptableObjects/ProducerItemConfig")]
     public class ProducerItemConfig : BaseItemConfig
     {
-        public List<CapacityConfig> producerCapacity;
-        public float durationForRecharge;
+        public List<ProducerStepConfig> producerCapacity;
     }
 }

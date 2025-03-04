@@ -13,15 +13,41 @@ MonoBehaviour:
   m_Name: Chest
   m_EditorClassIdentifier: 
   itemType: 5
-  level: 1
-  maxLevel: 3
-  itemSprite: {fileID: 0}
-  nextLevelItem: {fileID: 11400000, guid: 9efe231e62d5a1c4d96fc65114d70e5a, type: 2}
+  steps:
+  - level: 1
+    itemSprite: {fileID: 0}
+    isMaxLevel: 0
+  - level: 2
+    itemSprite: {fileID: 0}
+    isMaxLevel: 0
+  - level: 3
+    itemSprite: {fileID: 0}
+    isMaxLevel: 1
   capacityConfigs:
-  - itemType: 2
-    itemLevel: 1
-    itemCount: 2
-  - itemType: 3
-    itemLevel: 1
-    itemCount: 1
-  durationToUnlock: 60
+  - stepLevel: 1
+    chestCapacityEntries:
+    - itemLevel: 1
+      itemCount: 1
+      itemType: 6
+    - itemLevel: 1
+      itemCount: 2
+      itemType: 5
+    durationToUnlock: 60
+  - stepLevel: 2
+    chestCapacityEntries:
+    - itemLevel: 2
+      itemCount: 3
+      itemType: 5
+    - itemLevel: 2
+      itemCount: 2
+      itemType: 6
+    durationToUnlock: 60
+  - stepLevel: 3
+    chestCapacityEntries:
+    - itemLevel: 3
+      itemCount: 5
+      itemType: 5
+    - itemLevel: 3
+      itemCount: 3
+      itemType: 6
+    durationToUnlock: 60

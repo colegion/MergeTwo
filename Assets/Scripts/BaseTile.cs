@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Helpers;
 using Interfaces;
 using ScriptableObjects;
+using ScriptableObjects;
 using UnityEngine;
 
 public class BaseTile : MonoBehaviour, ITappable, IPoolable
@@ -81,7 +82,7 @@ public class BaseTile : MonoBehaviour, ITappable, IPoolable
     {
         return new TileData()
         {
-            itemLevel = _baseItemConfig.level,
+            //itemLevel = _baseItemConfig.level,
             itemType = _baseItemConfig.itemType
         };
     }

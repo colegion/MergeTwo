@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a8931d8d04b49e4d880f5eafe92c0b2, type: 3}
+  m_Name: Salad_2
+  m_EditorClassIdentifier: 
+  itemType: 4
+  level: 2
+  maxLevel: 5
+  itemSprite: {fileID: 21300000, guid: a116dec728cf79b43acfaa349791cb76, type: 3}
+  nextLevelItem: {fileID: 11400000, guid: f37a00dd8e8d7ac42a416d7417d36e35, type: 2}
