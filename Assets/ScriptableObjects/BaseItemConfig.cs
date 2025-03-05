@@ -9,9 +9,9 @@ namespace ScriptableObjects
     public class BaseItemConfig : ScriptableObject
     {
         public ItemType itemType;
-        public List<StepConfig> steps;
+        public List<BaseStepConfig> steps;
 
-        public StepConfig GetStepByLevel(int level)
+        public BaseStepConfig GetStepByLevel(int level)
         {
             return steps.Find(s => s.level == level);
         }

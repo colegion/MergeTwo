@@ -57,7 +57,7 @@ namespace Helpers
     }
 
     [Serializable]
-    public class CapacityConfig
+    public class ProducerCapacityConfig
     {
         public int stepLevel;
         public List<ItemType> types;
@@ -74,7 +74,7 @@ namespace Helpers
     }
 
     [Serializable]
-    public class StepConfig
+    public class BaseStepConfig
     {
         public int level;
         public Sprite itemSprite;
@@ -84,7 +84,7 @@ namespace Helpers
     [Serializable]
     public class ProducerStepConfig
     {
-        public List<CapacityConfig> capacityConfigs;
+        public List<ProducerCapacityConfig> capacityConfigs;
     }
 
     [Serializable]

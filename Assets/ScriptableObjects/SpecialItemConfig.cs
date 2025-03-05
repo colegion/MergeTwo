@@ -1,3 +1,4 @@
+using Helpers;
 using UnityEngine;
 
 namespace ScriptableObjects
@@ -5,5 +6,6 @@ namespace ScriptableObjects
     [CreateAssetMenu(fileName = "SpecialItemConfig", menuName = "ScriptableObjects/SpecialItemConfig")]
     public class SpecialItemConfig : BaseItemConfig
     {
+        public SpecialStepConfig levelRewards;
     }
 }
