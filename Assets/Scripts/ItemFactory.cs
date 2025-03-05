@@ -18,7 +18,7 @@ public class ItemFactory : MonoBehaviour
         var tempTile = poolController.GetPooledObject(PoolableTypes.Producer);
         var tile = tempTile.GetGameObject().GetComponent<BaseTile>();
         var randomCell = grid.GetAvailableRandomCell();
-        tile.ConfigureSelf(producer, randomCell.X, randomCell.Y);
+        tile.ConfigureSelf_2(producer, randomCell.X, randomCell.Y);
         
         for (int i = 0; i < itemSpawnCount; i++)
         {

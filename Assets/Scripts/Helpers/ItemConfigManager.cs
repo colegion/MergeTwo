@@ -12,7 +12,7 @@ namespace Helpers
         private List<BaseItemConfig> _itemConfigs;
         public List<AssetReference> itemConfigReferences;
 
-        private int _pendingLoads = 0; // Track pending asset loads
+        private int _pendingLoads = 0; 
 
         private void Start()
         {
@@ -56,7 +56,8 @@ namespace Helpers
         public BaseStepConfig GetItemConfig(ItemType itemType, int level)
         {
             var config = _itemConfigs.Find(c => c.itemType == itemType);
-            return config?.steps.Find(s => s.level == level);
+            return null;
+            //return config?.steps.Find(s => s.level == level);
         }
     }
 }

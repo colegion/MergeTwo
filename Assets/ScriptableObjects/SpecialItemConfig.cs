@@ -6,6 +6,6 @@ namespace ScriptableObjects
     [CreateAssetMenu(fileName = "SpecialItemConfig", menuName = "ScriptableObjects/SpecialItemConfig")]
     public class SpecialItemConfig : BaseItemConfig
     {
-        public SpecialStepConfig levelRewards;
+        public int rewardAmount;
     }
 }

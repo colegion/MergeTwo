@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using ScriptableObjects;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -60,18 +61,21 @@ namespace Helpers
     [Serializable]
     public class ProducerCapacityConfig
     {
-        public int stepLevel;
-        public List<ItemType> types;
-        public List<CapacityEntry> capacityEntries;
-        public float durationForRecharge;
+        public BaseItemConfig itemToProduce;
+        public int produceCount;
     }
 
     [Serializable]
     public class ChestCapacityConfig
     {
-        public int stepLevel;
-        public List<ChestCapacityEntry> chestCapacityEntries;
-        public float durationToUnlock;
+        public List<ChestRewards> chestRewards;
+    }
+
+    [Serializable]
+    public class ChestRewards
+    {
+        public BaseItemConfig rewardItem;
+        public int rewardCount;
     }
 
     [Serializable]
@@ -89,24 +93,4 @@ namespace Helpers
     {
         public List<ProducerCapacityConfig> capacityConfigs;
     }
-
-    [Serializable]
-    public class SpecialStepConfig
-    {
-        public List<int> rewardAmount;
-    }
-
-    [Serializable]
-    public class CapacityEntry
-    {
-        public int itemLevel;
-        public int itemCount;
-    }
-
-    [Serializable]
-    public class ChestCapacityEntry : CapacityEntry
-    {
-        public ItemType itemType;
-    }
-    
 }

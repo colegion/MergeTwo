@@ -10,22 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a8931d8d04b49e4d880f5eafe92c0b2, type: 3}
-  m_Name: Pizza
+  m_Name: Pizza_Level_2
   m_EditorClassIdentifier: 
   itemType: 1
   steps:
-  - level: 1
-    itemSprite: {fileID: 21300000, guid: a1ce395435e9a8c40af0d14827a23a14, type: 3}
-    isMaxLevel: 0
-  - level: 2
-    itemSprite: {fileID: 21300000, guid: 009b0b4dc6b3b9542a516b9df3ba8bfb, type: 3}
-    isMaxLevel: 0
-  - level: 3
+    level: 2
     itemSprite: {fileID: 21300000, guid: e98500be9fe3c35439686301f56c6a22, type: 3}
     isMaxLevel: 0
-  - level: 4
-    itemSprite: {fileID: 21300000, guid: 015f782b7d448bf478548e3e3a8f288c, type: 3}
-    isMaxLevel: 0
-  - level: 5
-    itemSprite: {fileID: 21300000, guid: 4b65139405690ab4fa8eb9070ba42773, type: 3}
-    isMaxLevel: 1

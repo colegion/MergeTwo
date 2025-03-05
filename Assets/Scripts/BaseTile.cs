@@ -31,6 +31,22 @@ public class BaseTile : MonoBehaviour, ITappable, IPoolable
         _position = new Vector2Int(x, y);
         tileView.ConfigureSelf(_stepConfig);
         SetTransform();
+
+        Grid = ServiceLocator.Get<Grid>();
+        Grid.PlaceTileToParentCell(this);
+    }
+
+    public void ConfigureSelf_2<T>(T config, int x, int y) where T : BaseStepConfig
+    {
+        _stepConfig = config;
+        _x = x;
+        _y = y;
+        _position = new Vector2Int(x, y);
+        tileView.ConfigureSelf(_stepConfig);
+        SetTransform();
+
+        Grid = ServiceLocator.Get<Grid>();
+        Grid.PlaceTileToParentCell(this);
     }
 
     public void OnFocus()

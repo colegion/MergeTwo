@@ -10,22 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a8931d8d04b49e4d880f5eafe92c0b2, type: 3}
-  m_Name: Steak
+  m_Name: Steak_Level_2
   m_EditorClassIdentifier: 
   itemType: 3
   steps:
-  - level: 1
-    itemSprite: {fileID: 21300000, guid: c5cf53e56dcc8334a8e595bf5ac4a89c, type: 3}
-    isMaxLevel: 0
-  - level: 2
+    level: 2
     itemSprite: {fileID: 21300000, guid: 1f79cc0e4a152ce43aef50e153d89a75, type: 3}
     isMaxLevel: 0
-  - level: 3
-    itemSprite: {fileID: 21300000, guid: 94bb729323825dc45a77ae1cce5f629c, type: 3}
-    isMaxLevel: 0
-  - level: 4
-    itemSprite: {fileID: 21300000, guid: dc32c92f72804ec4180afe4a856da773, type: 3}
-    isMaxLevel: 0
-  - level: 5
-    itemSprite: {fileID: 21300000, guid: e694e295be7dd6d42b9fe51919382c35, type: 3}
-    isMaxLevel: 1
