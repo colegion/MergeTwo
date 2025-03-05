@@ -8,42 +8,31 @@ namespace Helpers
 {
     public class ItemConfigManager : MonoBehaviour
     {
-        // A dictionary to map (ItemType, level) to the corresponding ItemConfig
-        private Dictionary<(ItemType, int), BaseItemConfig> itemConfigLookup;
-
-        // List of Addressable Asset references to ItemConfig objects
+        private List<BaseItemConfig> _itemConfigs;
         public List<AssetReference> itemConfigReferences;
 
         private void Start()
         {
-            // Initialize the dictionary
-            itemConfigLookup = new Dictionary<(ItemType, int), BaseItemConfig>();
-
-            // Load all ItemConfig assets asynchronously using Addressables
+            _itemConfigs = new List<BaseItemConfig>();
+            
             LoadItemConfigs();
         }
 
         private void LoadItemConfigs()
         {
-            // Start loading all ItemConfig assets asynchronously
             foreach (var reference in itemConfigReferences)
             {
                 reference.LoadAssetAsync<BaseItemConfig>().Completed += OnItemConfigLoaded;
             }
         }
-
-        // Callback when an ItemConfig is loaded
+        
         private void OnItemConfigLoaded(AsyncOperationHandle<BaseItemConfig> handle)
         {
             if (handle.Status == AsyncOperationStatus.Succeeded)
             {
                 var itemConfig = handle.Result;
-
-                // Add the loaded ItemConfig to the dictionary
-                //itemConfigLookup[(itemConfig.itemType, itemConfig.level)] = itemConfig;
-
-                // Optionally log the loading process for debugging purposes
-                //Debug.Log($"Loaded ItemConfig: {itemConfig.itemType}, Level: {itemConfig.level}");
+                itemConfig.Initialize();
+                _itemConfigs.Add(itemConfig);
             }
             else
             {
@@ -51,10 +40,10 @@ namespace Helpers
             }
         }
 
-        // Retrieve an ItemConfig based on ItemType and Level
-        public BaseItemConfig GetItemConfig(ItemType itemType, int level)
+        public BaseStepConfig GetItemConfig(ItemType itemType, int level)
         {
-            return itemConfigLookup.GetValueOrDefault((itemType, level)); 
+            var config = _itemConfigs.Find(c => c.itemType == itemType);
+            return config.steps.Find(s => s.level == level);
         }
     }
 }

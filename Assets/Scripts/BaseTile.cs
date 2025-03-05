@@ -20,14 +20,16 @@ public class BaseTile : MonoBehaviour, ITappable, IPoolable
 
     protected Grid Grid;
 
-    private BaseItemConfig _baseItemConfig;
+    private BaseStepConfig _stepConfig;
+    private Vector2Int _position;
     
-    public virtual void ConfigureSelf(BaseItemConfig config, int x, int y)
+    public virtual void ConfigureSelf(BaseStepConfig config, int x, int y)
     {
-        _baseItemConfig = config;
+        _stepConfig = config;
         _x = x;
         _y = y;
-        tileView.ConfigureSelf(_baseItemConfig);
+        _position = new Vector2Int(x, y);
+        tileView.ConfigureSelf(_stepConfig);
         SetTransform();
     }
 
@@ -65,25 +67,31 @@ public class BaseTile : MonoBehaviour, ITappable, IPoolable
         _y = y;
     }
 
-    public BaseItemConfig GetItemConfig()
+    public BaseStepConfig GetItemConfig()
     {
-        return _baseItemConfig;
+        return _stepConfig;
     }
 
     private void ResetSelf()
     {
-        _baseItemConfig = null;
+        _stepConfig = null;
         Grid.ClearTileOfParentCell(this);
         tileView.ResetSelf();
         tileView.ToggleVisuals(false);
+        _position = Vector2Int.zero;
+    }
+
+    public Vector2Int GetPosition()
+    {
+        return _position;
     }
 
     public TileData GetTileData()
     {
         return new TileData()
         {
-            //itemLevel = _baseItemConfig.level,
-            itemType = _baseItemConfig.itemType
+            itemLevel = _stepConfig.level,
+            //itemType = _baseItemConfig.itemType
         };
     }
 
@@ -107,7 +115,7 @@ public class BaseTile : MonoBehaviour, ITappable, IPoolable
         return PoolableTypes.BaseTile;
     }
 
-    public GameObject GameObject()
+    public GameObject GetGameObject()
     {
         return gameObject;
     }

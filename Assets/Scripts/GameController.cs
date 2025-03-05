@@ -65,14 +65,14 @@ public class GameController : MonoBehaviour
         var originConfig = selectedTile.GetItemConfig();
         var targetConfig = targetTile.GetItemConfig();
 
-        /*if (originConfig.IsIdentical(targetConfig))
+        if (TileComparator.IsIdentical(originConfig, targetConfig))
         {
             MergeTiles(selectedTile, targetTile);
         }
         else
         {
             SwapTiles(selectedTile, targetTile);
-        }*/
+        }
     }
 
     public void OnSwipeReleased(BaseTile selectedTile, Vector2 targetPosition)
@@ -84,6 +84,21 @@ public class GameController : MonoBehaviour
 
     private void MergeTiles(BaseTile selectedTile, BaseTile targetTile)
     {
+        var currentStep = selectedTile.GetItemConfig();
+        var nextStep = itemConfigManager.GetItemConfig(currentStep.ItemType, currentStep.level+1);
+        var targetPos = targetTile.GetPosition();
+        var tempTile = poolController.GetPooledObject(PoolableTypes.BaseTile);
+        if (tempTile.GetGameObject().TryGetComponent(out BaseTile tile))
+        {
+            tile.ConfigureSelf(nextStep, targetPos.x, targetPos.y);
+            poolController.ReturnPooledObject(selectedTile);
+            poolController.ReturnPooledObject(targetTile);
+        }
+        else
+        {
+            Debug.LogWarning("There is an unexpected behaviour on merging tiles");
+        }
+        
     }
 
     private void SwapTiles(BaseTile selectedTile, BaseTile targetTile)
@@ -112,5 +127,13 @@ public class GameController : MonoBehaviour
         };
         
         _levelManager.SaveLevel(levelData);
+    }
+}
+
+public partial class TileComparator
+{
+    public static bool IsIdentical(BaseStepConfig first, BaseStepConfig second)
+    {
+        return first.ItemType == second.ItemType && first.level == second.level;
     }
 }

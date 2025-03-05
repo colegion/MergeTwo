@@ -29,6 +29,8 @@ namespace UI
             else
             {
                 ToggleFields(true);
+                var config = tile.GetItemConfig();
+                itemName.text = $"{config.level}";
             }
         }
 

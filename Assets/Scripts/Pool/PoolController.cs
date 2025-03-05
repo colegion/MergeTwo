@@ -45,7 +45,7 @@ namespace Pool
 
         public void ReturnPooledObject(IPoolable poolObject)
         {
-            var poolGo = poolObject.GameObject(); 
+            var poolGo = poolObject.GetGameObject(); 
             poolGo.transform.SetParent(transform);
             poolGo.transform.localPosition = Vector3.zero;
             _gamePool.ReturnToPool(poolObject.GetPoolableType(), poolObject);

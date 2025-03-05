@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Helpers;
 using ScriptableObjects;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -9,9 +10,9 @@ public class TileView : MonoBehaviour
     [SerializeField] private GameObject visuals;
     [SerializeField] private SpriteRenderer tileRenderer;
 
-    public void ConfigureSelf(BaseItemConfig config)
+    public void ConfigureSelf(BaseStepConfig config)
     {
-        //tileRenderer.sprite = config.itemSprite;
+        tileRenderer.sprite = config.itemSprite;
     }
 
     public void ResetSelf()

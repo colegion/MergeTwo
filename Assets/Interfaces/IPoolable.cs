@@ -9,6 +9,6 @@ namespace Interfaces
         public void OnFetchFromPool();
         public void OnReturnPool();
         public PoolableTypes GetPoolableType();
-        public GameObject GameObject();
+        public GameObject GetGameObject();
     }
 }

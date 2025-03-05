@@ -38,7 +38,7 @@ namespace Helpers
                     foreach (var data in levelData.tiles)
                     {
                         var tempTile = poolController.GetPooledObject(PoolableTypes.BaseTile);
-                        var tile = tempTile.GameObject().GetComponent<BaseTile>();
+                        var tile = tempTile.GetGameObject().GetComponent<BaseTile>();
                         var config = configManager.GetItemConfig(data.itemType, data.itemLevel);
                         tile.ConfigureSelf(config, data.xCoord, data.yCoord);
                     }

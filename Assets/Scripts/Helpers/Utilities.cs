@@ -76,9 +76,12 @@ namespace Helpers
     [Serializable]
     public class BaseStepConfig
     {
+        
         public int level;
         public Sprite itemSprite;
         public bool isMaxLevel;
+        private ItemType itemType;
+        public ItemType ItemType { get; set; }
     }
 
     [Serializable]

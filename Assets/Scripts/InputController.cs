@@ -48,8 +48,11 @@ public class InputController : MonoBehaviour
             else
             {
                 _selectedTile = temp;
+                GameController.Instance.OnTapPerformed(_selectedTile);
             }
         }
+        
+        GameController.Instance.OnTapPerformed();
     }
 
     private void OnHoldStarted(InputAction.CallbackContext context)

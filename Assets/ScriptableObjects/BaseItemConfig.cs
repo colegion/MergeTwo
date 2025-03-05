@@ -11,6 +11,11 @@ namespace ScriptableObjects
         public ItemType itemType;
         public List<BaseStepConfig> steps;
 
+        public void Initialize()
+        {
+            steps.ForEach(s => s.ItemType = itemType);
+        }
+
         public BaseStepConfig GetStepByLevel(int level)
         {
             return steps.Find(s => s.level == level);
