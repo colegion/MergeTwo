@@ -34,7 +34,6 @@ public class InputController : MonoBehaviour
 
     private void OnTapPerformed(InputAction.CallbackContext context)
     {
-        Debug.Log("Tap detected");
         _startPosition = GetPointerPosition();
 
         Ray ray = mainCamera.ScreenPointToRay(_startPosition);
@@ -44,7 +43,6 @@ public class InputController : MonoBehaviour
             _selectedTile = temp;
             if (temp == _selectedTile)
             {
-                Debug.LogWarning("on tap");
                 _selectedTile.OnTap();
             }
             else
@@ -59,7 +57,6 @@ public class InputController : MonoBehaviour
 
     private void OnHoldStarted(InputAction.CallbackContext context)
     {
-        Debug.Log("Hold started");
         if (_selectedTile == null) return;
 
         _isSwiping = true;
@@ -83,7 +80,6 @@ public class InputController : MonoBehaviour
     private void OnHoldReleased(InputAction.CallbackContext context)
     {
         if (_selectedTile == null) return;
-        Debug.Log("Hold released");
 
         Vector2 pointerPosition = GetPointerPosition();
         
@@ -106,7 +102,6 @@ public class InputController : MonoBehaviour
                 }
                 else
                 {
-                    Debug.LogWarning("grid x and y :" + gridX + ", grid y:" + gridY);
                     GameController.Instance.OnSwipeReleased(_selectedTile, new Vector2Int(gridX, gridY));
                 }
             }

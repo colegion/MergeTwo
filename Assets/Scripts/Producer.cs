@@ -7,7 +7,8 @@ using UnityEngine;
 
 public class Producer : BaseTile
 {
-    private ProducerStepConfig producerStepConfig;
+    private List<ProducerCapacityConfig> producerCapacity;
+    private Dictionary<BaseItemConfig, int> remainingCounts = new Dictionary<BaseItemConfig, int>();
     private PoolController _poolController;
     private Grid _grid;
     public override void ConfigureSelf(BaseItemConfig config, int x, int y)
@@ -15,32 +16,45 @@ public class Producer : BaseTile
         base.ConfigureSelf(config, x, y);
         _poolController = ServiceLocator.Get<PoolController>();
         _grid = ServiceLocator.Get<Grid>();
-        producerStepConfig = ((ProducerItemConfig)config).producerCapacity;
+        producerCapacity = ((ProducerItemConfig)config).producerCapacity.capacityConfigs;
+        foreach (var temp in producerCapacity)
+        {
+            remainingCounts.TryAdd(temp.itemToProduce, temp.produceCount);
+        }
     }
-    
     
     public override void OnTap()
     {
-        Debug.LogWarning("produce");
         ProduceRandomItem();
     }
 
     private void ProduceRandomItem()
     {
         bool cooldownActive = true;
-        foreach (var config in producerStepConfig.capacityConfigs)
+        foreach (var config in remainingCounts)
         {
-            cooldownActive = !(config.produceCount > 0);
+            if (config.Value > 0) 
+            {
+                cooldownActive = false;
+                break;  
+            }
         }
 
-        //if (cooldownActive) return;
-        
-        var randomIndex = Random.Range(0, producerStepConfig.capacityConfigs.Count);
-        var produceItem = producerStepConfig.capacityConfigs[randomIndex].itemToProduce;
+        if (cooldownActive) return; 
+
+        var randomIndex = Random.Range(0, producerCapacity.Count);
+        var produceItem = producerCapacity[randomIndex].itemToProduce;
+
+        while (remainingCounts[produceItem] == 0)
+        {
+            randomIndex = Random.Range(0, producerCapacity.Count);
+            produceItem = producerCapacity[randomIndex].itemToProduce;
+        }
+
         var tile = _poolController.GetPooledObject(PoolableTypes.BaseTile);
         var randomCell = _grid.GetAvailableRandomCell();
         tile.GetGameObject().GetComponent<BaseTile>().ConfigureSelf(produceItem, randomCell.X, randomCell.Y);
-        Debug.LogWarning("produced item" , tile.GetGameObject());
-        producerStepConfig.capacityConfigs[randomIndex].produceCount--;
+        remainingCounts[produceItem]--;
     }
+
 }
