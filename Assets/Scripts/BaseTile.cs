@@ -42,6 +42,14 @@ public class BaseTile : MonoBehaviour, ITappable, IPoolable
        
     }
 
+    public void UpdatePosition(Vector2Int position)
+    {
+        SetPosition(position);
+        SetTransform();
+        //move
+
+    }
+
     public void SetLayer(int layer)
     {
         _layer = layer;
@@ -50,6 +58,13 @@ public class BaseTile : MonoBehaviour, ITappable, IPoolable
     public void SetTransform()
     {
         transform.localPosition = new Vector3(_x, 1, _y);
+    }
+
+    private void SetPosition(Vector2Int position)
+    {
+        _position = position;
+        _x = _position.x;
+        _y = _position.y;
     }
 
     public void SetLocalPosition(int x, int y)

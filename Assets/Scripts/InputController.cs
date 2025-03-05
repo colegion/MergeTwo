@@ -77,9 +77,39 @@ public class InputController : MonoBehaviour
     {
         if (_selectedTile == null) return;
         Debug.Log("Hold released");
-
+        
         _isSwiping = false;
         _selectedTile = null;
+
+        Vector2 pointerPosition = GetPointerPosition();
+        
+        Ray ray = mainCamera.ScreenPointToRay(pointerPosition);
+        if (Physics.Raycast(ray, out RaycastHit hit))
+        {
+            Vector3 worldPos = hit.point;
+            
+            int gridX = Mathf.FloorToInt(worldPos.x);
+            int gridY = Mathf.FloorToInt(worldPos.z);
+            
+            BaseCell cell = GameController.Instance.GetCell(gridX, gridY);
+
+            if (cell != null)
+            {
+                var tempTile = cell.GetTile(0);
+                if (tempTile != null)
+                {
+                    GameController.Instance.OnSwipeReleased(_selectedTile, tempTile);
+                }
+                else
+                {
+                    GameController.Instance.OnSwipeReleased(_selectedTile, new Vector2Int(gridX, gridY));
+                }
+            }
+            else
+            {
+                Debug.LogWarning("Invalid swipe");
+            }
+        }
     }
 
     private Vector2 GetPointerPosition()

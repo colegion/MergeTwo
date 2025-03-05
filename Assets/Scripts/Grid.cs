@@ -20,6 +20,11 @@ public class Grid
         _availableCells = new List<BaseCell>();
     }
 
+    public BaseCell GetCell(int x, int y)
+    {
+        return _board[x, y];
+    }
+
     public void AppendAvailableCells(BaseCell cell)
     {
         if (_availableCells.Contains(cell)) return;

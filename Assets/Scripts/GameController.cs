@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Security.Cryptography;
 using Helpers;
 using JetBrains.Annotations;
@@ -75,7 +76,7 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void OnSwipeReleased(BaseTile selectedTile, Vector2 targetPosition)
+    public void OnSwipeReleased(BaseTile selectedTile, Vector2Int targetPosition)
     {
         if (selectedTile == null) return;
         
@@ -103,11 +104,23 @@ public class GameController : MonoBehaviour
 
     private void SwapTiles(BaseTile selectedTile, BaseTile targetTile)
     {
+        var firstCoordinate = selectedTile.GetPosition();
+        var secondCoordinate = targetTile.GetPosition();
+        selectedTile.UpdatePosition(secondCoordinate);
+        targetTile.UpdatePosition(firstCoordinate);
     }
 
-    private void MoveTileToPosition(BaseTile selectedTile, Vector2 targetPosition)
+    private void MoveTileToPosition(BaseTile selectedTile, Vector2Int targetPosition)
     {
+        selectedTile.UpdatePosition(targetPosition);
     }
+
+    public BaseCell GetCell(int x, int y)
+    {
+        return _grid.GetCell(x, y);
+    }
+    
+    
 
     private void OnDestroy()
     {
