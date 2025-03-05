@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: VegetableProducer_Level_5
   m_EditorClassIdentifier: 
   itemType: 7
-  steps:
+  step:
     level: 5
     itemSprite: {fileID: 21300000, guid: fc2f94478676066478a32f4dbe4a92a9, type: 3}
-    isMaxLevel: 0
+    isMaxLevel: 1
+  nextItem: {fileID: 0}
   canProduce: 1
   producerCapacity:
     capacityConfigs:

@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using Helpers;
 using JetBrains.Annotations;
 using Pool;
+using ScriptableObjects;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
@@ -88,8 +89,7 @@ public class GameController : MonoBehaviour
 
     private void MergeTiles(BaseTile selectedTile, BaseTile targetTile)
     {
-        var currentStep = selectedTile.GetItemConfig();
-        var nextStep = itemConfigManager.GetItemConfig(currentStep.ItemType, currentStep.level+1);
+        var nextStep = selectedTile.GetItemConfig().nextItem;
         var targetPos = targetTile.GetPosition();
         var tempTile = poolController.GetPooledObject(PoolableTypes.BaseTile);
         if (tempTile.GetGameObject().TryGetComponent(out BaseTile tile))
@@ -146,8 +146,10 @@ public class GameController : MonoBehaviour
 
 public abstract partial class TileComparator
 {
-    public static bool IsIdentical(BaseStepConfig first, BaseStepConfig second)
+    public static bool IsIdentical(BaseItemConfig first, BaseItemConfig second)
     {
-        return first.ItemType == second.ItemType && first.level == second.level;
+        var firstStep = first.step;
+        var secondStep = second.step;
+        return firstStep.ItemType == secondStep.ItemType && firstStep.level == secondStep.level;
     }
 }

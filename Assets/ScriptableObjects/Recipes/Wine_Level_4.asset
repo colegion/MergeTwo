@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Wine_Level_4
   m_EditorClassIdentifier: 
   itemType: 2
-  steps:
-    level: 4
-    itemSprite: {fileID: 21300000, guid: 54c507b6dcc692f428c36fef161653b7, type: 3}
+  step:
+    level: 0
+    itemSprite: {fileID: 0}
     isMaxLevel: 0
+  nextItem: {fileID: 11400000, guid: 07ec39b300a8fe042afb930e4c01f2f8, type: 2}

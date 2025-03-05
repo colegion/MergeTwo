@@ -20,29 +20,16 @@ public class BaseTile : MonoBehaviour, ITappable, IPoolable
 
     protected Grid Grid;
 
-    protected BaseStepConfig _stepConfig;
+    protected BaseItemConfig _stepConfig;
     private Vector2Int _position;
     
-    public virtual void ConfigureSelf(BaseStepConfig config, int x, int y)
+    public virtual void ConfigureSelf(BaseItemConfig config, int x, int y)
     {
         _stepConfig = config;
         _x = x;
         _y = y;
         _position = new Vector2Int(x, y);
-        tileView.ConfigureSelf(_stepConfig);
-        SetTransform();
-
-        Grid = ServiceLocator.Get<Grid>();
-        Grid.PlaceTileToParentCell(this);
-    }
-
-    public void ConfigureSelf_2<T>(T config, int x, int y) where T : BaseStepConfig
-    {
-        _stepConfig = config;
-        _x = x;
-        _y = y;
-        _position = new Vector2Int(x, y);
-        tileView.ConfigureSelf(_stepConfig);
+        tileView.ConfigureSelf(_stepConfig.step);
         SetTransform();
 
         Grid = ServiceLocator.Get<Grid>();
@@ -98,7 +85,7 @@ public class BaseTile : MonoBehaviour, ITappable, IPoolable
         _y = y;
     }
 
-    public BaseStepConfig GetItemConfig()
+    public BaseItemConfig GetItemConfig()
     {
         return _stepConfig;
     }
@@ -121,8 +108,8 @@ public class BaseTile : MonoBehaviour, ITappable, IPoolable
     {
         return new TileData()
         {
-            itemLevel = _stepConfig.level,
-            itemType = _stepConfig.ItemType
+            itemLevel = _stepConfig.step.level,
+            itemType = _stepConfig.step.ItemType
         };
     }
 

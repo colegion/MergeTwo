@@ -53,11 +53,10 @@ namespace Helpers
             }
         }
 
-        public BaseStepConfig GetItemConfig(ItemType itemType, int level)
+        public BaseItemConfig GetItemConfig(ItemType itemType, int level)
         {
-            var config = _itemConfigs.Find(c => c.itemType == itemType);
-            return null;
-            //return config?.steps.Find(s => s.level == level);
+            var config = _itemConfigs.Find(c => c.itemType == itemType && c.step.level == level);
+            return config;
         }
     }
 }

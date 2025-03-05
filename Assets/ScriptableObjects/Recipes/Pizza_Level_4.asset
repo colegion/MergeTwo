@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Pizza_Level_4
   m_EditorClassIdentifier: 
   itemType: 1
-  steps:
-    level: 4
-    itemSprite: {fileID: 21300000, guid: 4b65139405690ab4fa8eb9070ba42773, type: 3}
+  step:
+    level: 0
+    itemSprite: {fileID: 0}
     isMaxLevel: 0
+  nextItem: {fileID: 11400000, guid: 59c90dfd7e24b38469f78f55f0411ddf, type: 2}
