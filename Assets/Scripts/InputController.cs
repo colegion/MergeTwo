@@ -41,6 +41,7 @@ public class InputController : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             var temp = hit.collider.GetComponent<BaseTile>();
+            _selectedTile = temp;
             if (temp == _selectedTile)
             {
                 _selectedTile.OnTap();
@@ -82,9 +83,6 @@ public class InputController : MonoBehaviour
     {
         if (_selectedTile == null) return;
         Debug.Log("Hold released");
-        
-        _isSwiping = false;
-        _selectedTile = null;
 
         Vector2 pointerPosition = GetPointerPosition();
         
@@ -107,6 +105,7 @@ public class InputController : MonoBehaviour
                 }
                 else
                 {
+                    Debug.LogWarning("grid x and y :" + gridX + ", grid y:" + gridY);
                     GameController.Instance.OnSwipeReleased(_selectedTile, new Vector2Int(gridX, gridY));
                 }
             }
@@ -115,6 +114,8 @@ public class InputController : MonoBehaviour
                 Debug.LogWarning("Invalid swipe");
             }
         }
+        _isSwiping = false;
+        _selectedTile = null;
     }
 
     private Vector2 GetPointerPosition()

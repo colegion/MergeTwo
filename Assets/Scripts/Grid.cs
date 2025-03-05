@@ -20,6 +20,11 @@ public class Grid
         _availableCells = new List<BaseCell>();
     }
 
+    public void PlaceCell(BaseCell cell)
+    {
+        _board[cell.X, cell.Y] = cell;
+    }
+
     public BaseCell GetCell(int x, int y)
     {
         return _board[x, y];

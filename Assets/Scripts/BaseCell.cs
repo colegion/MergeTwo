@@ -22,6 +22,7 @@ public class BaseCell : MonoBehaviour
         _y = y;
         name = $"{name}{x}_{y}";
         _grid = ServiceLocator.Get<Grid>();
+        _grid.PlaceCell(this);
         _grid.AppendAvailableCells(this);
     }
     

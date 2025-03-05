@@ -82,7 +82,7 @@ public class GameController : MonoBehaviour
     public void OnSwipeReleased(BaseTile selectedTile, Vector2Int targetPosition)
     {
         if (selectedTile == null) return;
-        
+        Debug.Log("tile not null");
         MoveTileToPosition(selectedTile, targetPosition);
     }
 
