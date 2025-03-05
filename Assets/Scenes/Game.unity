@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 535817202}
   - component: {fileID: 535817201}
   - component: {fileID: 535817204}
+  - component: {fileID: 535817205}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -184,7 +185,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 12
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -209,7 +210,7 @@ Transform:
   m_GameObject: {fileID: 535817200}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 4.5, y: 3, z: 8}
+  m_LocalPosition: {x: 4.5, y: 3, z: 4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -259,6 +260,21 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!114 &535817205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 535817200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e38efe1017a1da45a35db7e8323bff9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 535817202}
+  baseOrthographicSize: 10
+  padding: 0.3
 --- !u!114 &1014189808 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3705935984277146755, guid: fbdd33bc8c6b341459c2bdd6c8f23e8d,
@@ -547,9 +563,24 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5635402342297313647, guid: d7300a7db7c026e42ba453bdbb7de2c3,
         type: 3}
+      propertyPath: width
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5635402342297313647, guid: d7300a7db7c026e42ba453bdbb7de2c3,
+        type: 3}
+      propertyPath: height
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5635402342297313647, guid: d7300a7db7c026e42ba453bdbb7de2c3,
+        type: 3}
       propertyPath: poolController
       value: 
       objectReference: {fileID: 1014189808}
+    - target: {fileID: 5635402342297313647, guid: d7300a7db7c026e42ba453bdbb7de2c3,
+        type: 3}
+      propertyPath: cameraController
+      value: 
+      objectReference: {fileID: 535817205}
     - target: {fileID: 5635402342297313647, guid: d7300a7db7c026e42ba453bdbb7de2c3,
         type: 3}
       propertyPath: itemConfigManager

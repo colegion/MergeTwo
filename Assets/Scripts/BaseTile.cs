@@ -106,7 +106,7 @@ public class BaseTile : MonoBehaviour, ITappable, IPoolable
         return new TileData()
         {
             itemLevel = _stepConfig.level,
-            //itemType = _baseItemConfig.itemType
+            itemType = _stepConfig.ItemType
         };
     }
 

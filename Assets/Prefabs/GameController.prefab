@@ -44,8 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4df3e9092220044eb2750f99fad9496, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 10
-  height: 10
+  width: 7
+  height: 9
   puzzleTransform: {fileID: 5933043278585731033}
   poolController: {fileID: 0}
+  cameraController: {fileID: 0}
   itemConfigManager: {fileID: 0}

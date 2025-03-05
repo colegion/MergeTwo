@@ -14,6 +14,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private int height;
     [SerializeField] private Transform puzzleTransform;
     [SerializeField] private PoolController poolController;
+    [SerializeField] private CameraController cameraController;
     [SerializeField] private ItemConfigManager itemConfigManager;
     
     private LevelManager _levelManager;
@@ -48,6 +49,7 @@ public class GameController : MonoBehaviour
     {
         _grid = new Grid(width, height);
         ServiceLocator.Register<Grid>(_grid);
+        cameraController.SetGridSize(width, height);
         poolController.Initialize();
         ServiceLocator.Register(poolController);
         ServiceLocator.Register(itemConfigManager);
@@ -119,8 +121,6 @@ public class GameController : MonoBehaviour
     {
         return _grid.GetCell(x, y);
     }
-    
-    
 
     private void OnDestroy()
     {
@@ -143,7 +143,7 @@ public class GameController : MonoBehaviour
     }
 }
 
-public partial class TileComparator
+public abstract partial class TileComparator
 {
     public static bool IsIdentical(BaseStepConfig first, BaseStepConfig second)
     {
