@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemType: 2
   step:
-    level: 0
-    itemSprite: {fileID: 0}
+    level: 2
+    itemSprite: {fileID: 21300000, guid: 24017a09668479641a95bbb6efc26b70, type: 3}
     isMaxLevel: 0
   nextItem: {fileID: 11400000, guid: ba102a593ed49e545ac9950794cc3ab5, type: 2}

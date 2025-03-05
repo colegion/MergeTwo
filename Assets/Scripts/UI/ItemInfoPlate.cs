@@ -30,7 +30,7 @@ namespace UI
             {
                 ToggleFields(true);
                 var config = tile.GetItemConfig();
-                itemName.text = $"{config.level}";
+                itemName.text = $"{config.step.level}";
             }
         }
 

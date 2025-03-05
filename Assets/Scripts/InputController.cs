@@ -44,6 +44,7 @@ public class InputController : MonoBehaviour
             _selectedTile = temp;
             if (temp == _selectedTile)
             {
+                Debug.LogWarning("on tap");
                 _selectedTile.OnTap();
             }
             else
