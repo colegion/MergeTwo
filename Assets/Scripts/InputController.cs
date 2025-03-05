@@ -67,12 +67,17 @@ public class InputController : MonoBehaviour
     {
         if (!_isSwiping || _selectedTile == null) return;
 
-        Vector2 delta = context.ReadValue<Vector2>();
-        Vector3 worldDelta = new Vector3(delta.x, 0, delta.y);
+        Vector2 mouseScreenPos = GetPointerPosition(); 
 
-        _selectedTile.transform.position += worldDelta * Time.deltaTime;
+        Ray ray = mainCamera.ScreenPointToRay(mouseScreenPos); 
+        if (Physics.Raycast(ray, out RaycastHit hit))
+        {
+            Vector3 targetPosition = hit.point;
+            targetPosition.y = _selectedTile.transform.position.y;
+            _selectedTile.transform.position = targetPosition;
+        }
     }
-
+    
     private void OnHoldReleased(InputAction.CallbackContext context)
     {
         if (_selectedTile == null) return;
