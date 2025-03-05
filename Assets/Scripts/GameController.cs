@@ -46,12 +46,12 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
-        /*_grid = new Grid(width, height);
+        _grid = new Grid(width, height);
         ServiceLocator.Register<Grid>(_grid);
         poolController.Initialize();
         ServiceLocator.Register(poolController);
         ServiceLocator.Register(itemConfigManager);
-        _levelManager = new LevelManager(_grid, puzzleTransform);*/
+        _levelManager = new LevelManager(_grid, puzzleTransform);
     }
 
     public void OnTapPerformed(BaseTile tile = null)

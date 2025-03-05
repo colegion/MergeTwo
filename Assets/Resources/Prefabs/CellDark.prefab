@@ -13,6 +13,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CellDark
       objectReference: {fileID: 0}
+    - target: {fileID: 6703024981162402851, guid: b669b9bab1f281b4a98357b10008db16,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: fa06ded6d3ccf034c9cbc4a65c0d7c02, type: 2}
     - target: {fileID: 7518152651842129729, guid: b669b9bab1f281b4a98357b10008db16,
         type: 3}
       propertyPath: m_Color.b

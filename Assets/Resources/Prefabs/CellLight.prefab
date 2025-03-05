@@ -13,6 +13,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CellLight
       objectReference: {fileID: 0}
+    - target: {fileID: 6703024981162402851, guid: b669b9bab1f281b4a98357b10008db16,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 522ea9551c3185d40a9c446abd6f8153, type: 2}
     - target: {fileID: 7518152651842129729, guid: b669b9bab1f281b4a98357b10008db16,
         type: 3}
       propertyPath: m_Color.b

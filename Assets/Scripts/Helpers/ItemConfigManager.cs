@@ -23,6 +23,7 @@ namespace Helpers
             foreach (var reference in itemConfigReferences)
             {
                 reference.LoadAssetAsync<BaseItemConfig>().Completed += OnItemConfigLoaded;
+                Debug.LogWarning("Loaded reference " + reference);
             }
         }
         
@@ -31,6 +32,7 @@ namespace Helpers
             if (handle.Status == AsyncOperationStatus.Succeeded)
             {
                 var itemConfig = handle.Result;
+                Debug.LogWarning("Item config loaded: " + itemConfig);
                 itemConfig.Initialize();
                 _itemConfigs.Add(itemConfig);
             }

@@ -20,7 +20,7 @@ public class BaseTile : MonoBehaviour, ITappable, IPoolable
 
     protected Grid Grid;
 
-    private BaseStepConfig _stepConfig;
+    protected BaseStepConfig _stepConfig;
     private Vector2Int _position;
     
     public virtual void ConfigureSelf(BaseStepConfig config, int x, int y)

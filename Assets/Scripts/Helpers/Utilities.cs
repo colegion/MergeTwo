@@ -35,7 +35,8 @@ namespace Helpers
     public enum PoolableTypes
     {
         BaseTile,
-        
+        Producer,
+        Chest
     }
 
     [Serializable]
@@ -76,7 +77,6 @@ namespace Helpers
     [Serializable]
     public class BaseStepConfig
     {
-        
         public int level;
         public Sprite itemSprite;
         public bool isMaxLevel;
