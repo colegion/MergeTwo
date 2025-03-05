@@ -15,6 +15,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private Transform puzzleTransform;
     [SerializeField] private PoolController poolController;
     [SerializeField] private CameraController cameraController;
+    [SerializeField] private ItemFactory itemFactory;
     [SerializeField] private ItemConfigManager itemConfigManager;
     
     private LevelManager _levelManager;
@@ -45,15 +46,15 @@ public class GameController : MonoBehaviour
         }
     }
 
-    private void Start()
+    public void LoadLevel()
     {
         _grid = new Grid(width, height);
         ServiceLocator.Register<Grid>(_grid);
         cameraController.SetGridSize(width, height);
         poolController.Initialize();
         ServiceLocator.Register(poolController);
-        ServiceLocator.Register(itemConfigManager);
-        _levelManager = new LevelManager(_grid, puzzleTransform);
+        _levelManager = new LevelManager(puzzleTransform);
+        itemFactory.PopulateBoard();
     }
 
     public void OnTapPerformed(BaseTile tile = null)

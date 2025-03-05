@@ -11,14 +11,14 @@ namespace Helpers
         private static string lightCellPath = "Prefabs/CellLight";
         private readonly string levelDataPath = "Levels/CurrentLevel.json";
 
-        public LevelManager(Grid grid, Transform parent)
+        public LevelManager(Transform parent)
         {
-            
-            LoadLevel(grid, parent);
+            LoadLevel(parent);
         }
 
-        private void LoadLevel(Grid grid, Transform parent)
+        private void LoadLevel(Transform parent)
         {
+            var grid = ServiceLocator.Get<Grid>();
             var width = grid.Width;
             var height = grid.Height;
             LevelData levelData = null;
