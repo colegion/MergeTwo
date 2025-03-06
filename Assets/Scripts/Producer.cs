@@ -8,7 +8,7 @@ using UnityEngine;
 public class Producer : BaseTile
 {
     private List<ProducerCapacityConfig> producerCapacity;
-    private Dictionary<BaseItemConfig, int> remainingCounts = new Dictionary<BaseItemConfig, int>();
+    private readonly Dictionary<BaseItemConfig, int> remainingCounts = new Dictionary<BaseItemConfig, int>();
     private PoolController _poolController;
     private Grid _grid;
     public override void ConfigureSelf(BaseItemConfig config, int x, int y)
