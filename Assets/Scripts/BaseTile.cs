@@ -8,6 +8,7 @@ using UnityEngine;
 
 public class BaseTile : MonoBehaviour, ITappable, IPoolable
 {
+    [SerializeField] private Collider collider;
     [SerializeField] private TileView tileView;
     
     protected int _x;
@@ -102,6 +103,11 @@ public class BaseTile : MonoBehaviour, ITappable, IPoolable
     public Vector2Int GetPosition()
     {
         return _position;
+    }
+    
+    public void ToggleInteractable(bool toggle)
+    {
+        collider.enabled = toggle;
     }
 
     public TileData GetTileData()

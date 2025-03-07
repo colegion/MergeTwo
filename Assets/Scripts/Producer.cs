@@ -7,31 +7,40 @@ using UnityEngine;
 
 public class Producer : BaseTile
 {
-    private List<ProducerCapacityConfig> producerCapacity;
-    private readonly Dictionary<BaseItemConfig, int> remainingCounts = new Dictionary<BaseItemConfig, int>();
+    private ProducerItemConfig _config;
+    private List<ProducerCapacityConfig> _producerCapacity;
+    private readonly Dictionary<BaseItemConfig, int> _remainingCounts = new Dictionary<BaseItemConfig, int>();
     private PoolController _poolController;
     private Grid _grid;
+
+    private Coroutine _cooldownRoutine;
+    private bool _cooldownActive;
     public override void ConfigureSelf(BaseItemConfig config, int x, int y)
     {
         base.ConfigureSelf(config, x, y);
         _poolController = ServiceLocator.Get<PoolController>();
         _grid = ServiceLocator.Get<Grid>();
-        producerCapacity = ((ProducerItemConfig)config).producerCapacity.capacityConfigs;
-        foreach (var temp in producerCapacity)
-        {
-            remainingCounts.TryAdd(temp.itemToProduce, temp.produceCount);
-        }
+        _config = (ProducerItemConfig)config;
+        _producerCapacity = ((ProducerItemConfig)config).producerCapacity.capacityConfigs;
+        PopulateCapacities();
     }
     
     public override void OnTap()
     {
-        ProduceRandomItem();
+        if (_cooldownActive)
+        {
+            
+        }
+        else
+        {
+            ProduceRandomItem();
+        }
     }
 
     private void ProduceRandomItem()
     {
         bool cooldownActive = true;
-        foreach (var config in remainingCounts)
+        foreach (var config in _remainingCounts)
         {
             if (config.Value > 0) 
             {
@@ -40,21 +49,43 @@ public class Producer : BaseTile
             }
         }
 
-        if (cooldownActive) return; 
-
-        var randomIndex = Random.Range(0, producerCapacity.Count);
-        var produceItem = producerCapacity[randomIndex].itemToProduce;
-
-        while (remainingCounts[produceItem] == 0)
+        if (cooldownActive && _cooldownRoutine == null)
         {
-            randomIndex = Random.Range(0, producerCapacity.Count);
-            produceItem = producerCapacity[randomIndex].itemToProduce;
+            _cooldownRoutine = StartCoroutine(EnterCoolDown());
+            return;
+        } 
+
+        var randomIndex = Random.Range(0, _producerCapacity.Count);
+        var produceItem = _producerCapacity[randomIndex].itemToProduce;
+
+        while (_remainingCounts[produceItem] == 0)
+        {
+            randomIndex = Random.Range(0, _producerCapacity.Count);
+            produceItem = _producerCapacity[randomIndex].itemToProduce;
         }
 
         var tile = _poolController.GetPooledObject(PoolableTypes.BaseTile);
         var randomCell = _grid.GetAvailableRandomCell();
         tile.GetGameObject().GetComponent<BaseTile>().ConfigureSelf(produceItem, randomCell.X, randomCell.Y);
-        remainingCounts[produceItem]--;
+        _remainingCounts[produceItem]--;
     }
 
+    private IEnumerator EnterCoolDown()
+    {
+        ToggleInteractable(false);
+        _cooldownActive = true;
+        yield return new WaitForSeconds(_config.durationForRecharge);
+        ToggleInteractable(true);
+        _cooldownActive = false;
+        PopulateCapacities();
+    }
+
+    private void PopulateCapacities()
+    {
+        _remainingCounts.Clear();
+        foreach (var temp in _producerCapacity)
+        {
+            _remainingCounts.TryAdd(temp.itemToProduce, temp.produceCount);
+        }
+    }
 }
