@@ -13,15 +13,16 @@ MonoBehaviour:
   m_Name: Chest_Level_2
   m_EditorClassIdentifier: 
   itemType: 8
-  steps:
-    level: 1
-    itemSprite: {fileID: 0}
+  step:
+    level: 2
+    itemSprite: {fileID: 21300000, guid: fdce8e621f9f0c442b64719bd4a17cf2, type: 3}
     isMaxLevel: 0
-  capacityConfigs:
-  - stepLevel: 1
+  nextItem: {fileID: 11400000, guid: d0b9ab88a1188a440bafa762af098e3c, type: 2}
+  lockedSprite: {fileID: 21300000, guid: ad8045b14fb4ca6438b6a1755b3b0b8a, type: 3}
+  chestRewards:
     chestRewards:
-    - rewardItem: {fileID: 11400000, guid: 0249df66f3fd7b14ebefd64afcd3691b, type: 2}
-      rewardCount: 1
-    - rewardItem: {fileID: 11400000, guid: c97d5d5e373e0534b903f05832fdcf19, type: 2}
+    - rewardItem: {fileID: 11400000, guid: 7be6074d67d97fe4dbc198ec335780b6, type: 2}
+      rewardCount: 3
+    - rewardItem: {fileID: 11400000, guid: 38ac2066b4bbce7488e240492d7fae5c, type: 2}
       rewardCount: 2
-    durationToUnlock: 60
+  durationToUnlock: 60
