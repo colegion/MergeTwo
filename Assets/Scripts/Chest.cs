@@ -17,7 +17,8 @@ public class Chest : BaseTile
     {
         base.ConfigureSelf(config, x, y);
         _config = (ChestItemConfig)config;
-        _itemFactory = ServiceLocator.Get<ItemFactory>();
+        if(_itemFactory == null) _itemFactory = ServiceLocator.Get<ItemFactory>();
+        _rewardHelper = new RewardHelper(_config.chestRewards.capacityConfigs);
     }
 
     public override void OnTap()
@@ -37,6 +38,11 @@ public class Chest : BaseTile
         var itemToProduce = _rewardHelper.GetRandomItemToProduce();
         _itemFactory.SpawnItemByConfig(itemToProduce);
         _rewardHelper.DecreaseRemainingCount(itemToProduce);
+
+        if (_rewardHelper.IsEmpty())
+        {
+            GameController.Instance.ReturnPoolableToPool(this);
+        }
     }
 
     private IEnumerator UnlockChest()
@@ -46,5 +52,13 @@ public class Chest : BaseTile
         ToggleInteractable(true);
         _hasUnlocked = true;
         tileView.UpdateSprite(_config.unlockedSprite);
+    }
+
+    protected override void ResetSelf()
+    {
+        base.ResetSelf();
+        _config = null;
+        _rewardHelper = null;
+        _hasUnlocked = false;
     }
 }

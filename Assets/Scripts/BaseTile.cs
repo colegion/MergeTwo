@@ -91,7 +91,7 @@ public class BaseTile : MonoBehaviour, ITappable, IPoolable
         return _stepConfig;
     }
 
-    private void ResetSelf()
+    protected virtual void ResetSelf()
     {
         _stepConfig = null;
         Grid.ClearTileOfParentCell(this);

@@ -16,7 +16,7 @@ public class Producer : BaseTile
     public override void ConfigureSelf(BaseItemConfig config, int x, int y)
     {
         base.ConfigureSelf(config, x, y);
-        _itemFactory = ServiceLocator.Get<ItemFactory>();
+        if(_itemFactory == null) _itemFactory = ServiceLocator.Get<ItemFactory>();
         _config = (ProducerItemConfig)config;
         _rewardHelper = new RewardHelper(_config.producerCapacity.capacityConfigs);
     }
@@ -35,6 +35,12 @@ public class Producer : BaseTile
 
     private void ProduceItem()
     {
+        if (!PlayerInventory.Instance.HasEnoughEnergy(1))
+        {
+            Debug.LogWarning("Insufficient energy");
+            return;
+        }
+        
         if (_rewardHelper.IsEmpty() && _cooldownRoutine == null)
         {
             _cooldownRoutine = StartCoroutine(EnterCoolDown());
@@ -44,6 +50,7 @@ public class Producer : BaseTile
         var itemToProduce = _rewardHelper.GetRandomItemToProduce();
         _itemFactory.SpawnItemByConfig(itemToProduce);
         _rewardHelper.DecreaseRemainingCount(itemToProduce);
+        PlayerInventory.Instance.SpendEnergy(1);
     }
 
     private IEnumerator EnterCoolDown()
@@ -54,5 +61,13 @@ public class Producer : BaseTile
         ToggleInteractable(true);
         _cooldownActive = false;
         _rewardHelper.PopulateCapacities();
+    }
+    
+    protected override void ResetSelf()
+    {
+        base.ResetSelf();
+        _config = null;
+        _rewardHelper = null;
+        _cooldownActive = false;
     }
 }

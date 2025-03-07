@@ -7,7 +7,9 @@ using Helpers;
 using JetBrains.Annotations;
 using Pool;
 using ScriptableObjects;
+using Unity.VisualScripting;
 using UnityEngine;
+using IPoolable = Interfaces.IPoolable;
 
 public class GameController : MonoBehaviour
 {
@@ -95,8 +97,8 @@ public class GameController : MonoBehaviour
         if (tempTile.GetGameObject().TryGetComponent(out BaseTile tile))
         {
             tile.ConfigureSelf(nextStep, targetPos.x, targetPos.y);
-            poolController.ReturnPooledObject(selectedTile);
-            poolController.ReturnPooledObject(targetTile);
+            ReturnPoolableToPool(selectedTile);
+            ReturnPoolableToPool(targetTile);
         }
         else
         {
@@ -122,6 +124,11 @@ public class GameController : MonoBehaviour
     {
         return _grid.GetCell(x, y);
     }
+
+    public void ReturnPoolableToPool(IPoolable poolable)
+    {
+        poolController.ReturnPooledObject(poolable);
+    } 
 
     private void OnDestroy()
     {
