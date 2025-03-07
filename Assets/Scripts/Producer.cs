@@ -23,6 +23,8 @@ public class Producer : BaseTile
     
     public override void OnTap()
     {
+        if (!_config.canProduce) return;
+        
         if (_cooldownActive)
         { 
             
@@ -35,7 +37,7 @@ public class Producer : BaseTile
 
     private void ProduceItem()
     {
-        if (!PlayerInventory.Instance.HasEnoughEnergy(1))
+        if (!PlayerInventory.Instance.HasEnoughEnergy(_config.produceCost))
         {
             Debug.LogWarning("Insufficient energy");
             return;
@@ -50,7 +52,7 @@ public class Producer : BaseTile
         var itemToProduce = _rewardHelper.GetRandomItemToProduce();
         _itemFactory.SpawnItemByConfig(itemToProduce);
         _rewardHelper.DecreaseRemainingCount(itemToProduce);
-        PlayerInventory.Instance.SpendEnergy(1);
+        PlayerInventory.Instance.SpendEnergy(_config.produceCost);
     }
 
     private IEnumerator EnterCoolDown()

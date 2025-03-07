@@ -33,14 +33,10 @@ public class BaseTile : MonoBehaviour, ITappable, IPoolable
         tileView.ConfigureSelf(_stepConfig.step);
         SetTransform();
 
-        Grid = ServiceLocator.Get<Grid>();
+        if(Grid == null) Grid = ServiceLocator.Get<Grid>();
         Grid.PlaceTileToParentCell(this);
     }
-
-    public void OnFocus()
-    {
-    }
-
+    
     public virtual void OnTap()
     {
        
