@@ -157,6 +157,6 @@ public abstract partial class TileComparator
     {
         var firstStep = first.step;
         var secondStep = second.step;
-        return firstStep.ItemType == secondStep.ItemType && firstStep.level == secondStep.level;
+        return firstStep.ItemType == secondStep.ItemType && firstStep.level == secondStep.level && !firstStep.isMaxLevel;
     }
 }
