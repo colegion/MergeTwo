@@ -9,6 +9,7 @@ namespace UI
     public class CurrencyHUD : MonoBehaviour
     {
         [SerializeField] private ItemType currencyType;
+        [SerializeField] private Transform target;
         [SerializeField] private TextMeshProUGUI currencyAmountField;
 
         private int _currentAmount;
@@ -35,6 +36,11 @@ namespace UI
         public ItemType GetCurrencyType()
         {
             return currencyType;
+        }
+
+        public Transform GetTarget()
+        {
+            return target;
         }
     }
 }
