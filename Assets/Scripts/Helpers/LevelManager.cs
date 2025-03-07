@@ -33,14 +33,16 @@ namespace Helpers
                     
                     CreateCells(width, height, parent);
 
-                    var poolController = ServiceLocator.Get<PoolController>();
+                    //var poolController = ServiceLocator.Get<PoolController>();
                     var configManager = ServiceLocator.Get<ItemConfigManager>();
+                    var itemFactory = ServiceLocator.Get<ItemFactory>();
                     foreach (var data in levelData.tiles)
                     {
-                        var tempTile = poolController.GetPooledObject(PoolableTypes.BaseTile);
-                        var tile = tempTile.GetGameObject().GetComponent<BaseTile>();
+                        //var tempTile = poolController.GetPooledObject(PoolableTypes.BaseTile);
+                        //var tile = tempTile.GetGameObject().GetComponent<BaseTile>();
                         var config = configManager.GetItemConfig(data.itemType, data.itemLevel);
-                        tile.ConfigureSelf(config, data.xCoord, data.yCoord);
+                        itemFactory.SpawnItemByConfig(config);
+                        //tile.ConfigureSelf(config, data.xCoord, data.yCoord);
                     }
                 }
             }

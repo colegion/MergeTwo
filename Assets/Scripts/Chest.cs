@@ -34,12 +34,6 @@ public class Chest : BaseTile
 
     private void ProduceItem()
     {
-        if (_rewardHelper.IsEmpty() && _unlockRoutine == null)
-        {
-            _unlockRoutine = StartCoroutine(UnlockChest());
-            return;
-        }
-
         var itemToProduce = _rewardHelper.GetRandomItemToProduce();
         _itemFactory.SpawnItemByConfig(itemToProduce);
         _rewardHelper.DecreaseRemainingCount(itemToProduce);
