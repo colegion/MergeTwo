@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Energy_Level_1
   m_EditorClassIdentifier: 
   itemType: 5
-  steps:
+  step:
     level: 1
     itemSprite: {fileID: 21300000, guid: 013f8d70a699ee64eb5048d9cb8b4e33, type: 3}
     isMaxLevel: 0
+  nextItem: {fileID: 11400000, guid: 7be6074d67d97fe4dbc198ec335780b6, type: 2}
   rewardAmount: 2

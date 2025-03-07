@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Coin_Level_3
   m_EditorClassIdentifier: 
   itemType: 0
-  steps:
+  step:
     level: 3
     itemSprite: {fileID: 21300000, guid: 81607ab75785b7546987ff8eadcb17ea, type: 3}
-    isMaxLevel: 0
-  rewardAmount: 0
+    isMaxLevel: 1
+  nextItem: {fileID: 0}
+  rewardAmount: 20
