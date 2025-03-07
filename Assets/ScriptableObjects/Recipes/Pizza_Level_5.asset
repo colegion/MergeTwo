@@ -16,5 +16,5 @@ MonoBehaviour:
   step:
     level: 5
     itemSprite: {fileID: 21300000, guid: ac756caca9d936d4eb2b76ae6f2daae9, type: 3}
-    isMaxLevel: 0
+    isMaxLevel: 1
   nextItem: {fileID: 0}
