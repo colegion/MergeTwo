@@ -87,4 +87,9 @@ public class BaseCell : MonoBehaviour
     {
         return target;
     }
+    
+    public Vector3 GetWorldPosition()
+    {
+        return target != null ? target.position : transform.position + (Vector3.up * 0.25f);
+    }
 }

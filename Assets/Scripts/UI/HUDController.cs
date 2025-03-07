@@ -53,16 +53,18 @@ namespace UI
 
         private Vector3 GetRandomPositionAroundCenter()
         {
-            Vector3 screenCenter = new Vector3(Screen.width / 2f, Screen.height / 2f, Camera.main.nearClipPlane);
-            Vector3 worldCenter = Camera.main.ScreenToWorldPoint(screenCenter);
-            
-            float randomX = Random.Range(-offset, offset);
-            float randomZ = Random.Range(-offset, offset);
-            
-            Vector3 randomPosition = worldCenter + new Vector3(randomX, 0, randomZ);
+            // 3D sahnedeki dünya merkezini al
+            Vector3 worldCenter = Vector3.zero; // Dünya merkezini sıfır noktası olarak belirleyelim
 
-            return randomPosition;
+            // Merkezin çevresinde rastgele bir nokta oluştur
+            float randomX = Random.Range(-offset, offset);
+            float randomY = Random.Range(-offset, offset);
+            float randomZ = Random.Range(-offset, offset);
+
+            // 3D dünyada rastgele pozisyon
+            return worldCenter + new Vector3(randomX, 2, randomZ);
         }
+
 
     }
 }

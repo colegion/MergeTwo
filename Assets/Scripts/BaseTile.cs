@@ -57,7 +57,18 @@ public class BaseTile : MonoBehaviour, ITappable, IPoolable
 
     public void SetTransform()
     {
-        transform.localPosition = new Vector3(_x, 1, _y);
+        if (Grid == null) Grid = ServiceLocator.Get<Grid>();
+
+        BaseCell cell = Grid.GetCell(_x, _y);
+        if (cell != null)
+        {
+            transform.position = cell.GetWorldPosition();
+        }
+        else
+        {
+            Debug.LogWarning($"Cell at {_x}, {_y} not found! Using fallback position.");
+            transform.position = new Vector3(_x, 1, _y);
+        }
     }
 
     private void SetPosition(Vector2Int position)

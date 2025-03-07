@@ -57,17 +57,25 @@ namespace Helpers
             var lightPrefabInstance = Resources.Load<BaseCell>(lightCellPath);
             var darkPrefabInstance = Resources.Load<BaseCell>(darkCellPath);
 
+            // Grid'i merkeze hizalamak için başlangıç offset'i hesapla
+            float xOffset = width / 2f;
+            float yOffset = height / 2f;
+
             for (int i = 0; i < width; i++)
             {
                 for (int j = 0; j < height; j++)
                 {
                     var prefabToUse = (j + i) % 2 == 0 ? lightPrefabInstance : darkPrefabInstance;
-                    var cell = Object.Instantiate(prefabToUse, new Vector3(i, 0, j), Quaternion.identity, parent.transform);
+            
+                    // Düzeltilmiş konum (orta noktayı sıfıra hizala)
+                    Vector3 cellPosition = new Vector3(i - xOffset, 0, j - yOffset);
+            
+                    var cell = Object.Instantiate(prefabToUse, cellPosition, Quaternion.identity, parent);
                     cell.ConfigureSelf(i, j);
                 }
             }
         }
-
+        
         public void SaveLevel(LevelData levelData)
         {
             string json = JsonUtility.ToJson(levelData, true);

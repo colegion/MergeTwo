@@ -117,6 +117,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 99cb737ea3218be439a6b08a3278a855
+    m_Address: Assets/ScriptableObjects/SpecialItems/Energy_SpriteHolder.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 99d4b013f1f238148acfd05411b614d4
     m_Address: Assets/ScriptableObjects/Producers/VegetableProducer_Level_4.asset
     m_ReadOnly: 0
@@ -144,6 +149,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bd465f40148488c42b2c90679ca2d947
     m_Address: Assets/ScriptableObjects/Recipes/Pizza_Level_4.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c08b65f88c314764fa403a0e485a8dd4
+    m_Address: Assets/ScriptableObjects/SpecialItems/Coin_SpriteHolder.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
