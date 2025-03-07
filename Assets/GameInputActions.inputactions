@@ -6,19 +6,10 @@
             "id": "5cde61de-4919-4bb9-a8c1-8ef12ff4c2b8",
             "actions": [
                 {
-                    "name": "Tap",
-                    "type": "Button",
-                    "id": "6293593d-f20e-45aa-9057-e7df5250b3a0",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Swipe",
                     "type": "Value",
                     "id": "e717895b-f679-487d-9af6-6fff04267ee1",
-                    "expectedControlType": "Delta",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -36,30 +27,8 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "89d0cdbe-db9e-4e21-aea2-d1b197404c4d",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "Tap",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Tap",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "fb41a3fb-67af-4e0f-93ec-bc851a68a592",
-                    "path": "<Touchscreen>/primaryTouch/tap",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Tap",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "f27a087c-d5c4-448d-9cf2-a2a9ec507cca",
-                    "path": "<Mouse>/delta",
+                    "path": "<Pointer>/position",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -71,7 +40,7 @@
                     "name": "",
                     "id": "25804665-89f3-4071-a4b3-1f590359c79f",
                     "path": "<Mouse>/leftButton",
-                    "interactions": "Hold(duration=0.4)",
+                    "interactions": "Hold(duration=0.05)",
                     "processors": "",
                     "groups": "",
                     "action": "HoldToDrag",

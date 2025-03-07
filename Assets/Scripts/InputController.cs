@@ -8,9 +8,11 @@ public class InputController : MonoBehaviour
     private GameInputActions _inputActions;
 
     private Vector2 _startPosition;
-    private Vector2 _endPosition;
-    private bool _isSwiping = false;
+    private float _holdStartTime;
+    private bool _canSwipe = false;
     private BaseTile _selectedTile;
+
+    private const float TapThreshold = 0.2f;
 
     private void Start()
     {
@@ -26,49 +28,41 @@ public class InputController : MonoBehaviour
 
     private void RegisterInputActions()
     {
-        _inputActions.ActionMap.Tap.performed += OnTapPerformed;
         _inputActions.ActionMap.HoldToDrag.performed += OnHoldStarted;
-        _inputActions.ActionMap.HoldToDrag.canceled += OnHoldReleased;
         _inputActions.ActionMap.Swipe.performed += OnSwiping;
+        _inputActions.ActionMap.HoldToDrag.canceled += OnHoldReleased;
     }
 
-    private void OnTapPerformed(InputAction.CallbackContext context)
+    private void OnHoldStarted(InputAction.CallbackContext context)
     {
         _startPosition = GetPointerPosition();
+        _holdStartTime = Time.time;
 
         Ray ray = mainCamera.ScreenPointToRay(_startPosition);
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             var temp = hit.collider.GetComponent<BaseTile>();
-            _selectedTile = temp;
-            if (temp == _selectedTile)
+            if (temp != null)
             {
-                _selectedTile.OnTap();
-            }
-            else
-            {
+                _canSwipe = true;
                 _selectedTile = temp;
-                GameController.Instance.OnTapPerformed(_selectedTile);
+                Debug.Log("Selected tile: ", _selectedTile);
             }
         }
-        
-        GameController.Instance.OnTapPerformed();
-    }
-
-    private void OnHoldStarted(InputAction.CallbackContext context)
-    {
-        if (_selectedTile == null) return;
-
-        _isSwiping = true;
     }
 
     private void OnSwiping(InputAction.CallbackContext context)
     {
-        if (!_isSwiping || _selectedTile == null) return;
+        if (!_canSwipe || _selectedTile == null) return;
 
-        Vector2 mouseScreenPos = GetPointerPosition(); 
+        Vector2 pointerPosition = GetPointerPosition();
 
-        Ray ray = mainCamera.ScreenPointToRay(mouseScreenPos); 
+        float swipeThreshold = 5f;
+        Vector2 swipeDelta = pointerPosition - _startPosition;
+
+        if (swipeDelta.magnitude < swipeThreshold) return;
+
+        Ray ray = mainCamera.ScreenPointToRay(pointerPosition);
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             Vector3 targetPosition = hit.point;
@@ -76,42 +70,52 @@ public class InputController : MonoBehaviour
             _selectedTile.transform.position = targetPosition;
         }
     }
-    
+
     private void OnHoldReleased(InputAction.CallbackContext context)
     {
         if (_selectedTile == null) return;
+        Debug.Log("Hold released");
 
-        Vector2 pointerPosition = GetPointerPosition();
-        
-        Ray ray = mainCamera.ScreenPointToRay(pointerPosition);
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        float holdDuration = Time.time - _holdStartTime;
+
+        if (holdDuration < TapThreshold)
         {
-            Vector3 worldPos = hit.point;
-            
-            int gridX = Mathf.FloorToInt(worldPos.x);
-            int gridY = Mathf.FloorToInt(worldPos.z);
-            
-            BaseCell cell = GameController.Instance.GetCell(gridX, gridY);
-
-            if (cell != null)
+            _selectedTile.OnTap();
+        }
+        else
+        {
+            Vector2 pointerPosition = GetPointerPosition();
+            Ray ray = mainCamera.ScreenPointToRay(pointerPosition);
+            if (Physics.Raycast(ray, out RaycastHit hit))
             {
-                var tempTile = cell.GetTile(0);
-                if (tempTile != null)
+                Vector3 worldPos = hit.point;
+
+                int gridX = Mathf.FloorToInt(worldPos.x);
+                int gridY = Mathf.FloorToInt(worldPos.z);
+
+                BaseCell cell = GameController.Instance.GetCell(gridX, gridY);
+
+                if (cell != null)
                 {
-                    GameController.Instance.OnSwipeReleased(_selectedTile, tempTile);
+                    var tempTile = cell.GetTile(0);
+                    if (tempTile != null)
+                    {
+                        GameController.Instance.OnSwipeReleased(_selectedTile, tempTile);
+                    }
+                    else
+                    {
+                        GameController.Instance.OnSwipeReleased(_selectedTile, new Vector2Int(gridX, gridY));
+                    }
                 }
                 else
                 {
-                    GameController.Instance.OnSwipeReleased(_selectedTile, new Vector2Int(gridX, gridY));
+                    Debug.LogWarning("Invalid swipe");
                 }
             }
-            else
-            {
-                Debug.LogWarning("Invalid swipe");
-            }
         }
-        _isSwiping = false;
+
         _selectedTile = null;
+        _canSwipe = false;
     }
 
     private Vector2 GetPointerPosition()

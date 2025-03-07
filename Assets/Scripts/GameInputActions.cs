@@ -28,19 +28,10 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
             ""id"": ""5cde61de-4919-4bb9-a8c1-8ef12ff4c2b8"",
             ""actions"": [
                 {
-                    ""name"": ""Tap"",
-                    ""type"": ""Button"",
-                    ""id"": ""6293593d-f20e-45aa-9057-e7df5250b3a0"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Swipe"",
                     ""type"": ""Value"",
                     ""id"": ""e717895b-f679-487d-9af6-6fff04267ee1"",
-                    ""expectedControlType"": ""Delta"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
@@ -58,30 +49,8 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""89d0cdbe-db9e-4e21-aea2-d1b197404c4d"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": ""Tap"",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Tap"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""fb41a3fb-67af-4e0f-93ec-bc851a68a592"",
-                    ""path"": ""<Touchscreen>/primaryTouch/tap"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Tap"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""f27a087c-d5c4-448d-9cf2-a2a9ec507cca"",
-                    ""path"": ""<Mouse>/delta"",
+                    ""path"": ""<Pointer>/position"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -93,7 +62,7 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""25804665-89f3-4071-a4b3-1f590359c79f"",
                     ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": ""Hold(duration=0.4)"",
+                    ""interactions"": ""Hold(duration=0.05)"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""HoldToDrag"",
@@ -118,7 +87,6 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
 }");
         // ActionMap
         m_ActionMap = asset.FindActionMap("ActionMap", throwIfNotFound: true);
-        m_ActionMap_Tap = m_ActionMap.FindAction("Tap", throwIfNotFound: true);
         m_ActionMap_Swipe = m_ActionMap.FindAction("Swipe", throwIfNotFound: true);
         m_ActionMap_HoldToDrag = m_ActionMap.FindAction("HoldToDrag", throwIfNotFound: true);
     }
@@ -187,14 +155,12 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
     // ActionMap
     private readonly InputActionMap m_ActionMap;
     private List<IActionMapActions> m_ActionMapActionsCallbackInterfaces = new List<IActionMapActions>();
-    private readonly InputAction m_ActionMap_Tap;
     private readonly InputAction m_ActionMap_Swipe;
     private readonly InputAction m_ActionMap_HoldToDrag;
     public struct ActionMapActions
     {
         private @GameInputActions m_Wrapper;
         public ActionMapActions(@GameInputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Tap => m_Wrapper.m_ActionMap_Tap;
         public InputAction @Swipe => m_Wrapper.m_ActionMap_Swipe;
         public InputAction @HoldToDrag => m_Wrapper.m_ActionMap_HoldToDrag;
         public InputActionMap Get() { return m_Wrapper.m_ActionMap; }
@@ -206,9 +172,6 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_ActionMapActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_ActionMapActionsCallbackInterfaces.Add(instance);
-            @Tap.started += instance.OnTap;
-            @Tap.performed += instance.OnTap;
-            @Tap.canceled += instance.OnTap;
             @Swipe.started += instance.OnSwipe;
             @Swipe.performed += instance.OnSwipe;
             @Swipe.canceled += instance.OnSwipe;
@@ -219,9 +182,6 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
 
         private void UnregisterCallbacks(IActionMapActions instance)
         {
-            @Tap.started -= instance.OnTap;
-            @Tap.performed -= instance.OnTap;
-            @Tap.canceled -= instance.OnTap;
             @Swipe.started -= instance.OnSwipe;
             @Swipe.performed -= instance.OnSwipe;
             @Swipe.canceled -= instance.OnSwipe;
@@ -247,7 +207,6 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
     public ActionMapActions @ActionMap => new ActionMapActions(this);
     public interface IActionMapActions
     {
-        void OnTap(InputAction.CallbackContext context);
         void OnSwipe(InputAction.CallbackContext context);
         void OnHoldToDrag(InputAction.CallbackContext context);
     }
