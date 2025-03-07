@@ -1,10 +1,12 @@
 using Currencies;
+using UI;
 using UnityEngine;
 
 namespace Helpers
 {
     public class PlayerInventory : MonoBehaviour
     {
+        [SerializeField] private HUDController currencyController;
         public static PlayerInventory Instance { get; private set; }
 
         [SerializeField] private Energy energy;
@@ -37,6 +39,11 @@ namespace Helpers
         public void AddCoins(int amount)
         {
             coins.IncreaseByAmount(amount);
+        }
+
+        public void AddEnergy(int amount)
+        {
+            energy.IncreaseByAmount(amount);
         }
 
         public int GetEnergyAmount() => energy.GetAmount();

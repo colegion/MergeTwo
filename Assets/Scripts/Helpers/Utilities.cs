@@ -37,7 +37,8 @@ namespace Helpers
     {
         BaseTile,
         Producer,
-        Chest
+        Chest,
+        TrailObject,
     }
 
     [Serializable]
