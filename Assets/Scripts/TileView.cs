@@ -15,6 +15,11 @@ public class TileView : MonoBehaviour
         tileRenderer.sprite = config.itemSprite;
     }
 
+    public void UpdateSprite(Sprite sprite)
+    {
+        tileRenderer.sprite = sprite;
+    }
+
     public void ResetSelf()
     {
         tileRenderer.sprite = null;

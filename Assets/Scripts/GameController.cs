@@ -55,6 +55,7 @@ public class GameController : MonoBehaviour
         poolController.Initialize();
         ServiceLocator.Register(poolController);
         _levelManager = new LevelManager(puzzleTransform);
+        ServiceLocator.Register(itemFactory);
         itemFactory.PopulateBoard();
     }
 

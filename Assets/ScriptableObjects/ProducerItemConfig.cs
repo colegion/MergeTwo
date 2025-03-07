@@ -8,7 +8,7 @@ namespace ScriptableObjects
     public class ProducerItemConfig : BaseItemConfig
     {
         public bool canProduce;
-        public ProducerStepConfig producerCapacity;
+        public RewardItemsContainer producerCapacity;
         public float durationForRecharge;
     }
 }

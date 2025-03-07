@@ -9,7 +9,7 @@ using UnityEngine;
 public class BaseTile : MonoBehaviour, ITappable, IPoolable
 {
     [SerializeField] private Collider collider;
-    [SerializeField] private TileView tileView;
+    [SerializeField] protected TileView tileView;
     
     protected int _x;
     protected int _y;

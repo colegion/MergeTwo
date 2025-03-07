@@ -59,23 +59,10 @@ namespace Helpers
     }
 
     [Serializable]
-    public class ProducerCapacityConfig
+    public class RewardEntry
     {
         public BaseItemConfig itemToProduce;
         public int produceCount;
-    }
-
-    [Serializable]
-    public class ChestCapacityConfig
-    {
-        public List<ChestRewards> chestRewards;
-    }
-
-    [Serializable]
-    public class ChestRewards
-    {
-        public BaseItemConfig rewardItem;
-        public int rewardCount;
     }
 
     [Serializable]
@@ -89,8 +76,8 @@ namespace Helpers
     }
 
     [Serializable]
-    public class ProducerStepConfig
+    public class RewardItemsContainer
     {
-        public List<ProducerCapacityConfig> capacityConfigs;
+        public List<RewardEntry> capacityConfigs;
     }
 }
