@@ -23,6 +23,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private CameraController cameraController;
     [SerializeField] private ItemFactory itemFactory;
     [SerializeField] private OrderController orderController;
+    [SerializeField] private GameObject selectionOutline;
     
     private LevelManager _levelManager;
     private Grid _grid;
@@ -73,6 +74,11 @@ public class GameController : MonoBehaviour
     public void OnTapPerformed(BaseTile tile = null)
     {
         OnUserTapped?.Invoke(tile);
+        if (tile != null)
+        {
+            var cell = _grid.GetCell(tile.X, tile.Y);
+            selectionOutline.transform.position = cell.GetWorldPosition();
+        }
     }
     
     public void OnSwipeReleased(BaseTile selectedTile, BaseTile targetTile)
