@@ -33,15 +33,26 @@ namespace Helpers
         public void SpendEnergy(int amount)
         {
             if (HasEnoughEnergy(amount))
+            {
                 energy.IncreaseByAmount(-amount);
+                energy.UpdateUI();
+            }
         }
 
-        public void AddCoins(int amount)
+        public void IncreaseCurrency(ItemType type, int amount)
+        {
+            if(type == ItemType.Coin)
+                AddCoins(amount);
+            if(type == ItemType.Coin)
+                AddEnergy(amount);
+        }
+
+        private void AddCoins(int amount)
         {
             coins.IncreaseByAmount(amount);
         }
 
-        public void AddEnergy(int amount)
+        private void AddEnergy(int amount)
         {
             energy.IncreaseByAmount(amount);
         }

@@ -14,7 +14,6 @@ namespace Currencies
             _saveKey = "energy";
             base.Start();
             
-            if (_amount > maxEnergy) _amount = maxEnergy;
             StartCoroutine(RegenerateEnergy());
         }
 

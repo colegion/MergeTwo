@@ -40,6 +40,10 @@ namespace Currencies
         {
             _amount += amount;
             Save();
+        }
+
+        public void UpdateUI()
+        {
             currencyField.SetCurrency(_amount);
         }
 

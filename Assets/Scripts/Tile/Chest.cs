@@ -28,13 +28,20 @@ namespace Tile
 
         public override void OnTap()
         {
-            if (!_hasUnlocked && _unlockRoutine == null)
+            if (_unlockRoutine != null)
             {
-                _unlockRoutine = StartCoroutine(UnlockChest());
+                _producableView.ShakeOnInvalid();
             }
             else
             {
-                ProduceItem();
+                if (!_hasUnlocked && _unlockRoutine == null)
+                {
+                    _unlockRoutine = StartCoroutine(UnlockChest());
+                }
+                else
+                {
+                    ProduceItem();
+                }
             }
         }
 
@@ -53,9 +60,7 @@ namespace Tile
         private IEnumerator UnlockChest()
         {
             _producableView.ToggleClock(true);
-            ToggleInteractable(false);
             yield return new WaitForSeconds(_config.durationToUnlock);
-            ToggleInteractable(true);
             _hasUnlocked = true;
             _producableView.ToggleClock(false);
             tileView.UpdateSprite(_config.unlockedSprite);

@@ -30,8 +30,8 @@ namespace Tile
             if (!_config.canProduce) return;
         
             if (_cooldownActive)
-            { 
-            
+            {
+                _producableView.ShakeOnInvalid();
             }
             else
             {
@@ -62,10 +62,8 @@ namespace Tile
         private IEnumerator EnterCoolDown()
         {
             _producableView.ToggleClock(true);
-            ToggleInteractable(false);
             _cooldownActive = true;
             yield return new WaitForSeconds(_config.durationForRecharge);
-            ToggleInteractable(true);
             _cooldownActive = false;
             _producableView.ToggleClock(false);
             _rewardHelper.PopulateCapacities();

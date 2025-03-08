@@ -113,12 +113,7 @@ namespace Tile
         {
             return _position;
         }
-    
-        public void ToggleInteractable(bool toggle)
-        {
-            collider.enabled = toggle;
-        }
-
+        
         public TileData GetTileData()
         {
             return new TileData()
