@@ -7,7 +7,7 @@ namespace Helpers
         [SerializeField] private Camera mainCamera;
         [SerializeField] private float baseOrthographicSize = 10f;
         [SerializeField] private float padding = 1f;
-        [SerializeField] private float cameraHeight = 10f; // Adjust camera height
+        [SerializeField] private float cameraHeight = 10f; 
 
         private int _gridWidth;
         private int _gridHeight;
@@ -29,18 +29,10 @@ namespace Helpers
                 Debug.LogError("No main camera assigned!");
                 return;
             }
-
-            // Find the center of the grid
-            float centerX = (_gridWidth - 1) / 2f;
-            float centerZ = (_gridHeight - 1) / 2f;
-
-            // Move the camera to look down from above
-            //transform.position = new Vector3(centerX, cameraHeight, centerZ);
-
-            // Adjust the orthographic size
+            
             float aspectRatio = (float)Screen.width / Screen.height;
-            float verticalSize = (_gridHeight / 2f) + padding; // Z direction
-            float horizontalSize = ((_gridWidth / 2f) + padding) / aspectRatio; // X direction
+            float verticalSize = (_gridHeight / 2f) + padding;
+            float horizontalSize = ((_gridWidth / 2f) + padding) / aspectRatio; 
 
             mainCamera.orthographicSize = Mathf.Max(verticalSize, horizontalSize);
         }

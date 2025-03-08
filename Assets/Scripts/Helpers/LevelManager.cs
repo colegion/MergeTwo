@@ -32,17 +32,13 @@ namespace Helpers
                     height = levelData.boardHeight;
                     
                     CreateCells(width, height, parent);
-
-                    //var poolController = ServiceLocator.Get<PoolController>();
+                    
                     var configManager = ServiceLocator.Get<ItemConfigManager>();
                     var itemFactory = ServiceLocator.Get<ItemFactory>();
                     foreach (var data in levelData.tiles)
                     {
-                        //var tempTile = poolController.GetPooledObject(PoolableTypes.BaseTile);
-                        //var tile = tempTile.GetGameObject().GetComponent<BaseTile>();
                         var config = configManager.GetItemConfig(data.itemType, data.itemLevel);
                         itemFactory.SpawnItemByConfig(config);
-                        //tile.ConfigureSelf(config, data.xCoord, data.yCoord);
                     }
                 }
             }
@@ -56,8 +52,7 @@ namespace Helpers
         {
             var lightPrefabInstance = Resources.Load<BaseCell>(lightCellPath);
             var darkPrefabInstance = Resources.Load<BaseCell>(darkCellPath);
-
-            // Grid'i merkeze hizalamak için başlangıç offset'i hesapla
+            
             float xOffset = width / 2f;
             float yOffset = height / 2f;
 
@@ -66,8 +61,7 @@ namespace Helpers
                 for (int j = 0; j < height; j++)
                 {
                     var prefabToUse = (j + i) % 2 == 0 ? lightPrefabInstance : darkPrefabInstance;
-            
-                    // Düzeltilmiş konum (orta noktayı sıfıra hizala)
+                    
                     Vector3 cellPosition = new Vector3(i - xOffset, 0, j - yOffset);
             
                     var cell = Object.Instantiate(prefabToUse, cellPosition, Quaternion.identity, parent);

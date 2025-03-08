@@ -1,15 +1,18 @@
+using UI;
 using UnityEngine;
 
 namespace Currencies
 {
     public abstract class Currency : MonoBehaviour
     {
+        [SerializeField] protected CurrencyHUD currencyField;
         protected int _amount;
         protected string _saveKey;
 
         protected virtual void Start()
         {
             Load();
+            currencyField.SetCurrency(_amount);
         }
 
         public void SetAmount(int amount)
@@ -50,7 +53,7 @@ namespace Currencies
             PlayerPrefs.Save();
         }
 
-        protected void Load()
+        protected virtual void Load()
         {
             _amount = PlayerPrefs.GetInt(_saveKey, 0);
         }

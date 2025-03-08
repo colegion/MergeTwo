@@ -6,6 +6,7 @@ namespace Currencies
         {
             _saveKey = "coins";
             base.Start();
+            
         }
     }
 }

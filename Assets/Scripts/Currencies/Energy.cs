@@ -1,4 +1,5 @@
 using System.Collections;
+using UI;
 using UnityEngine;
 
 namespace Currencies
@@ -13,7 +14,7 @@ namespace Currencies
             _saveKey = "energy";
             base.Start();
             
-            if (_amount == 0) _amount = maxEnergy;
+            if (_amount > maxEnergy) _amount = maxEnergy;
             StartCoroutine(RegenerateEnergy());
         }
 
@@ -26,9 +27,15 @@ namespace Currencies
                 if (_amount < maxEnergy)
                 {
                     _amount++;
+                    currencyField.SetCurrency(_amount);
                     Save();
                 }
             }
+        }
+        
+        protected override void Load()
+        {
+            _amount = PlayerPrefs.GetInt(_saveKey, maxEnergy);
         }
     }
 }
