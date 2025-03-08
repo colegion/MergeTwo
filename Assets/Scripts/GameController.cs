@@ -74,8 +74,7 @@ public class GameController : MonoBehaviour
         OnUserTapped?.Invoke(tile);
         if (tile != null)
         {
-            var cell = _grid.GetCell(tile.X, tile.Y);
-            selectionOutline.transform.position = cell.GetWorldPosition();
+            PlaceOutline(tile);
         }
     }
     
@@ -89,10 +88,12 @@ public class GameController : MonoBehaviour
         if (TileComparator.IsIdentical(originConfig, targetConfig))
         {
             MergeTiles(selectedTile, targetTile);
+            PlaceOutline(targetTile);
         }
         else
         {
             SwapTiles(selectedTile, targetTile);
+            PlaceOutline(targetTile);
         }
     }
 
@@ -100,6 +101,7 @@ public class GameController : MonoBehaviour
     {
         if (selectedTile == null) return;
         MoveTileToPosition(selectedTile, targetPosition);
+        PlaceOutline(selectedTile);
     }
 
     private void MergeTiles(BaseTile selectedTile, BaseTile targetTile)
@@ -127,11 +129,12 @@ public class GameController : MonoBehaviour
         selectedTile.UpdatePosition(targetPosition);
     }
 
-    public Grid GetGrid()
+    private void PlaceOutline(BaseTile tile)
     {
-        return _grid;
+        var cell = _grid.GetCell(tile.X, tile.Y);
+        selectionOutline.transform.position = cell.GetWorldPosition();
     }
-
+    
     public BaseCell GetCell(int x, int y)
     {
         return _grid.GetCell(x, y);
