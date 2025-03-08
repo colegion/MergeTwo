@@ -19,6 +19,7 @@ MonoBehaviour:
     isMaxLevel: 1
   nextItem: {fileID: 0}
   canProduce: 1
+  produceCost: 1
   producerCapacity:
     capacityConfigs:
     - itemToProduce: {fileID: 11400000, guid: 8e71b918f44ab3446a747fabfecee4b3, type: 2}

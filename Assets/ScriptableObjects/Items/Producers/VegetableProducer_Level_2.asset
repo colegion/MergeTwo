@@ -19,6 +19,7 @@ MonoBehaviour:
     isMaxLevel: 0
   nextItem: {fileID: 11400000, guid: 26beb96f1d5683847a7613f7e1a1dce6, type: 2}
   canProduce: 0
+  produceCost: 1
   producerCapacity:
     capacityConfigs: []
   durationForRecharge: 0
