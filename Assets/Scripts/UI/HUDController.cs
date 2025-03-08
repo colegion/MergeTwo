@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using Helpers;
 using Pool;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace UI
 {
@@ -15,11 +17,22 @@ namespace UI
         private ItemConfigManager _itemConfigManager;
         private const int SpritePlaceHolderConfigLevel = 0;
 
+        private void OnEnable()
+        {
+            AddListeners();
+        }
+
+        private void OnDisable()
+        {
+            RemoveListeners();
+        }
+
         [ContextMenu("Test animation")]
         public void Test()
         {
             IncreaseCurrency(ItemType.Coin, 10);
         }
+        
         public void IncreaseCurrency(ItemType type, int amount)
         {
             AnimateCurrencyClaim(type, amount);
@@ -59,6 +72,21 @@ namespace UI
             float randomZ = Random.Range(-offset, offset);
             
             return worldCenter + new Vector3(randomX, 2, randomZ);
+        }
+
+        private void HandleOnOrderCompleted(ItemType type, int amount)
+        {
+            IncreaseCurrency(type, amount);
+        }
+
+        private void AddListeners()
+        {
+            OrderController.OnOrderCompleted += HandleOnOrderCompleted;
+        }
+
+        private void RemoveListeners()
+        {
+            OrderController.OnOrderCompleted -= HandleOnOrderCompleted;
         }
 
 

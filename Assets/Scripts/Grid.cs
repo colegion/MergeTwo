@@ -12,12 +12,15 @@ public class Grid
 
     private List<BaseCell> _availableCells;
 
+    private List<BaseTile> _tilesOnBoard;
+
     public Grid(int width, int height)
     {
         Width = width;
         Height = height;
         _board = new BaseCell[width, height];
         _availableCells = new List<BaseCell>();
+        _tilesOnBoard = new List<BaseTile>();
     }
 
     public void PlaceCell(BaseCell cell)
@@ -72,6 +75,7 @@ public class Grid
         else
         {
             cell.SetTile(tile);
+            _tilesOnBoard.Add(tile);
         }
     }
 
@@ -85,20 +89,15 @@ public class Grid
         else
         {
             cell.SetTileNull(tile.Layer);
+            _tilesOnBoard.Remove(tile);
         }
     }
 
     public List<BaseTile> GetAllTilesOnBoard()
     {
-        List<BaseTile> allTiles = new List<BaseTile>();
-        foreach (var cell in _board)
-        {
-            var cellTiles = cell.GetAssignedTiles();
-            allTiles.AddRange(cellTiles);
-        }
-
-        return allTiles;
+        return _tilesOnBoard;
     }
+    
 
     public Transform GetCellTargetByCoordinate(int x, int y)
     {

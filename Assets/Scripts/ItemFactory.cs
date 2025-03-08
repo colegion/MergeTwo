@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Helpers;
@@ -11,6 +12,19 @@ public class ItemFactory : MonoBehaviour
 
     private Grid _grid;
     private PoolController _poolController;
+    private OrderController _orderController;
+
+    private void Start()
+    {
+        InjectFields();
+    }
+
+    private void InjectFields()
+    {
+        _grid = ServiceLocator.Get<Grid>();
+        _poolController = ServiceLocator.Get<PoolController>();
+        _orderController = ServiceLocator.Get<OrderController>();
+    }
 
     public void PopulateBoard()
     {
@@ -36,6 +50,7 @@ public class ItemFactory : MonoBehaviour
         var tile = _poolController.GetPooledObject(PoolableTypes.BaseTile);
         var randomCell = _grid.GetAvailableRandomCell();
         tile.GetGameObject().GetComponent<BaseTile>().ConfigureSelf(itemConfig, randomCell.X, randomCell.Y);
+        _orderController.OnNewItemCreated();
     }
     
 }

@@ -7,6 +7,7 @@ namespace ScriptableObjects.Orders
     public class OrderConfig : ScriptableObject
     {
         public List<BaseItemConfig> requests;
+        public bool hasCompleted;
         public int rewardAmount;
     }
 }

@@ -20,7 +20,8 @@ public class GameController : MonoBehaviour
     [SerializeField] private CameraController cameraController;
     [SerializeField] private ItemFactory itemFactory;
     [SerializeField] private ItemConfigManager itemConfigManager;
-    
+
+    private OrderController _orderController;
     private LevelManager _levelManager;
     private Grid _grid;
 
@@ -59,6 +60,7 @@ public class GameController : MonoBehaviour
         _levelManager = new LevelManager(puzzleTransform);
         ServiceLocator.Register(itemFactory);
         itemFactory.PopulateBoard();
+        _orderController = ServiceLocator.Get<OrderController>();
     }
 
     public void OnTapPerformed(BaseTile tile = null)
@@ -99,6 +101,7 @@ public class GameController : MonoBehaviour
             tile.ConfigureSelf(nextStep, targetPos.x, targetPos.y);
             ReturnPoolableToPool(selectedTile);
             ReturnPoolableToPool(targetTile);
+            _orderController.OnNewItemCreated();
         }
         else
         {
@@ -128,8 +131,8 @@ public class GameController : MonoBehaviour
     public void ReturnPoolableToPool(IPoolable poolable)
     {
         poolController.ReturnPooledObject(poolable);
-    } 
-
+    }
+    
     private void OnDestroy()
     {
         List<TileData> tileData = new List<TileData>();
