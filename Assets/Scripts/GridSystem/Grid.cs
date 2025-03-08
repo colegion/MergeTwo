@@ -1,108 +1,112 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using Tile;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class Grid
+namespace GridSystem
 {
-    private BaseCell[,] _board;
-    public int Width { get; private set; }
-    public int Height { get; private set; }
-
-    private List<BaseCell> _availableCells;
-
-    private List<BaseTile> _tilesOnBoard;
-
-    public Grid(int width, int height)
+    public class Grid
     {
-        Width = width;
-        Height = height;
-        _board = new BaseCell[width, height];
-        _availableCells = new List<BaseCell>();
-        _tilesOnBoard = new List<BaseTile>();
-    }
+        private BaseCell[,] _board;
+        public int Width { get; private set; }
+        public int Height { get; private set; }
 
-    public void PlaceCell(BaseCell cell)
-    {
-        _board[cell.X, cell.Y] = cell;
-    }
+        private List<BaseCell> _availableCells;
 
-    public BaseCell GetCell(int x, int y)
-    {
-        return _board[x, y];
-    }
+        private List<BaseTile> _tilesOnBoard;
 
-    public void AppendAvailableCells(BaseCell cell)
-    {
-        if (_availableCells.Contains(cell)) return;
-        _availableCells.Add(cell);
-    }
-
-    public void RemoveCellFromAvailableCells(BaseCell cell)
-    {
-        if (_availableCells.Contains(cell))
+        public Grid(int width, int height)
         {
-            _availableCells.Remove(cell);
+            Width = width;
+            Height = height;
+            _board = new BaseCell[width, height];
+            _availableCells = new List<BaseCell>();
+            _tilesOnBoard = new List<BaseTile>();
         }
-    }
 
-    public BaseCell GetAvailableRandomCell()
-    {
-        var index = Random.Range(0, _availableCells.Count);
-        return _availableCells[index];
-    }
-
-    public void SetCell(BaseCell cell)
-    {
-        if (_board[cell.X, cell.Y] != null)
-        {
-            Debug.LogError($"Specified coordinate already holds for another cell! Coordinate: {cell.X} {cell.Y}");
-        }
-        else
+        public void PlaceCell(BaseCell cell)
         {
             _board[cell.X, cell.Y] = cell;
         }
-    }
 
-    public void PlaceTileToParentCell(BaseTile tile)
-    {
-        var cell = _board[tile.X, tile.Y];
-        if (cell == null)
+        public BaseCell GetCell(int x, int y)
         {
-            Debug.LogWarning($"Given tile has no valid coordinate X: {tile.X} Y: {tile.Y}");
+            if (!IsCoordinateValid(x, y)) return null;
+            return _board[x, y];
         }
-        else
-        {
-            cell.SetTile(tile);
-            _tilesOnBoard.Add(tile);
-        }
-    }
 
-    public void ClearTileOfParentCell(BaseTile tile)
-    {
-        var cell = _board[tile.X, tile.Y];
-        if (cell == null)
+        public void AppendAvailableCells(BaseCell cell)
         {
-            Debug.LogWarning($"Given tile has no valid coordinate X: {tile.X} Y: {tile.Y}");
+            if (_availableCells.Contains(cell)) return;
+            _availableCells.Add(cell);
         }
-        else
-        {
-            cell.SetTileNull(tile.Layer);
-            _tilesOnBoard.Remove(tile);
-        }
-    }
 
-    public List<BaseTile> GetAllTilesOnBoard()
-    {
-        return _tilesOnBoard;
-    }
+        public void RemoveCellFromAvailableCells(BaseCell cell)
+        {
+            if (_availableCells.Contains(cell))
+            {
+                _availableCells.Remove(cell);
+            }
+        }
+
+        public BaseCell GetAvailableRandomCell()
+        {
+            var index = Random.Range(0, _availableCells.Count);
+            return _availableCells[index];
+        }
+
+        public void SetCell(BaseCell cell)
+        {
+            if (_board[cell.X, cell.Y] != null)
+            {
+                Debug.LogError($"Specified coordinate already holds for another cell! Coordinate: {cell.X} {cell.Y}");
+            }
+            else
+            {
+                _board[cell.X, cell.Y] = cell;
+            }
+        }
+
+        public void PlaceTileToParentCell(BaseTile tile)
+        {
+            var cell = _board[tile.X, tile.Y];
+            if (cell == null)
+            {
+                Debug.LogWarning($"Given tile has no valid coordinate X: {tile.X} Y: {tile.Y}");
+            }
+            else
+            {
+                cell.SetTile(tile);
+                _tilesOnBoard.Add(tile);
+            }
+        }
+
+        public void ClearTileOfParentCell(BaseTile tile)
+        {
+            var cell = _board[tile.X, tile.Y];
+            if (cell == null)
+            {
+                Debug.LogWarning($"Given tile has no valid coordinate X: {tile.X} Y: {tile.Y}");
+            }
+            else
+            {
+                cell.SetTileNull(tile.Layer);
+                _tilesOnBoard.Remove(tile);
+            }
+        }
+
+        public List<BaseTile> GetAllTilesOnBoard()
+        {
+            return _tilesOnBoard;
+        }
     
 
-    public Transform GetCellTargetByCoordinate(int x, int y)
-    {
-        return _board[x, y].GetTarget();
+        public Transform GetCellTargetByCoordinate(int x, int y)
+        {
+            return _board[x, y].GetTarget();
+        }
+
+        public bool IsCoordinateValid(int x, int y) => x >= 0 && x < Width && y >= 0 && y < Height;
+
     }
-    
 }

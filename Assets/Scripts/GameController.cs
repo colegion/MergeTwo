@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
+using GridSystem;
 using Helpers;
 using JetBrains.Annotations;
 using Pool;
@@ -10,6 +11,7 @@ using ScriptableObjects;
 using Tile;
 using Unity.VisualScripting;
 using UnityEngine;
+using Grid = GridSystem.Grid;
 using IPoolable = Interfaces.IPoolable;
 
 public class GameController : MonoBehaviour
@@ -34,6 +36,10 @@ public class GameController : MonoBehaviour
             return _instance;
         }
     }
+
+    public int GridWidth => _grid.Width;
+    public int GridHeight => _grid.Height;
+    
 
     public static event Action<BaseTile> OnUserTapped;
 

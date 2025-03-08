@@ -1,4 +1,5 @@
 using System;
+using GridSystem;
 using Tile;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -99,9 +100,8 @@ public class InputController : MonoBehaviour
             {
                 Vector3 worldPos = hit.point;
 
-                int gridX = Mathf.FloorToInt(worldPos.x);
-                int gridY = Mathf.FloorToInt(worldPos.z);
-
+                int gridX = Mathf.FloorToInt(worldPos.x + (GameController.Instance.GridWidth / 2f));
+                int gridY = Mathf.FloorToInt(worldPos.z + (GameController.Instance.GridHeight / 2f));
                 BaseCell cell = GameController.Instance.GetCell(gridX, gridY);
 
                 if (cell != null)

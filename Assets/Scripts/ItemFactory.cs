@@ -6,6 +6,7 @@ using Pool;
 using ScriptableObjects;
 using Tile;
 using UnityEngine;
+using Grid = GridSystem.Grid;
 
 public class ItemFactory : MonoBehaviour
 {

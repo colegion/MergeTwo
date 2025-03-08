@@ -1,7 +1,9 @@
+using GridSystem;
 using Helpers;
 using Interfaces;
 using ScriptableObjects;
 using UnityEngine;
+using Grid = GridSystem.Grid;
 
 namespace Tile
 {
