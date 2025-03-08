@@ -16,10 +16,6 @@ public class OrderController : MonoBehaviour
     private Grid _grid;
 
     public static event Action<ItemType, int> OnOrderCompleted;
-    
-    private void Start()
-    {
-    }
 
     public void Initialize()
     {

@@ -913,6 +913,21 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3832691500080888402, guid: 811ccb62a29e0c047950eea9f54ffd94,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3832691500080888402, guid: 811ccb62a29e0c047950eea9f54ffd94,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3832691500080888402, guid: 811ccb62a29e0c047950eea9f54ffd94,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -150.00002
+      objectReference: {fileID: 0}
     - target: {fileID: 6035916161440877739, guid: 811ccb62a29e0c047950eea9f54ffd94,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1048,10 +1063,30 @@ PrefabInstance:
       propertyPath: currencyType
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 7655545579523305515, guid: 811ccb62a29e0c047950eea9f54ffd94,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7655545579523305515, guid: 811ccb62a29e0c047950eea9f54ffd94,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7655545579523305515, guid: 811ccb62a29e0c047950eea9f54ffd94,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -150.00002
+      objectReference: {fileID: 0}
     - target: {fileID: 8235084974639436990, guid: 811ccb62a29e0c047950eea9f54ffd94,
         type: 3}
       propertyPath: m_Name
       value: HUD
+      objectReference: {fileID: 0}
+    - target: {fileID: 8338763338263935899, guid: 811ccb62a29e0c047950eea9f54ffd94,
+        type: 3}
+      propertyPath: offset
+      value: 0.8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

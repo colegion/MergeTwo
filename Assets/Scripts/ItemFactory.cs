@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Helpers;
 using Pool;
 using ScriptableObjects;
+using Tile;
 using UnityEngine;
 
 public class ItemFactory : MonoBehaviour
@@ -57,6 +58,8 @@ public class ItemFactory : MonoBehaviour
         {
             case ItemType.Coin : case ItemType.Energy:
                 return PoolableTypes.SpecialTile;
+            case ItemType.Chest:
+                return PoolableTypes.Chest;
             case ItemType.VegetableProducer:
                 return PoolableTypes.Producer;
             default:
