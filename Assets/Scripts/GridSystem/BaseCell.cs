@@ -87,6 +87,11 @@ public class BaseCell : MonoBehaviour
     {
         return target;
     }
+
+    public Vector2Int GetPosition()
+    {
+        return new Vector2Int(_x, _y);
+    }
     
     public Vector3 GetWorldPosition()
     {

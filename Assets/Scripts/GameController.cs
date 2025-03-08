@@ -20,8 +20,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private CameraController cameraController;
     [SerializeField] private ItemFactory itemFactory;
     [SerializeField] private ItemConfigManager itemConfigManager;
-
-    private OrderController _orderController;
+    
     private LevelManager _levelManager;
     private Grid _grid;
 
@@ -60,7 +59,6 @@ public class GameController : MonoBehaviour
         _levelManager = new LevelManager(puzzleTransform);
         ServiceLocator.Register(itemFactory);
         itemFactory.PopulateBoard();
-        _orderController = ServiceLocator.Get<OrderController>();
     }
 
     public void OnTapPerformed(BaseTile tile = null)
@@ -95,19 +93,12 @@ public class GameController : MonoBehaviour
     {
         var nextStep = selectedTile.GetItemConfig().nextItem;
         var targetPos = targetTile.GetPosition();
-        var tempTile = poolController.GetPooledObject(PoolableTypes.BaseTile);
-        if (tempTile.GetGameObject().TryGetComponent(out BaseTile tile))
-        {
-            tile.ConfigureSelf(nextStep, targetPos.x, targetPos.y);
-            ReturnPoolableToPool(selectedTile);
-            ReturnPoolableToPool(targetTile);
-            _orderController.OnNewItemCreated();
-        }
-        else
-        {
-            Debug.LogWarning("There is an unexpected behaviour on merging tiles");
-        }
-        
+        var objectType = nextStep.itemType == ItemType.VegetableProducer
+            ? PoolableTypes.Producer
+            : PoolableTypes.BaseTile;
+        itemFactory.SpawnItemByConfig(nextStep, targetPos, objectType);
+        ReturnPoolableToPool(selectedTile);
+        ReturnPoolableToPool(targetTile);
     }
 
     private void SwapTiles(BaseTile selectedTile, BaseTile targetTile)

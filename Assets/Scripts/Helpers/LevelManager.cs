@@ -38,7 +38,10 @@ namespace Helpers
                     foreach (var data in levelData.tiles)
                     {
                         var config = configManager.GetItemConfig(data.itemType, data.itemLevel);
-                        itemFactory.SpawnItemByConfig(config);
+                        var type = config.itemType == ItemType.VegetableProducer
+                            ? PoolableTypes.Producer
+                            : PoolableTypes.BaseTile;
+                        itemFactory.SpawnItemByConfig(config, type);
                     }
                 }
             }
