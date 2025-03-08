@@ -14,8 +14,10 @@ namespace Helpers
         public List<AssetReference> itemConfigReferences;
 
         private int _pendingLoads = 0; 
-
-        private void Start()
+        
+        public bool IsReady { get; private set; } = false;
+        
+        private void Awake()
         {
             _itemConfigs = new List<BaseItemConfig>();
             LoadItemConfigs();
@@ -49,7 +51,7 @@ namespace Helpers
             if (_pendingLoads == 0)
             {
                 ServiceLocator.Register(this);
-                GameController.Instance.LoadLevel();
+                IsReady = true;
                 Debug.LogWarning("All item configs loaded.");
             }
         }

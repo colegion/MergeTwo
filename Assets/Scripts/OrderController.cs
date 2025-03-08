@@ -2,12 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Helpers;
+using Interfaces;
 using ScriptableObjects.Orders;
 using UI;
 using UnityEngine;
 using Grid = GridSystem.Grid;
 
-public class OrderController : MonoBehaviour
+public class OrderController : MonoBehaviour, IInjectable
 {
     [SerializeField] private OrderUIHelper orderUiHelper;
     [SerializeField] private List<OrderConfig> orders;
@@ -17,11 +18,14 @@ public class OrderController : MonoBehaviour
     private Grid _grid;
 
     public static event Action<ItemType, int> OnOrderCompleted;
+    
+    public void InjectDependencies()
+    {
+        _grid = ServiceLocator.Get<Grid>();
+    }
 
     public void Initialize()
     {
-        _grid = ServiceLocator.Get<Grid>();
-
         foreach (var order in orders)
         {
             _orders.Enqueue(order);

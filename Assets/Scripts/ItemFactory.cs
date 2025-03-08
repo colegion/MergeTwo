@@ -2,21 +2,22 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Helpers;
+using Interfaces;
 using Pool;
 using ScriptableObjects;
 using Tile;
 using UnityEngine;
 using Grid = GridSystem.Grid;
 
-public class ItemFactory : MonoBehaviour
+public class ItemFactory : MonoBehaviour, IInjectable
 {
     [SerializeField] private int itemSpawnCount;
-
+    
     private Grid _grid;
     private PoolController _poolController;
     private OrderController _orderController;
 
-    private void InjectFields()
+    public void InjectDependencies()
     {
         _grid = ServiceLocator.Get<Grid>();
         _poolController = ServiceLocator.Get<PoolController>();
@@ -25,8 +26,6 @@ public class ItemFactory : MonoBehaviour
 
     public void PopulateInitialBoard()
     {
-        InjectFields();
-        
         var configManager = ServiceLocator.Get<ItemConfigManager>();
 
         var producer = configManager.GetItemConfig(ItemType.VegetableProducer, 4);

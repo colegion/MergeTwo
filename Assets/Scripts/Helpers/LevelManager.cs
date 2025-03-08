@@ -20,9 +20,8 @@ namespace Helpers
 
         private void LoadLevel(Transform parent)
         {
-            var grid = ServiceLocator.Get<Grid>();
-            var width = grid.Width;
-            var height = grid.Height;
+            var width = GameController.Instance.GridWidth;
+            var height = GameController.Instance.GridHeight;
             LevelData levelData = null;
             if (File.Exists(levelDataPath))
             {

@@ -38,8 +38,8 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public int GridWidth => _grid.Width;
-    public int GridHeight => _grid.Height;
+    public int GridWidth => width;
+    public int GridHeight => height;
     
 
     public static event Action<BaseTile> OnUserTapped;
@@ -59,14 +59,12 @@ public class GameController : MonoBehaviour
 
     public void LoadLevel()
     {
-        _grid = new Grid(width, height);
-        ServiceLocator.Register<Grid>(_grid);
+        Debug.Log("GameController: Loading Level...");
+        _grid = ServiceLocator.Get<Grid>();
         cameraController.SetGridSize(width, height);
         poolController.Initialize();
-        ServiceLocator.Register(orderController);
-        ServiceLocator.Register(poolController);
         _levelManager = new LevelManager(puzzleTransform);
-        ServiceLocator.Register(itemFactory);
+
         itemFactory.PopulateInitialBoard();
         orderController.Initialize();
     }
@@ -127,6 +125,11 @@ public class GameController : MonoBehaviour
     private void MoveTileToPosition(BaseTile selectedTile, Vector2Int targetPosition)
     {
         selectedTile.UpdatePosition(targetPosition);
+    }
+
+    public Grid GetGrid()
+    {
+        return _grid;
     }
 
     public BaseCell GetCell(int x, int y)
