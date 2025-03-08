@@ -41,7 +41,7 @@ namespace Helpers
                         var type = config.itemType == ItemType.VegetableProducer
                             ? PoolableTypes.Producer
                             : PoolableTypes.BaseTile;
-                        itemFactory.SpawnItemByConfig(config, type);
+                        itemFactory.SpawnItemByConfig(config, type: type);
                     }
                 }
             }
