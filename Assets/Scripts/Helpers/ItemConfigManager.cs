@@ -4,6 +4,7 @@ using ScriptableObjects;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using Random = System.Random;
 
 namespace Helpers
 {
@@ -57,6 +58,11 @@ namespace Helpers
         {
             var config = _itemConfigs.Find(c => c.itemType == itemType && c.step.level == level);
             return config;
+        }
+
+        public BaseItemConfig GetRandomConfig()
+        {
+            return _itemConfigs[UnityEngine.Random.Range(0, _itemConfigs.Count)];
         }
     }
 }

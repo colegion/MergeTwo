@@ -49,4 +49,5 @@ MonoBehaviour:
   puzzleTransform: {fileID: 5933043278585731033}
   poolController: {fileID: 0}
   cameraController: {fileID: 0}
-  itemConfigManager: {fileID: 0}
+  itemFactory: {fileID: 0}
+  orderController: {fileID: 0}

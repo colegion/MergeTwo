@@ -14,11 +14,6 @@ public class ItemFactory : MonoBehaviour
     private PoolController _poolController;
     private OrderController _orderController;
 
-    private void Start()
-    {
-        InjectFields();
-    }
-
     private void InjectFields()
     {
         _grid = ServiceLocator.Get<Grid>();
@@ -26,10 +21,9 @@ public class ItemFactory : MonoBehaviour
         _orderController = ServiceLocator.Get<OrderController>();
     }
 
-    public void PopulateBoard()
+    public void PopulateInitialBoard()
     {
-        _grid = ServiceLocator.Get<Grid>();
-        _poolController = ServiceLocator.Get<PoolController>();
+        InjectFields();
         
         var configManager = ServiceLocator.Get<ItemConfigManager>();
 
@@ -41,7 +35,11 @@ public class ItemFactory : MonoBehaviour
         
         for (int i = 0; i < itemSpawnCount; i++)
         {
-            
+            var randomConfig = configManager.GetRandomConfig();
+            tempTile = _poolController.GetPooledObject(GetPoolableType(randomConfig.itemType));
+            tile = tempTile.GetGameObject().GetComponent<BaseTile>();
+            randomCell = _grid.GetAvailableRandomCell();
+            tile.ConfigureSelf(randomConfig, randomCell.X, randomCell.Y);
         }
     }
 
@@ -53,5 +51,16 @@ public class ItemFactory : MonoBehaviour
         _orderController.OnNewItemCreated();
     }
 
-    
+    private PoolableTypes GetPoolableType(ItemType type)
+    {
+        switch (type)
+        {
+            case ItemType.Coin : case ItemType.Energy:
+                return PoolableTypes.SpecialTile;
+            case ItemType.VegetableProducer:
+                return PoolableTypes.Producer;
+            default:
+                return PoolableTypes.BaseTile;
+        }
+    }
 }

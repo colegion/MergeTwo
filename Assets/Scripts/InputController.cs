@@ -44,9 +44,17 @@ public class InputController : MonoBehaviour
             var temp = hit.collider.GetComponent<BaseTile>();
             if (temp != null)
             {
-                _canSwipe = true;
-                _selectedTile = temp;
-                Debug.Log("Selected tile: ", _selectedTile);
+                if (temp == _selectedTile)
+                {
+                    _selectedTile.OnTap();
+                }
+                else
+                {
+                    _canSwipe = true;
+                    _selectedTile = temp;
+                    Debug.Log("Selected tile: ", _selectedTile);
+                    GameController.Instance.OnTapPerformed(_selectedTile);
+                }
             }
         }
     }

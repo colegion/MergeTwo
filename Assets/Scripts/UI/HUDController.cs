@@ -91,7 +91,5 @@ namespace UI
             OrderController.OnOrderCompleted -= HandleOnCurrencyEarned;
             SpecialTile.OnCurrencyGathered -= HandleOnCurrencyEarned;
         }
-
-
     }
 }

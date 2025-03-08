@@ -79,6 +79,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb597270c4d12e94cac029e69e0b0084, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collider: {fileID: 1236053641295246610}
   tileView: {fileID: 1889851228657139554}
 --- !u!114 &1889851228657139554
 MonoBehaviour:

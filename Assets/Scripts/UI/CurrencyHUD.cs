@@ -29,7 +29,7 @@ namespace UI
                 {
                     _currentAmount = x;
                     currencyAmountField.text = _currentAmount.ToString();
-                }, targetAmount, 0.5f)
+                }, targetAmount, 0.15f)
                 .SetEase(Ease.OutQuad);
         }
 

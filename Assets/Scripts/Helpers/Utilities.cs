@@ -37,6 +37,7 @@ namespace Helpers
     {
         BaseTile,
         Producer,
+        SpecialTile,
         Chest,
         TrailObject,
     }

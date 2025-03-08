@@ -19,7 +19,10 @@ public class OrderController : MonoBehaviour
     
     private void Start()
     {
-        ServiceLocator.Register(this);
+    }
+
+    public void Initialize()
+    {
         _grid = ServiceLocator.Get<Grid>();
 
         foreach (var order in orders)
@@ -27,7 +30,7 @@ public class OrderController : MonoBehaviour
             _orders.Enqueue(order);
         }
         
-        ReceiveNewOrder();
+        //ReceiveNewOrder();   
     }
 
     public void ReceiveNewOrder()

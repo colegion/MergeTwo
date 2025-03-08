@@ -482,18 +482,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e224f78ee1157e249aa1ba3243d83c56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1133372242 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3067868702940095499, guid: 1423dd5cf6cb77443bc07abedf07bcb5,
-    type: 3}
-  m_PrefabInstance: {fileID: 3030852560367294766}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fcaca847872aeb4993644b7fa46d0d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1314575646 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6996473651612218516, guid: b56b69439f07a2b4bbd94c4abb2b52f5,
@@ -524,6 +512,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9776347614499e4e8699b5ec2e9b496, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1803031163
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1803031164}
+  - component: {fileID: 1803031165}
+  m_Layer: 0
+  m_Name: OrderController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1803031164
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1803031163}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1803031165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1803031163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c065d7cb52fcd8c41959c714b2f60d57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  orderUiHelper: {fileID: 0}
+  orders: []
 --- !u!1 &2076381090
 GameObject:
   m_ObjectHideFlags: 0
@@ -772,6 +806,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ItemFactory
+      objectReference: {fileID: 0}
+    - target: {fileID: 6996473651612218516, guid: b56b69439f07a2b4bbd94c4abb2b52f5,
+        type: 3}
+      propertyPath: itemSpawnCount
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1029,16 +1068,6 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5635402342297313647, guid: d7300a7db7c026e42ba453bdbb7de2c3,
         type: 3}
-      propertyPath: width
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 5635402342297313647, guid: d7300a7db7c026e42ba453bdbb7de2c3,
-        type: 3}
-      propertyPath: height
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 5635402342297313647, guid: d7300a7db7c026e42ba453bdbb7de2c3,
-        type: 3}
       propertyPath: itemFactory
       value: 
       objectReference: {fileID: 1314575646}
@@ -1049,14 +1078,14 @@ PrefabInstance:
       objectReference: {fileID: 1014189808}
     - target: {fileID: 5635402342297313647, guid: d7300a7db7c026e42ba453bdbb7de2c3,
         type: 3}
+      propertyPath: orderController
+      value: 
+      objectReference: {fileID: 1803031165}
+    - target: {fileID: 5635402342297313647, guid: d7300a7db7c026e42ba453bdbb7de2c3,
+        type: 3}
       propertyPath: cameraController
       value: 
       objectReference: {fileID: 535817205}
-    - target: {fileID: 5635402342297313647, guid: d7300a7db7c026e42ba453bdbb7de2c3,
-        type: 3}
-      propertyPath: itemConfigManager
-      value: 
-      objectReference: {fileID: 1133372242}
     - target: {fileID: 5727486976281292947, guid: d7300a7db7c026e42ba453bdbb7de2c3,
         type: 3}
       propertyPath: m_Name
@@ -1287,3 +1316,4 @@ SceneRoots:
   - {fileID: 88272043}
   - {fileID: 132286722}
   - {fileID: 8942978660048185969}
+  - {fileID: 1803031164}

@@ -41,11 +41,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2742893122129182342}
-  - component: {fileID: 5338566125657462519}
+  - component: {fileID: 7637070583213200380}
   - component: {fileID: 1889851228657139554}
   - component: {fileID: 1236053641295246610}
   m_Layer: 0
-  m_Name: BaseTile
+  m_Name: SpecialTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67,7 +67,7 @@ Transform:
   - {fileID: 596198869360655219}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5338566125657462519
+--- !u!114 &7637070583213200380
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2020394897934045326}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd1379ac743134d41a21b9c106456650, type: 3}
+  m_Script: {fileID: 11500000, guid: ec61cebc3383e574a944236465a526f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   collider: {fileID: 1236053641295246610}
