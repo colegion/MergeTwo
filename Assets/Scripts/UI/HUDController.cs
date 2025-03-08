@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using Helpers;
 using Pool;
+using Tile;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -74,19 +75,21 @@ namespace UI
             return worldCenter + new Vector3(randomX, 2, randomZ);
         }
 
-        private void HandleOnOrderCompleted(ItemType type, int amount)
+        private void HandleOnCurrencyEarned(ItemType type, int amount)
         {
             IncreaseCurrency(type, amount);
         }
 
         private void AddListeners()
         {
-            OrderController.OnOrderCompleted += HandleOnOrderCompleted;
+            OrderController.OnOrderCompleted += HandleOnCurrencyEarned;
+            SpecialTile.OnCurrencyGathered += HandleOnCurrencyEarned;
         }
 
         private void RemoveListeners()
         {
-            OrderController.OnOrderCompleted -= HandleOnOrderCompleted;
+            OrderController.OnOrderCompleted -= HandleOnCurrencyEarned;
+            SpecialTile.OnCurrencyGathered -= HandleOnCurrencyEarned;
         }
 
 
