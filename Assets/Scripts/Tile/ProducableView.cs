@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Tile
 {
-    public class ChestView : TileView
+    public class ProducableView : TileView
     {
         [SerializeField] private SpriteRenderer clock;
 

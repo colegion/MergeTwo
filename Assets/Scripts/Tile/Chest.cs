@@ -15,7 +15,7 @@ namespace Tile
         private Coroutine _unlockRoutine;
         private bool _hasUnlocked;
 
-        private ChestView _chestView;
+        private ProducableView _producableView;
         public override void ConfigureSelf(BaseItemConfig config, int x, int y)
         {
             base.ConfigureSelf(config, x, y);
@@ -23,7 +23,7 @@ namespace Tile
             if(_itemFactory == null) _itemFactory = ServiceLocator.Get<ItemFactory>();
             _rewardHelper = new RewardHelper(_config.chestRewards.capacityConfigs);
 
-            _chestView = (ChestView)tileView;
+            _producableView = (ProducableView)tileView;
         }
 
         public override void OnTap()
@@ -52,12 +52,12 @@ namespace Tile
 
         private IEnumerator UnlockChest()
         {
-            _chestView.ToggleClock(true);
+            _producableView.ToggleClock(true);
             ToggleInteractable(false);
             yield return new WaitForSeconds(_config.durationToUnlock);
             ToggleInteractable(true);
             _hasUnlocked = true;
-            _chestView.ToggleClock(false);
+            _producableView.ToggleClock(false);
             tileView.UpdateSprite(_config.unlockedSprite);
         }
 
@@ -67,7 +67,7 @@ namespace Tile
             _config = null;
             _rewardHelper = null;
             _hasUnlocked = false;
-            _chestView.ToggleClock(false);
+            _producableView.ToggleClock(false);
         }
     }
 }

@@ -13,12 +13,16 @@ namespace Tile
 
         private Coroutine _cooldownRoutine;
         private bool _cooldownActive;
+
+        private ProducableView _producableView;
         public override void ConfigureSelf(BaseItemConfig config, int x, int y)
         {
             base.ConfigureSelf(config, x, y);
             if(_itemFactory == null) _itemFactory = ServiceLocator.Get<ItemFactory>();
             _config = (ProducerItemConfig)config;
             _rewardHelper = new RewardHelper(_config.producerCapacity.capacityConfigs);
+
+            _producableView = (ProducableView)tileView;
         }
     
         public override void OnTap()
@@ -57,11 +61,13 @@ namespace Tile
 
         private IEnumerator EnterCoolDown()
         {
+            _producableView.ToggleClock(true);
             ToggleInteractable(false);
             _cooldownActive = true;
             yield return new WaitForSeconds(_config.durationForRecharge);
             ToggleInteractable(true);
             _cooldownActive = false;
+            _producableView.ToggleClock(false);
             _rewardHelper.PopulateCapacities();
         }
     
@@ -71,6 +77,7 @@ namespace Tile
             _config = null;
             _rewardHelper = null;
             _cooldownActive = false;
+            _producableView.ToggleClock(false);
         }
     }
 }

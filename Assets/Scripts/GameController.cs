@@ -105,9 +105,9 @@ public class GameController : MonoBehaviour
         var objectType = nextStep.itemType == ItemType.VegetableProducer
             ? PoolableTypes.Producer
             : PoolableTypes.BaseTile;
-        itemFactory.SpawnItemByConfig(nextStep, targetPos, objectType);
         ReturnPoolableToPool(selectedTile);
         ReturnPoolableToPool(targetTile);
+        itemFactory.SpawnItemByConfig(nextStep, targetPos, objectType);
     }
 
     private void SwapTiles(BaseTile selectedTile, BaseTile targetTile)

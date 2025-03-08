@@ -63,12 +63,13 @@ namespace Tile
             BaseCell cell = Grid.GetCell(_x, _y);
             if (cell != null)
             {
+                cell.SetTile(this);
                 transform.position = cell.GetWorldPosition();
             }
             else
             {
                 Debug.LogWarning($"Cell at {_x}, {_y} not found! Using fallback position.");
-                transform.position = new Vector3(_x, 1, _y);
+                transform.position = new Vector3(_x, .25f, _y);
             }
         }
 
