@@ -45,4 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orderUiHelper: {fileID: 0}
-  orders: []
+  orders:
+  - {fileID: 11400000, guid: 0751643d6230c1a48b467e9dd6a65fd1, type: 2}
+  - {fileID: 11400000, guid: fc58c5bd1a955fe4cbd970cae7188756, type: 2}

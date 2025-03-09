@@ -90,7 +90,7 @@ public class OrderController : MonoBehaviour, IInjectable
                 var i1 = i;
                 sequence.InsertCallback((i + 1) * 0.5f, () =>
                 {
-                    orderTiles[i1].transform.DOMove(orderUiHelper.transform.position, 0.45f).SetEase(Ease.InCubic);
+                    orderTiles[i1].MoveToOrder(orderUiHelper.transform);
                 });
             }
 

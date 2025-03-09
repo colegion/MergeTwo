@@ -53,6 +53,11 @@ namespace Tile
             tileView.MoveTowardsTarget(Grid.GetCell(_x, _y).GetTarget(), SetTransform);
         }
 
+        public void MoveToOrder(Transform target)
+        {
+            tileView.MoveTowardsTarget(target, null);
+        }
+
         public void SetLayer(int layer)
         {
             _layer = layer;
