@@ -21,5 +21,9 @@ MonoBehaviour:
   nextItem: {fileID: 11400000, guid: d0b9ab88a1188a440bafa762af098e3c, type: 2}
   unlockedSprite: {fileID: 21300000, guid: fdce8e621f9f0c442b64719bd4a17cf2, type: 3}
   chestRewards:
-    capacityConfigs: []
+    capacityConfigs:
+    - itemToProduce: {fileID: 11400000, guid: 7be6074d67d97fe4dbc198ec335780b6, type: 2}
+      produceCount: 3
+    - itemToProduce: {fileID: 11400000, guid: 38ac2066b4bbce7488e240492d7fae5c, type: 2}
+      produceCount: 2
   durationToUnlock: 60
