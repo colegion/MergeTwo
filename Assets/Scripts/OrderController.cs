@@ -14,6 +14,7 @@ public class OrderController : MonoBehaviour, IInjectable
     [SerializeField] private List<OrderConfig> orders;
 
     private readonly Queue<OrderConfig> _orders = new Queue<OrderConfig>();
+    private int _orderIndex;
     private OrderConfig _currentOrder;
     private Grid _grid;
 
@@ -31,13 +32,21 @@ public class OrderController : MonoBehaviour, IInjectable
             _orders.Enqueue(order);
         }
         
-        //ReceiveNewOrder();   
+        //ReceiveNewOrder();
     }
 
     public void ReceiveNewOrder()
     {
-        _currentOrder = _orders.Dequeue();
-        orderUiHelper.ConfigureSelf(_currentOrder);
+        if (_orders.Count > 0)
+        {
+            _currentOrder = _orders.Dequeue();
+            _orderIndex++;
+            orderUiHelper.ConfigureSelf(_currentOrder, _orderIndex);
+        }
+        else
+        {
+            
+        }
     }
 
     public void OnNewItemCreated()

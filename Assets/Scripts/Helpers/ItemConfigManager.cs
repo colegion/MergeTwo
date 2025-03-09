@@ -65,7 +65,15 @@ namespace Helpers
 
         public BaseItemConfig GetRandomConfig()
         {
-            return _itemConfigs[UnityEngine.Random.Range(0, _itemConfigs.Count)];
+            var index = UnityEngine.Random.Range(0, _itemConfigs.Count);
+            var config = _itemConfigs[index];
+            while (config.step.level == 0)
+            {
+                index = UnityEngine.Random.Range(0, _itemConfigs.Count);
+                config = _itemConfigs[index];
+            }
+                
+            return config;
         }
     }
 }

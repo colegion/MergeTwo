@@ -27,12 +27,6 @@ namespace UI
         {
             RemoveListeners();
         }
-
-        [ContextMenu("Test animation")]
-        public void Test()
-        {
-            IncreaseCurrency(ItemType.Coin, 10);
-        }
         
         public void IncreaseCurrency(ItemType type, int amount)
         {

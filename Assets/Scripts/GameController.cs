@@ -42,7 +42,6 @@ public class GameController : MonoBehaviour
 
     public int GridWidth => width;
     public int GridHeight => height;
-    
 
     public static event Action<BaseTile> OnUserTapped;
 
