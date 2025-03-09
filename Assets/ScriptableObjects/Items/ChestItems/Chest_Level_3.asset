@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fb3d14b5f6b6304881de0cd7b80c98f, type: 3}
   m_Name: Chest_Level_3
   m_EditorClassIdentifier: 
+  itemName: Large Chest
   itemType: 8
   step:
     level: 3
@@ -20,9 +21,5 @@ MonoBehaviour:
   nextItem: {fileID: 0}
   unlockedSprite: {fileID: 21300000, guid: 7db97b51f365b134ba9afd36e387dc1c, type: 3}
   chestRewards:
-    chestRewards:
-    - rewardItem: {fileID: 11400000, guid: a7cea50208e71574299f63f148e74af7, type: 2}
-      rewardCount: 5
-    - rewardItem: {fileID: 11400000, guid: 67a5c933dbebe004e824534bdc73e326, type: 2}
-      rewardCount: 3
+    capacityConfigs: []
   durationToUnlock: 60

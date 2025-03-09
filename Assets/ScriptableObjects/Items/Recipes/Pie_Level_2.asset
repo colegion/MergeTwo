@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a8931d8d04b49e4d880f5eafe92c0b2, type: 3}
   m_Name: Pie_Level_2
   m_EditorClassIdentifier: 
+  itemName: Basket of Apple
   itemType: 4
   step:
     level: 2

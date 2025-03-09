@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f034bbc84b3305b42a7afd2421dc40f0, type: 3}
   m_Name: VegetableProducer_Level_5
   m_EditorClassIdentifier: 
+  itemName: Breakfast bowl
   itemType: 7
   step:
     level: 5

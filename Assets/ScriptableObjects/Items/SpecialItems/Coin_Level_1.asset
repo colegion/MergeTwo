@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afd9989e0238d5747acba4e8d434cc69, type: 3}
   m_Name: Coin_Level_1
   m_EditorClassIdentifier: 
+  itemName: Pair of coins
   itemType: 6
   step:
     level: 1
