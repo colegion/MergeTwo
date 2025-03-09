@@ -45,7 +45,7 @@ public class OrderController : MonoBehaviour, IInjectable
         }
         else
         {
-            
+            orderUiHelper.DisableSelf();
         }
     }
 
@@ -79,7 +79,7 @@ public class OrderController : MonoBehaviour, IInjectable
         {
             _currentOrder.hasCompleted = true;
             OnOrderCompleted?.Invoke(ItemType.Coin, _currentOrder.rewardAmount);
-            ReceiveNewOrder();
+            orderUiHelper.OnOrderCompleted(ReceiveNewOrder);
             Debug.Log("Order Completed!");
         }
     }

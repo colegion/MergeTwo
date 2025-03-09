@@ -24,6 +24,9 @@ namespace Tile
             _rewardHelper = new RewardHelper(_config.producerCapacity.capacityConfigs);
 
             _producableView = (ProducableView)tileView;
+
+            if (_config.canProduce)
+                _producableView.ToggleEnergyBottle(true);
         }
     
         public override void OnTap()

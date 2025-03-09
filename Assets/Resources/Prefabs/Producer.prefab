@@ -98,6 +98,7 @@ MonoBehaviour:
   visuals: {fileID: 266318255134310693}
   tileRenderer: {fileID: 2203737210156456517}
   particleHelper: {fileID: 0}
+  energyBottle: {fileID: 4267375763760567020}
   clock: {fileID: 8758940648390185102}
 --- !u!65 &1236053641295246610
 BoxCollider:
@@ -159,7 +160,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2457740392360161518}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1

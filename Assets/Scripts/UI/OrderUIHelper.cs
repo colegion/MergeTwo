@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using ScriptableObjects.Orders;
 using TMPro;
 using UnityEngine;
@@ -15,6 +17,7 @@ namespace UI
         {
             ToggleImages(false);
             orderField.text = $"Order #{orderIndex}";
+            orderField.gameObject.SetActive(true);
             var requests = config.requests;
             for (int i = 0; i < requests.Count; i++)
             {
@@ -23,9 +26,23 @@ namespace UI
             }
         }
 
+        public void OnOrderCompleted(Action onComplete)
+        {
+            transform.DOShakeScale(0.25f).SetEase(Ease.OutBounce).OnComplete(() =>
+            {
+                onComplete?.Invoke();
+            });
+        }
+
         private void ToggleImages(bool toggle)
         {
             orderImages.ForEach(i => i.enabled = toggle);
+        }
+
+        public void DisableSelf()
+        {
+            ToggleImages(false);
+            orderField.gameObject.SetActive(false);
         }
     }
 }

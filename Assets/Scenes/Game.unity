@@ -534,22 +534,22 @@ PrefabInstance:
     - target: {fileID: 1679993515352843340, guid: 72d944117f2b6e149a641448220c4e7f,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1679993515352843340, guid: 72d944117f2b6e149a641448220c4e7f,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1679993515352843340, guid: 72d944117f2b6e149a641448220c4e7f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 1679993515352843340, guid: 72d944117f2b6e149a641448220c4e7f,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -100
       objectReference: {fileID: 0}
     - target: {fileID: 2310432642877233048, guid: 72d944117f2b6e149a641448220c4e7f,
         type: 3}
@@ -656,25 +656,35 @@ PrefabInstance:
       propertyPath: m_Name
       value: OrderUI
       objectReference: {fileID: 0}
+    - target: {fileID: 4277470953870621869, guid: 72d944117f2b6e149a641448220c4e7f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5595399436302586591, guid: 72d944117f2b6e149a641448220c4e7f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8314664010915711535, guid: 72d944117f2b6e149a641448220c4e7f,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8314664010915711535, guid: 72d944117f2b6e149a641448220c4e7f,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8314664010915711535, guid: 72d944117f2b6e149a641448220c4e7f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 8314664010915711535, guid: 72d944117f2b6e149a641448220c4e7f,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1250,6 +1260,17 @@ PrefabInstance:
       propertyPath: orderUiHelper
       value: 
       objectReference: {fileID: 886342328}
+    - target: {fileID: 5245692454774429263, guid: 8472a8b27ac5b314fa8364ec2b6c6418,
+        type: 3}
+      propertyPath: orders.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5245692454774429263, guid: 8472a8b27ac5b314fa8364ec2b6c6418,
+        type: 3}
+      propertyPath: orders.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 0751643d6230c1a48b467e9dd6a65fd1,
+        type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
