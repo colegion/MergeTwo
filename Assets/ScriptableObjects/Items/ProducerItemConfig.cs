@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Helpers;
+using ScriptableObjects.Items;
 using UnityEngine;
 
 namespace ScriptableObjects

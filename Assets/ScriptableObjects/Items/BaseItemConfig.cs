@@ -1,9 +1,7 @@
-using System.Collections.Generic;
 using Helpers;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace ScriptableObjects
+namespace ScriptableObjects.Items
 {
     [CreateAssetMenu(fileName = "BaseItemConfig", menuName = "ScriptableObjects/BaseItemConfig")]
     public class BaseItemConfig : ScriptableObject
@@ -14,7 +12,7 @@ namespace ScriptableObjects
 
         public void Initialize()
         {
-            
+            step.ItemType = itemType;
         }
     }
 }

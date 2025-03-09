@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using ScriptableObjects;
+using ScriptableObjects.Items;
 using UnityEngine;
 
 namespace Helpers

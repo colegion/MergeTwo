@@ -1,3 +1,5 @@
+using System;
+using DG.Tweening;
 using Helpers;
 using UnityEngine;
 
@@ -27,6 +29,14 @@ namespace Tile
         public void ToggleVisuals(bool toggle)
         {
             visuals.SetActive(toggle);
+        }
+
+        public void MoveTowardsTarget(Transform target, Action onComplete)
+        {
+            transform.DOMove(target.position, 0.15f).SetEase(Ease.OutBack).OnComplete(() =>
+            {
+                onComplete?.Invoke();
+            });
         }
     }
 }

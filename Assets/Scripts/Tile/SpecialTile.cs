@@ -1,6 +1,7 @@
 using System;
 using Helpers;
 using ScriptableObjects;
+using ScriptableObjects.Items;
 using UnityEngine;
 
 namespace Tile

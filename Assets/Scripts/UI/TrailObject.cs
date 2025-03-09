@@ -4,6 +4,7 @@ using Helpers;
 using Interfaces;
 using Pool;
 using ScriptableObjects;
+using ScriptableObjects.Items;
 using UnityEngine;
 
 namespace UI

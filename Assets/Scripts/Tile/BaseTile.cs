@@ -2,6 +2,7 @@ using GridSystem;
 using Helpers;
 using Interfaces;
 using ScriptableObjects;
+using ScriptableObjects.Items;
 using UnityEngine;
 using Grid = GridSystem.Grid;
 
@@ -46,9 +47,7 @@ namespace Tile
         public void UpdatePosition(Vector2Int position)
         {
             SetPosition(position);
-            SetTransform();
-            //move
-
+            tileView.MoveTowardsTarget(Grid.GetCell(_x, _y).GetTarget(), SetTransform);
         }
 
         public void SetLayer(int layer)

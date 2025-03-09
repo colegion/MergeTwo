@@ -8,6 +8,7 @@ using Helpers;
 using JetBrains.Annotations;
 using Pool;
 using ScriptableObjects;
+using ScriptableObjects.Items;
 using Tile;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -85,7 +86,7 @@ public class GameController : MonoBehaviour
         var originConfig = selectedTile.GetItemConfig();
         var targetConfig = targetTile.GetItemConfig();
 
-        if (TileComparator.IsIdentical(originConfig, targetConfig))
+        if (TileComparator.IsConfigsIdentical(originConfig, targetConfig) && !TileComparator.IsTilesIdentical(selectedTile, targetTile))
         {
             MergeTiles(selectedTile, targetTile);
             PlaceOutline(targetTile);
@@ -168,10 +169,15 @@ public class GameController : MonoBehaviour
 
 public abstract partial class TileComparator
 {
-    public static bool IsIdentical(BaseItemConfig first, BaseItemConfig second)
+    public static bool IsConfigsIdentical(BaseItemConfig first, BaseItemConfig second)
     {
         var firstStep = first.step;
         var secondStep = second.step;
         return firstStep.ItemType == secondStep.ItemType && firstStep.level == secondStep.level && !firstStep.isMaxLevel;
+    }
+
+    public static bool IsTilesIdentical(BaseTile first, BaseTile second)
+    {
+        return first == second;
     }
 }
