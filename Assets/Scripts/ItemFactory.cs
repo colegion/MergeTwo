@@ -45,12 +45,14 @@ public class ItemFactory : MonoBehaviour, IInjectable
         }
     }
 
-    public void SpawnItemByConfig(BaseItemConfig itemConfig, Vector2Int? specificPosition = null, PoolableTypes type = PoolableTypes.BaseTile)
+    public BaseTile SpawnItemByConfig(BaseItemConfig itemConfig, Vector2Int? specificPosition = null, PoolableTypes type = PoolableTypes.BaseTile)
     {
-        var tile = _poolController.GetPooledObject(type);
+        var pooledTile = _poolController.GetPooledObject(type);
         var position = specificPosition ?? _grid.GetAvailableRandomCell().GetPosition();
-        tile.GetGameObject().GetComponent<BaseTile>().ConfigureSelf(itemConfig, position.x, position.y);
+        var tile = pooledTile.GetGameObject().GetComponent<BaseTile>();
+        tile.ConfigureSelf(itemConfig, position.x, position.y);
         _orderController.OnNewItemCreated();
+        return tile;
     }
     
 }

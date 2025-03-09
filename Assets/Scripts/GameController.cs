@@ -89,6 +89,7 @@ public class GameController : MonoBehaviour
         {
             MergeTiles(selectedTile, targetTile);
             PlaceOutline(targetTile);
+            
         }
         else
         {
@@ -113,7 +114,8 @@ public class GameController : MonoBehaviour
             : PoolableTypes.BaseTile;
         ReturnPoolableToPool(selectedTile);
         ReturnPoolableToPool(targetTile);
-        itemFactory.SpawnItemByConfig(nextStep, targetPos, objectType);
+        var spawned = itemFactory.SpawnItemByConfig(nextStep, targetPos, objectType);
+        OnTapPerformed(spawned);
     }
 
     private void SwapTiles(BaseTile selectedTile, BaseTile targetTile)
