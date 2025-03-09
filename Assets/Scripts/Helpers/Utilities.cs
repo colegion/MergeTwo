@@ -9,13 +9,18 @@ namespace Helpers
 {
     public class Utilities : MonoBehaviour
     {
-        public static int GetMaxLevelByType(ItemType type)
+        public static PoolableTypes GetPoolableType(ItemType type)
         {
             switch (type)
             {
-                case ItemType.Coin: case ItemType.Energy:
-                    return 3;
-                default: return 5;
+                case ItemType.Coin : case ItemType.Energy:
+                    return PoolableTypes.SpecialTile;
+                case ItemType.Chest:
+                    return PoolableTypes.Chest;
+                case ItemType.VegetableProducer:
+                    return PoolableTypes.Producer;
+                default:
+                    return PoolableTypes.BaseTile;
             }
         }
     }

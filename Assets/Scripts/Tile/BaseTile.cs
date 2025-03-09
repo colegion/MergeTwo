@@ -25,6 +25,7 @@ namespace Tile
 
         protected BaseItemConfig _stepConfig;
         private Vector2Int _position;
+        private TileData _tileData;
     
         public virtual void ConfigureSelf(BaseItemConfig config, int x, int y)
         {
@@ -37,6 +38,8 @@ namespace Tile
 
             if(Grid == null) Grid = ServiceLocator.Get<Grid>();
             Grid.PlaceTileToParentCell(this);
+            ConfigureTileData();
+            GameController.Instance.AppendLevelTiles(_tileData);
         }
     
         public virtual void OnTap()
@@ -77,21 +80,7 @@ namespace Tile
             _position = position;
             _x = _position.x;
             _y = _position.y;
-        }
-
-        public void SetLocalPosition(int x, int y)
-        {
-            transform.localPosition = new Vector3(x, 0, y);
-        }
-
-        public void SetXCoordinate(int x)
-        {
-            _x = x;
-        }
-
-        public void SetYCoordinate(int y)
-        {
-            _y = y;
+            ConfigureTileData();
         }
 
         public BaseItemConfig GetItemConfig()
@@ -101,25 +90,34 @@ namespace Tile
 
         protected virtual void ResetSelf()
         {
+            GameController.Instance.RemoveDataFromLevelTiles(_tileData);
             _stepConfig = null;
             Grid.ClearTileOfParentCell(this);
             tileView.ResetSelf();
             tileView.ToggleVisuals(false);
             _position = Vector2Int.zero;
+            _tileData = null;
         }
 
         public Vector2Int GetPosition()
         {
             return _position;
         }
-        
-        public TileData GetTileData()
+
+        public void ConfigureTileData()
         {
-            return new TileData()
+            _tileData = new TileData()
             {
+                xCoord = _x,
+                yCoord = _y,
                 itemLevel = _stepConfig.step.level,
                 itemType = _stepConfig.step.ItemType
             };
+        }
+        
+        public TileData GetTileData()
+        {
+            return _tileData;
         }
 
         public void OnPooled()

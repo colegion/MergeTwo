@@ -38,7 +38,7 @@ public class ItemFactory : MonoBehaviour, IInjectable
         for (int i = 0; i < itemSpawnCount; i++)
         {
             var randomConfig = configManager.GetRandomConfig();
-            tempTile = _poolController.GetPooledObject(GetPoolableType(randomConfig.itemType));
+            tempTile = _poolController.GetPooledObject(Utilities.GetPoolableType(randomConfig.itemType));
             tile = tempTile.GetGameObject().GetComponent<BaseTile>();
             randomCell = _grid.GetAvailableRandomCell();
             tile.ConfigureSelf(randomConfig, randomCell.X, randomCell.Y);
@@ -52,19 +52,5 @@ public class ItemFactory : MonoBehaviour, IInjectable
         tile.GetGameObject().GetComponent<BaseTile>().ConfigureSelf(itemConfig, position.x, position.y);
         _orderController.OnNewItemCreated();
     }
-
-    private PoolableTypes GetPoolableType(ItemType type)
-    {
-        switch (type)
-        {
-            case ItemType.Coin : case ItemType.Energy:
-                return PoolableTypes.SpecialTile;
-            case ItemType.Chest:
-                return PoolableTypes.Chest;
-            case ItemType.VegetableProducer:
-                return PoolableTypes.Producer;
-            default:
-                return PoolableTypes.BaseTile;
-        }
-    }
+    
 }

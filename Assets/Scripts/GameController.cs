@@ -28,6 +28,7 @@ public class GameController : MonoBehaviour
     
     private LevelManager _levelManager;
     private Grid _grid;
+    private List<TileData> _levelTiles = new List<TileData>();
 
     private static GameController _instance;
 
@@ -65,8 +66,7 @@ public class GameController : MonoBehaviour
         cameraController.SetGridSize(width, height);
         poolController.Initialize();
         _levelManager = new LevelManager(puzzleTransform);
-
-        itemFactory.PopulateInitialBoard();
+        
         orderController.Initialize();
     }
 
@@ -145,22 +145,24 @@ public class GameController : MonoBehaviour
     {
         poolController.ReturnPooledObject(poolable);
     }
-    
+
+    public void AppendLevelTiles(TileData data)
+    {
+        _levelTiles.Add(data);
+    }
+
+    public void RemoveDataFromLevelTiles(TileData data)
+    {
+        _levelTiles.Remove(data);
+    }
+
     private void OnDestroy()
     {
-        List<TileData> tileData = new List<TileData>();
-        var tiles = _grid.GetAllTilesOnBoard();
-
-        foreach (var tile in tiles)
-        {
-            tileData.Add(tile.GetTileData());
-        }
-
         var levelData = new LevelData()
         {
             boardWidth = _grid.Width,
             boardHeight = _grid.Height,
-            tiles = tileData
+            tiles = _levelTiles
         };
         
         _levelManager.SaveLevel(levelData);
