@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using Helpers;
 using Interfaces;
 using ScriptableObjects.Orders;
+using Tile;
 using UI;
 using UnityEngine;
 using Grid = GridSystem.Grid;
@@ -32,7 +34,7 @@ public class OrderController : MonoBehaviour, IInjectable
             _orders.Enqueue(order);
         }
         
-        //ReceiveNewOrder();
+        ReceiveNewOrder();
     }
 
     public void ReceiveNewOrder()
@@ -52,6 +54,7 @@ public class OrderController : MonoBehaviour, IInjectable
     public void OnNewItemCreated()
     {
         if (_currentOrder == null) return;
+        List<BaseTile> orderTiles = new List<BaseTile>();
 
         bool orderAllComplete = true;
         
@@ -61,9 +64,11 @@ public class OrderController : MonoBehaviour, IInjectable
             
             foreach (var item in _grid.GetAllTilesOnBoard())
             {
-                if (item.GetItemConfig().step.ItemType == request.step.ItemType)
+                var config = item.GetItemConfig();
+                if (config.step.ItemType == request.step.ItemType && config.step.level == request.step.level)
                 {
                     requestFound = true;
+                    orderTiles.Add(item);
                     break; 
                 }
             }
@@ -77,9 +82,28 @@ public class OrderController : MonoBehaviour, IInjectable
         
         if (orderAllComplete)
         {
+            Sequence sequence = DOTween.Sequence();
             _currentOrder.hasCompleted = true;
-            OnOrderCompleted?.Invoke(ItemType.Coin, _currentOrder.rewardAmount);
-            orderUiHelper.OnOrderCompleted(ReceiveNewOrder);
+
+            for (int i = 0; i < orderTiles.Count; i++)
+            {
+                var i1 = i;
+                sequence.InsertCallback((i + 1) * 0.5f, () =>
+                {
+                    orderTiles[i1].transform.DOMove(orderUiHelper.transform.position, 0.45f).SetEase(Ease.InCubic);
+                });
+            }
+
+            sequence.AppendCallback(() =>
+            {
+                orderUiHelper.OnOrderCompleted(ReceiveNewOrder);
+                OnOrderCompleted?.Invoke(ItemType.Coin, _currentOrder.rewardAmount);
+                foreach (var tile in orderTiles)
+                {
+                    GameController.Instance.ReturnPoolableToPool(tile);
+                }
+            });
+            
             Debug.Log("Order Completed!");
         }
     }
