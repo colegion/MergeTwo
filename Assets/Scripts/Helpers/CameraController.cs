@@ -5,9 +5,7 @@ namespace Helpers
     public class CameraController : MonoBehaviour
     {
         [SerializeField] private Camera mainCamera;
-        [SerializeField] private float baseOrthographicSize = 10f;
         [SerializeField] private float padding = 1f;
-        [SerializeField] private float cameraHeight = 10f; 
 
         private int _gridWidth;
         private int _gridHeight;

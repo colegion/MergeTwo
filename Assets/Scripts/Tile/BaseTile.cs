@@ -4,13 +4,14 @@ using Interfaces;
 using ScriptableObjects;
 using ScriptableObjects.Items;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Grid = GridSystem.Grid;
 
 namespace Tile
 {
     public class BaseTile : MonoBehaviour, ITappable, IPoolable
     {
-        [SerializeField] private Collider collider;
+        [SerializeField] private Collider tileCollider;
         [SerializeField] protected TileView tileView;
     
         protected int _x;

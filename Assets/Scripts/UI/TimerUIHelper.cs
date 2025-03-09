@@ -45,8 +45,6 @@ namespace UI
 
                 temp = _interval;
             }
-            
-            yield return null;
         }
 
         private void AddListeners()
