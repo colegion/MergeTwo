@@ -8,8 +8,6 @@ namespace UI
     public class ItemInfoPlate : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI infoField;
-        [SerializeField] private TextMeshProUGUI itemName;
-        [SerializeField] private TextMeshProUGUI itemLevel;
 
         private void OnEnable()
         {
@@ -25,22 +23,15 @@ namespace UI
         {
             if (tile == null)
             {
-                ToggleFields(false);
+                infoField.text = "Select item to see info";
             }
             else
             {
-                ToggleFields(true);
                 var config = tile.GetItemConfig();
-                itemName.text = $"{config.step.level}";
+                infoField.text = $"{config.itemName} (Level: {config.step.level})";
             }
         }
-
-        private void ToggleFields(bool value)
-        {
-            infoField.enabled = !value;
-            itemName.enabled = value;
-            itemLevel.enabled = value;
-        }
+        
 
         private void AddListeners()
         {
