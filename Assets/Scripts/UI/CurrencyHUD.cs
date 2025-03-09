@@ -11,9 +11,9 @@ namespace UI
         [SerializeField] private ItemType currencyType;
         [SerializeField] private Transform target;
         [SerializeField] private TextMeshProUGUI currencyAmountField;
-
-        private int _currentAmount;
         
+        private int _currentAmount;
+
         public void SetCurrency(int amount)
         {
             currencyAmountField.text = $"{amount}";
