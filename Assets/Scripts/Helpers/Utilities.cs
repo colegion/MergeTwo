@@ -36,7 +36,8 @@ namespace Helpers
         Energy,
         Coin,
         VegetableProducer,
-        Chest
+        Chest,
+        DinnerProducer,
     }
 
     public enum PoolableTypes

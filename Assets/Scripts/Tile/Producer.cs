@@ -28,10 +28,11 @@ namespace Tile
             _producableView = (ProducableView)tileView;
 
             if (_config.canProduce)
+            {
                 _producableView.ToggleEnergyBottle(true);
-            
-            readyToProduce.Play();
-            _timer = new CountdownTimer(_config.durationForRecharge);
+                readyToProduce.Play();
+                _timer = new CountdownTimer(_config.durationForRecharge);
+            }
         }
     
         public override void OnTap()

@@ -10,23 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f034bbc84b3305b42a7afd2421dc40f0, type: 3}
-  m_Name: VegetableProducer_Level_4
+  m_Name: DinnerProducer_Level_4
   m_EditorClassIdentifier: 
-  itemName: Lettuce bowl
-  itemType: 7
+  itemName: Seafood plate
+  itemType: 9
   step:
     level: 4
-    itemSprite: {fileID: 21300000, guid: 85ba0178c4ca3e74b9c6a9eadecbbb65, type: 3}
+    itemSprite: {fileID: 21300000, guid: ca7602671e1a14e41ab193013557759d, type: 3}
     isMaxLevel: 0
-  nextItem: {fileID: 11400000, guid: fd5835dd0f3d51e45a8b8a3f7a941db4, type: 2}
+  nextItem: {fileID: 11400000, guid: c358371c710a816468468dea4d361180, type: 2}
   canProduce: 1
   produceCost: 1
   producerCapacity:
     capacityConfigs:
-    - itemToProduce: {fileID: 11400000, guid: 942d87402bd37d54196dfcdb4dcd8bd1, type: 2}
+    - itemToProduce: {fileID: 11400000, guid: e86fd8b370a766949a26637b84a3bdb5, type: 2}
       produceCount: 5
-    - itemToProduce: {fileID: 11400000, guid: 8e71b918f44ab3446a747fabfecee4b3, type: 2}
+    - itemToProduce: {fileID: 11400000, guid: 4aa1a8e252ebda543b40f6da15633912, type: 2}
       produceCount: 5
-    - itemToProduce: {fileID: 11400000, guid: 339e1cc39bd309e48a538c76f0d90ca3, type: 2}
+    - itemToProduce: {fileID: 11400000, guid: db0769698b8e48448a4928ede128aa9b, type: 2}
       produceCount: 2
   durationForRecharge: 10

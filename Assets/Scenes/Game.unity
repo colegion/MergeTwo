@@ -923,6 +923,41 @@ PrefabInstance:
       propertyPath: m_Name
       value: ItemConfigManager
       objectReference: {fileID: 0}
+    - target: {fileID: 3067868702940095499, guid: 1423dd5cf6cb77443bc07abedf07bcb5,
+        type: 3}
+      propertyPath: itemConfigReferences.Array.size
+      value: 41
+      objectReference: {fileID: 0}
+    - target: {fileID: 3067868702940095499, guid: 1423dd5cf6cb77443bc07abedf07bcb5,
+        type: 3}
+      propertyPath: itemConfigReferences.Array.data[36].m_AssetGUID
+      value: 339e1cc39bd309e48a538c76f0d90ca3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3067868702940095499, guid: 1423dd5cf6cb77443bc07abedf07bcb5,
+        type: 3}
+      propertyPath: itemConfigReferences.Array.data[37].m_AssetGUID
+      value: 51ccbe162ce00744aade2ce617c0b5d2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3067868702940095499, guid: 1423dd5cf6cb77443bc07abedf07bcb5,
+        type: 3}
+      propertyPath: itemConfigReferences.Array.data[38].m_AssetGUID
+      value: 07df5bdab162bc34a911d73333bef41d
+      objectReference: {fileID: 0}
+    - target: {fileID: 3067868702940095499, guid: 1423dd5cf6cb77443bc07abedf07bcb5,
+        type: 3}
+      propertyPath: itemConfigReferences.Array.data[39].m_AssetGUID
+      value: a5eef27c75edeb145bffa769c3bcfa7f
+      objectReference: {fileID: 0}
+    - target: {fileID: 3067868702940095499, guid: 1423dd5cf6cb77443bc07abedf07bcb5,
+        type: 3}
+      propertyPath: itemConfigReferences.Array.data[40].m_AssetGUID
+      value: c358371c710a816468468dea4d361180
+      objectReference: {fileID: 0}
+    - target: {fileID: 3067868702940095499, guid: 1423dd5cf6cb77443bc07abedf07bcb5,
+        type: 3}
+      propertyPath: itemConfigReferences.Array.data[36].m_EditorAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3546861697433111307, guid: 1423dd5cf6cb77443bc07abedf07bcb5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1572,6 +1607,11 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 535817202}
+    - target: {fileID: 3169706598963430262, guid: cf6ac8ef5ebe1c94d938c67605c05aca,
+        type: 3}
+      propertyPath: m_RenderMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3880464385783604709, guid: cf6ac8ef5ebe1c94d938c67605c05aca,
         type: 3}
       propertyPath: m_AnchorMax.y

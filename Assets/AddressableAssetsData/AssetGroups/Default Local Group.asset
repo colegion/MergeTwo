@@ -32,6 +32,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 07df5bdab162bc34a911d73333bef41d
+    m_Address: Assets/ScriptableObjects/Items/Producers/DinnerProducer_Level_3.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 07ec39b300a8fe042afb930e4c01f2f8
     m_Address: Assets/ScriptableObjects/Recipes/Wine_Level_5.asset
     m_ReadOnly: 0
@@ -57,6 +62,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 339e1cc39bd309e48a538c76f0d90ca3
+    m_Address: Assets/ScriptableObjects/Items/Producers/DinnerProducer_Level_1.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 38ac2066b4bbce7488e240492d7fae5c
     m_Address: Assets/ScriptableObjects/SpecialItems/Coin_Level_2.asset
     m_ReadOnly: 0
@@ -69,6 +79,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4bf491817e299be49b06f9ac03cb1e07
     m_Address: Assets/ScriptableObjects/ChestItems/Chest_Level_2.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 51ccbe162ce00744aade2ce617c0b5d2
+    m_Address: Assets/ScriptableObjects/Items/Producers/DinnerProducer_Level_2.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -127,6 +142,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a5eef27c75edeb145bffa769c3bcfa7f
+    m_Address: Assets/ScriptableObjects/Items/Producers/DinnerProducer_Level_4.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a7cea50208e71574299f63f148e74af7
     m_Address: Assets/ScriptableObjects/SpecialItems/Energy_Level_3.asset
     m_ReadOnly: 0
@@ -154,6 +174,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c08b65f88c314764fa403a0e485a8dd4
     m_Address: Assets/ScriptableObjects/SpecialItems/Coin_SpriteHolder.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c358371c710a816468468dea4d361180
+    m_Address: Assets/ScriptableObjects/Items/Producers/DinnerProducer_Level_5.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

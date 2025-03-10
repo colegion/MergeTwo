@@ -10,27 +10,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f034bbc84b3305b42a7afd2421dc40f0, type: 3}
-  m_Name: VegetableProducer_Level_5
+  m_Name: DinnerProducer_Level_5
   m_EditorClassIdentifier: 
-  itemName: Breakfast bowl
-  itemType: 7
+  itemName: Dinner heaven
+  itemType: 9
   step:
     level: 5
-    itemSprite: {fileID: 21300000, guid: fc2f94478676066478a32f4dbe4a92a9, type: 3}
-    isMaxLevel: 1
+    itemSprite: {fileID: 21300000, guid: d2e3a19060341bd48b62e4116e75442f, type: 3}
+    isMaxLevel: 0
   nextItem: {fileID: 0}
   canProduce: 1
   produceCost: 1
   producerCapacity:
     capacityConfigs:
-    - itemToProduce: {fileID: 11400000, guid: 8e71b918f44ab3446a747fabfecee4b3, type: 2}
+    - itemToProduce: {fileID: 11400000, guid: e011c6252f657c449899cfd70fe775bc, type: 2}
       produceCount: 5
-    - itemToProduce: {fileID: 11400000, guid: 942d87402bd37d54196dfcdb4dcd8bd1, type: 2}
+    - itemToProduce: {fileID: 11400000, guid: 068c6a807af4ff44f8f5680114343537, type: 2}
       produceCount: 5
-    - itemToProduce: {fileID: 11400000, guid: b4f380442e7a4ad40a5a7b04ca3ce305, type: 2}
+    - itemToProduce: {fileID: 11400000, guid: 4aa1a8e252ebda543b40f6da15633912, type: 2}
       produceCount: 5
-    - itemToProduce: {fileID: 11400000, guid: 86d077ba5d19bd043afb8535e1d71720, type: 2}
+    - itemToProduce: {fileID: 11400000, guid: e86fd8b370a766949a26637b84a3bdb5, type: 2}
       produceCount: 5
-    - itemToProduce: {fileID: 11400000, guid: 51ccbe162ce00744aade2ce617c0b5d2, type: 2}
+    - itemToProduce: {fileID: 11400000, guid: 2682084b3f55dd7469a1d4486f5ed893, type: 2}
       produceCount: 2
   durationForRecharge: 20
