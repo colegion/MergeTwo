@@ -19,44 +19,60 @@ namespace Helpers
         public void PopulateCapacities()
         {
             _remainingCounts.Clear();
-            foreach (var temp in _capacity)
+            foreach (var entry in _capacity)
             {
-                _remainingCounts.TryAdd(temp.itemToProduce, temp.produceCount);
+                _remainingCounts[entry.itemToProduce] = entry.produceCount;
             }
         }
 
         public BaseItemConfig GetRandomItemToProduce()
         {
-            if (IsEmpty()) return null;
-            var randomIndex = Random.Range(0, _capacity.Count);
-            var produceItem = _capacity[randomIndex].itemToProduce;
-            
-            while (_remainingCounts[produceItem] == 0)
+            var availableItems = GetAvailableItems();
+
+            if (availableItems.Count == 0)
             {
-                randomIndex = Random.Range(0, _capacity.Count);
-                produceItem = _capacity[randomIndex].itemToProduce;
+                Debug.LogWarning("No available items to produce!");
+                return null;
             }
-            
-            return produceItem;
+
+            int randomIndex = Random.Range(0, availableItems.Count);
+            return availableItems[randomIndex];
         }
 
-        public void DecreaseRemainingCount(BaseItemConfig spawnedItemConfig)
+        public void DecreaseRemainingCount(BaseItemConfig itemConfig)
         {
-            _remainingCounts[spawnedItemConfig]--;
+            if (!_remainingCounts.ContainsKey(itemConfig))
+            {
+                Debug.LogError($"Item {itemConfig.name} not found in remaining counts.");
+                return;
+            }
+
+            _remainingCounts[itemConfig] = Mathf.Max(0, _remainingCounts[itemConfig] - 1);
         }
 
         public bool IsEmpty()
         {
-            bool cooldownActive = true;
-            foreach (var config in _remainingCounts)
+            foreach (var count in _remainingCounts.Values)
             {
-                if (config.Value > 0) 
+                if (count > 0)
+                    return false;
+            }
+            return true;
+        }
+
+        private List<BaseItemConfig> GetAvailableItems()
+        {
+            var availableItems = new List<BaseItemConfig>();
+
+            foreach (var pair in _remainingCounts)
+            {
+                if (pair.Value > 0)
                 {
-                    cooldownActive = false;
-                    break;  
+                    availableItems.Add(pair.Key);
                 }
             }
-            return cooldownActive;
+
+            return availableItems;
         }
     }
 }

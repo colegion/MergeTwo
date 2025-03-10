@@ -82,7 +82,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb597270c4d12e94cac029e69e0b0084, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileCollider: {fileID: 0}
+  tileCollider: {fileID: 1236053641295246610}
   tileView: {fileID: 5022008210063770557}
   readyToProduce: {fileID: 1292490035371376536}
 --- !u!114 &5022008210063770557

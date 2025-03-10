@@ -17,7 +17,7 @@ namespace Helpers
                     return PoolableTypes.SpecialTile;
                 case ItemType.Chest:
                     return PoolableTypes.Chest;
-                case ItemType.VegetableProducer:
+                case ItemType.VegetableProducer: case ItemType.DinnerProducer:
                     return PoolableTypes.Producer;
                 default:
                     return PoolableTypes.BaseTile;

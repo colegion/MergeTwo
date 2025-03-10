@@ -20,14 +20,13 @@ namespace UI
             transform.DOScale(Vector3.one, 0.3f).SetEase(Ease.OutBack);
         }
 
-        public void MoveTowardsTarget(Transform target, Action onComplete)
+        public void MoveTowardsTarget(Vector3 targetWorldPos, Action onComplete)
         {
-            transform.DOJump(target.position, .3f, 1, .3f).SetEase(Ease.OutBack).OnComplete(() =>
-            {
-                
-                onComplete?.Invoke();
-            });
+            transform.DOJump(targetWorldPos, 0.15f, 1, 0.3f)
+                .SetEase(Ease.OutBack)
+                .OnComplete(() => onComplete?.Invoke());
         }
+
 
         public void OnPooled()
         {
