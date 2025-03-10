@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
+using Commands;
 using GridSystem;
 using Helpers;
 using JetBrains.Annotations;
 using Pool;
 using ScriptableObjects;
 using ScriptableObjects.Items;
+using Services;
 using Tile;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -30,6 +32,10 @@ public class GameController : MonoBehaviour
     
     private LevelManager _levelManager;
     private Grid _grid;
+    private TileMerger _tileMerger;
+    private TileSwapper _tileSwapper;
+    private CommandInvoker _commandInvoker;
+    
     private List<TileData> _levelTiles = new List<TileData>();
     
 
@@ -70,6 +76,10 @@ public class GameController : MonoBehaviour
         poolController.Initialize();
         _levelManager = new LevelManager(puzzleTransform);
         
+        _tileMerger = new TileMerger(itemFactory, particleHelper, poolController);
+        _tileSwapper = new TileSwapper();
+        _commandInvoker = new CommandInvoker();
+        
         orderController.Initialize();
     }
 
@@ -88,59 +98,35 @@ public class GameController : MonoBehaviour
 
         var originConfig = selectedTile.GetItemConfig();
         var targetConfig = targetTile.GetItemConfig();
-        
-        if (TileComparator.IsConfigsIdentical(originConfig, targetConfig) && !TileComparator.IsTilesIdentical(selectedTile, targetTile))
+
+        if (TileComparator.IsConfigsIdentical(originConfig, targetConfig) &&
+            !TileComparator.IsTilesIdentical(selectedTile, targetTile))
         {
             if (originConfig.step.isMaxLevel && targetConfig.step.isMaxLevel)
             {
                 TriggerWarning("Item already reached max level!");
                 return;
             }
-            MergeTiles(selectedTile, targetTile);
-            PlaceOutline(targetTile);
-            
+
+            var mergeCommand = new MergeTileCommand(_tileMerger, selectedTile, targetTile);
+            _commandInvoker.ExecuteCommand(mergeCommand);
         }
         else
         {
-            SwapTiles(selectedTile, targetTile);
-            PlaceOutline(targetTile);
+            var swapCommand = new SwapTileCommand(_tileSwapper, selectedTile, targetTile);
+            _commandInvoker.ExecuteCommand(swapCommand);
         }
     }
 
     public void OnSwipeReleased(BaseTile selectedTile, Vector2Int targetPosition)
     {
         if (selectedTile == null) return;
-        MoveTileToPosition(selectedTile, targetPosition);
-        PlaceOutline(selectedTile);
+
+        var moveCommand = new MoveTileCommand(selectedTile, targetPosition);
+        _commandInvoker.ExecuteCommand(moveCommand);
     }
 
-    private void MergeTiles(BaseTile selectedTile, BaseTile targetTile)
-    {
-        var nextStep = selectedTile.GetItemConfig().nextItem;
-        var targetPos = targetTile.GetPosition();
-        var objectType = Utilities.GetPoolableType(nextStep.itemType);
-        ReturnPoolableToPool(selectedTile);
-        ReturnPoolableToPool(targetTile);
-        var spawned = itemFactory.SpawnItemByConfig(nextStep, targetPos, objectType);
-        particleHelper.PlayParticleByType(ParticleType.TileMerge, new Vector2Int(spawned.X, spawned.Y));
-        
-        OnTapPerformed(spawned);
-    }
-
-    private void SwapTiles(BaseTile selectedTile, BaseTile targetTile)
-    {
-        var firstCoordinate = selectedTile.GetPosition();
-        var secondCoordinate = targetTile.GetPosition();
-        selectedTile.UpdatePosition(secondCoordinate);
-        targetTile.UpdatePosition(firstCoordinate);
-    }
-
-    private void MoveTileToPosition(BaseTile selectedTile, Vector2Int targetPosition)
-    {
-        selectedTile.UpdatePosition(targetPosition);
-    }
-
-    private void PlaceOutline(BaseTile tile)
+    public void PlaceOutline(BaseTile tile)
     {
         var cell = _grid.GetCell(tile.X, tile.Y);
         selectionOutline.transform.position = cell.GetWorldPosition();
