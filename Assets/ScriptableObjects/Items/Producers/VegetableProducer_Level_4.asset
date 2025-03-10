@@ -29,4 +29,6 @@ MonoBehaviour:
       produceCount: 5
     - itemToProduce: {fileID: 11400000, guid: 339e1cc39bd309e48a538c76f0d90ca3, type: 2}
       produceCount: 2
+    - itemToProduce: {fileID: 11400000, guid: 1dc986c81ee6aac4b99542245024790c, type: 2}
+      produceCount: 1
   durationForRecharge: 10
