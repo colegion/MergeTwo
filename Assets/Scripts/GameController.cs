@@ -30,6 +30,7 @@ public class GameController : MonoBehaviour
     private LevelManager _levelManager;
     private Grid _grid;
     private List<TileData> _levelTiles = new List<TileData>();
+    
 
     private static GameController _instance;
 
@@ -45,6 +46,7 @@ public class GameController : MonoBehaviour
     public int GridHeight => height;
 
     public static event Action<BaseTile> OnUserTapped;
+    public static event Action<string> OnWarningNeeded;
 
     private void Awake()
     {
@@ -85,9 +87,14 @@ public class GameController : MonoBehaviour
 
         var originConfig = selectedTile.GetItemConfig();
         var targetConfig = targetTile.GetItemConfig();
-
+        
         if (TileComparator.IsConfigsIdentical(originConfig, targetConfig) && !TileComparator.IsTilesIdentical(selectedTile, targetTile))
         {
+            if (originConfig.step.isMaxLevel && targetConfig.step.isMaxLevel)
+            {
+                TriggerWarning("Item already reached max level!");
+                return;
+            }
             MergeTiles(selectedTile, targetTile);
             PlaceOutline(targetTile);
             
@@ -146,6 +153,11 @@ public class GameController : MonoBehaviour
     public void ReturnPoolableToPool(IPoolable poolable)
     {
         poolController.ReturnPooledObject(poolable);
+    }
+
+    public void TriggerWarning(string warning)
+    {
+        OnWarningNeeded?.Invoke(warning);
     }
 
     public void AppendLevelTiles(TileData data)

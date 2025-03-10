@@ -45,7 +45,7 @@ namespace Tile
     
         public virtual void OnTap()
         {
-       
+            GameController.Instance.OnTapPerformed(this);
         }
 
         public void UpdatePosition(Vector2Int position)

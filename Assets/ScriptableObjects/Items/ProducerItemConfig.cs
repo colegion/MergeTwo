@@ -1,9 +1,7 @@
-using System.Collections.Generic;
 using Helpers;
-using ScriptableObjects.Items;
 using UnityEngine;
 
-namespace ScriptableObjects
+namespace ScriptableObjects.Items
 {
     [CreateAssetMenu(fileName = "ProducerItemConfig", menuName = "ScriptableObjects/ProducerItemConfig")]
     public class ProducerItemConfig : BaseItemConfig
@@ -11,6 +9,6 @@ namespace ScriptableObjects
         public bool canProduce;
         public int produceCost;
         public RewardItemsContainer producerCapacity;
-        public float durationForRecharge;
+        public int durationForRecharge;
     }
 }

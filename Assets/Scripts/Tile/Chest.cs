@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using DG.Tweening;
 using Helpers;
@@ -13,13 +14,12 @@ namespace Tile
         [SerializeField] private ParticleSystem chestCleared;
         private ChestItemConfig _config;
         private RewardHelper _rewardHelper;
-
         private ItemFactory _itemFactory;
-    
         private Coroutine _unlockRoutine;
         private bool _hasUnlocked;
-
         private ProducableView _producableView;
+        private CountdownTimer _timer;
+        
         public override void ConfigureSelf(BaseItemConfig config, int x, int y)
         {
             base.ConfigureSelf(config, x, y);
@@ -28,6 +28,7 @@ namespace Tile
             _rewardHelper = new RewardHelper(_config.chestRewards.capacityConfigs);
 
             _producableView = (ProducableView)tileView;
+            _timer = new CountdownTimer(_config.durationToUnlock);
         }
 
         public override void OnTap()
@@ -35,6 +36,7 @@ namespace Tile
             if (_unlockRoutine != null)
             {
                 _producableView.ShakeOnInvalid();
+                GameController.Instance.TriggerWarning($"Time left for opening: {_timer.GetFormattedTime()}");
             }
             else
             {
@@ -69,6 +71,14 @@ namespace Tile
         private IEnumerator UnlockChest()
         {
             _producableView.ToggleClock(true);
+            var time = _config.durationToUnlock;
+
+            for (int i = time; i > 0; i--)
+            {
+                _timer.SetTime(i);
+                yield return new WaitForSeconds(1f);
+            }
+            
             yield return new WaitForSeconds(_config.durationToUnlock);
             _hasUnlocked = true;
             _producableView.ToggleClock(false);

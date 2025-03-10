@@ -27,19 +27,27 @@ namespace Helpers
 
         public void OnPooled()
         {
-            
+            ToggleParticles(false);
         }
 
         public void OnFetchFromPool()
         {
-            
+            ToggleParticles(true);
         }
 
         public void OnReturnPool()
         {
-            
+            ToggleParticles(false);
         }
 
+        private void ToggleParticles(bool toggle)
+        {
+            foreach (var particle in particles)
+            {
+                particle.gameObject.SetActive(toggle);
+            }
+        }
+        
         public PoolableTypes GetPoolableType()
         {
             return type;

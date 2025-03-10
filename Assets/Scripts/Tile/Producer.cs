@@ -15,17 +15,15 @@ namespace Tile
 
         private Coroutine _cooldownRoutine;
         private bool _cooldownActive;
-
         private ProducableView _producableView;
-        private ParticleHelper _particleHelper;
-        private Particle _activeParticle;
+        private CountdownTimer _timer;
+
         public override void ConfigureSelf(BaseItemConfig config, int x, int y)
         {
             base.ConfigureSelf(config, x, y);
             if(_itemFactory == null) _itemFactory = ServiceLocator.Get<ItemFactory>();
             _config = (ProducerItemConfig)config;
             _rewardHelper = new RewardHelper(_config.producerCapacity.capacityConfigs);
-            if (_particleHelper == null) _particleHelper = ServiceLocator.Get<ParticleHelper>();
 
             _producableView = (ProducableView)tileView;
 
@@ -33,6 +31,7 @@ namespace Tile
                 _producableView.ToggleEnergyBottle(true);
             
             readyToProduce.Play();
+            _timer = new CountdownTimer(_config.durationForRecharge);
         }
     
         public override void OnTap()
@@ -42,6 +41,7 @@ namespace Tile
             if (_cooldownActive)
             {
                 _producableView.ShakeOnInvalid();
+                GameController.Instance.TriggerWarning($"Time left for recharge: {_timer.GetFormattedTime()}");
             }
             else
             {
@@ -72,10 +72,20 @@ namespace Tile
 
         private IEnumerator EnterCoolDown()
         {
+            OnCoolDownStart();
+            yield return new WaitForSeconds(_config.durationForRecharge);
+            OnCoolDownFinished();
+        }
+
+        private void OnCoolDownStart()
+        {
             _producableView.ToggleClock(true);
             readyToProduce.Stop();
             _cooldownActive = true;
-            yield return new WaitForSeconds(_config.durationForRecharge);
+        }
+
+        private void OnCoolDownFinished()
+        {
             _cooldownActive = false;
             _producableView.ToggleClock(false);
             _rewardHelper.PopulateCapacities();
