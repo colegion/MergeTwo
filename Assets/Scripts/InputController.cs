@@ -54,7 +54,6 @@ public class InputController : MonoBehaviour
                 {
                     _canSwipe = true;
                     _selectedTile = temp;
-                    Debug.Log("Selected tile: ", _selectedTile);
                     GameController.Instance.OnTapPerformed(_selectedTile);
                 }
             }
@@ -82,50 +81,62 @@ public class InputController : MonoBehaviour
     }
 
     private void OnHoldReleased(InputAction.CallbackContext context)
+{
+    if (_selectedTile == null) return;
+    Debug.Log("Hold released");
+
+    float holdDuration = Time.time - _holdStartTime;
+
+    if (holdDuration < TapThreshold)
     {
-        if (_selectedTile == null) return;
-        Debug.Log("Hold released");
-
-        float holdDuration = Time.time - _holdStartTime;
-
-        if (holdDuration < TapThreshold)
+        _selectedTile.OnTap();
+    }
+    else
+    {
+        Vector2 pointerPosition = GetPointerPosition();
+        Ray ray = mainCamera.ScreenPointToRay(pointerPosition);
+        if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            _selectedTile.OnTap();
-        }
-        else
-        {
-            Vector2 pointerPosition = GetPointerPosition();
-            Ray ray = mainCamera.ScreenPointToRay(pointerPosition);
-            if (Physics.Raycast(ray, out RaycastHit hit))
+            Vector3 worldPos = hit.point;
+
+            int gridX = Mathf.FloorToInt(worldPos.x + (GameController.Instance.GridWidth / 2f));
+            int gridY = Mathf.FloorToInt(worldPos.z + (GameController.Instance.GridHeight / 2f));
+
+            BaseCell cell = GameController.Instance.GetCell(gridX, gridY);
+
+            if (cell != null)
             {
-                Vector3 worldPos = hit.point;
-
-                int gridX = Mathf.FloorToInt(worldPos.x + (GameController.Instance.GridWidth / 2f));
-                int gridY = Mathf.FloorToInt(worldPos.z + (GameController.Instance.GridHeight / 2f));
-                BaseCell cell = GameController.Instance.GetCell(gridX, gridY);
-
-                if (cell != null)
+                var tempTile = cell.GetTile(0);
+                if (tempTile != null)
                 {
-                    var tempTile = cell.GetTile(0);
-                    if (tempTile != null)
-                    {
-                        GameController.Instance.OnSwipeReleased(_selectedTile, tempTile);
-                    }
-                    else
-                    {
-                        GameController.Instance.OnSwipeReleased(_selectedTile, new Vector2Int(gridX, gridY));
-                    }
+                    GameController.Instance.OnSwipeReleased(_selectedTile, tempTile);
                 }
                 else
                 {
-                    Debug.LogWarning("Invalid swipe");
+                    GameController.Instance.OnSwipeReleased(_selectedTile, new Vector2Int(gridX, gridY));
                 }
             }
-        }
+            else
+            {
+                Debug.LogWarning($"Invalid swipe. Finding nearest valid position.");
+                
+                float clampedX = Mathf.Clamp(worldPos.x, -GameController.Instance.GridWidth / 2f, GameController.Instance.GridWidth / 2f - 1);
+                float clampedZ = Mathf.Clamp(worldPos.z, -GameController.Instance.GridHeight / 2f, GameController.Instance.GridHeight / 2f - 1);
+                
+                int nearestGridX = Mathf.FloorToInt(clampedX + (GameController.Instance.GridWidth / 2f));
+                int nearestGridY = Mathf.FloorToInt(clampedZ + (GameController.Instance.GridHeight / 2f));
 
-        _selectedTile = null;
-        _canSwipe = false;
+                Debug.Log($"Nearest Grid Position: ({nearestGridX}, {nearestGridY})");
+
+                GameController.Instance.OnSwipeReleased(_selectedTile, new Vector2Int(nearestGridX, nearestGridY));
+            }
+        }
     }
+
+    _selectedTile = null;
+    _canSwipe = false;
+}
+
 
     private Vector2 GetPointerPosition()
     {
