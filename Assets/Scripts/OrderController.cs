@@ -47,6 +47,7 @@ public class OrderController : MonoBehaviour, IInjectable
         }
         else
         {
+            _currentOrder = null;
             orderUiHelper.DisableSelf();
         }
     }
@@ -97,6 +98,7 @@ public class OrderController : MonoBehaviour, IInjectable
             sequence.AppendCallback(() =>
             {
                 orderUiHelper.OnOrderCompleted(ReceiveNewOrder);
+                PlayerInventory.Instance.IncreaseCurrency(ItemType.Coin, _currentOrder.rewardAmount);
                 OnOrderCompleted?.Invoke(ItemType.Coin, _currentOrder.rewardAmount);
                 foreach (var tile in orderTiles)
                 {
