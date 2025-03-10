@@ -33,7 +33,11 @@ namespace UI
                 }, targetAmount, 0.15f)
                 .SetEase(Ease.OutQuad));
 
-            sequence.Join(target.DOPunchScale(new Vector3(1.04f, 1.04f, 1.04f), 0.15f).SetEase(Ease.OutQuad));
+            sequence.Join(target.DOPunchScale(new Vector3(1.04f, 1.04f, 1.04f), 0.15f).SetEase(Ease.OutQuad)).OnComplete(
+                () =>
+                {
+                    transform.localScale = Vector3.one;
+                });
         }
 
         public ItemType GetCurrencyType()

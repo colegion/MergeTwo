@@ -62,6 +62,7 @@ namespace Tile
             }
 
             var itemToProduce = _rewardHelper.GetRandomItemToProduce();
+            if (itemToProduce == null) return;
             _itemFactory.SpawnItemByConfig(itemToProduce);
             _rewardHelper.DecreaseRemainingCount(itemToProduce);
             PlayerInventory.Instance.SpendEnergy(_config.produceCost);
@@ -75,6 +76,7 @@ namespace Tile
             _cooldownActive = false;
             _producableView.ToggleClock(false);
             _rewardHelper.PopulateCapacities();
+            _cooldownRoutine = null;
         }
     
         protected override void ResetSelf()

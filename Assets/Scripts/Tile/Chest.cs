@@ -49,6 +49,7 @@ namespace Tile
         private void ProduceItem()
         {
             var itemToProduce = _rewardHelper.GetRandomItemToProduce();
+            if (itemToProduce == null) return;
             _itemFactory.SpawnItemByConfig(itemToProduce, type: Utilities.GetPoolableType(itemToProduce.itemType));
             _rewardHelper.DecreaseRemainingCount(itemToProduce);
 

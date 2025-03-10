@@ -27,6 +27,7 @@ namespace Helpers
 
         public BaseItemConfig GetRandomItemToProduce()
         {
+            if (IsEmpty()) return null;
             var randomIndex = Random.Range(0, _capacity.Count);
             var produceItem = _capacity[randomIndex].itemToProduce;
             
