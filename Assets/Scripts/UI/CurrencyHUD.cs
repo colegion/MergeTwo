@@ -22,15 +22,18 @@ namespace UI
 
         public void IncreaseCurrency(int amount)
         {
+            Sequence sequence = DOTween.Sequence();
             int targetAmount = _currentAmount + amount;
             DOTween.Kill(currencyAmountField);
             
-            DOTween.To(() => _currentAmount, x =>
+            sequence.Append(DOTween.To(() => _currentAmount, x =>
                 {
                     _currentAmount = x;
                     currencyAmountField.text = _currentAmount.ToString();
                 }, targetAmount, 0.15f)
-                .SetEase(Ease.OutQuad);
+                .SetEase(Ease.OutQuad));
+
+            sequence.Join(target.DOPunchScale(new Vector3(1.04f, 1.04f, 1.04f), 0.15f).SetEase(Ease.OutQuad));
         }
 
         public ItemType GetCurrencyType()

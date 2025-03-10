@@ -49,7 +49,7 @@ namespace Tile
         private void ProduceItem()
         {
             var itemToProduce = _rewardHelper.GetRandomItemToProduce();
-            _itemFactory.SpawnItemByConfig(itemToProduce);
+            _itemFactory.SpawnItemByConfig(itemToProduce, type: Utilities.GetPoolableType(itemToProduce.itemType));
             _rewardHelper.DecreaseRemainingCount(itemToProduce);
 
             if (_rewardHelper.IsEmpty())
@@ -65,6 +65,7 @@ namespace Tile
             _hasUnlocked = true;
             _producableView.ToggleClock(false);
             tileView.UpdateSprite(_config.unlockedSprite);
+            _unlockRoutine = null;
         }
 
         protected override void ResetSelf()

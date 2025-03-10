@@ -109,9 +109,7 @@ public class GameController : MonoBehaviour
     {
         var nextStep = selectedTile.GetItemConfig().nextItem;
         var targetPos = targetTile.GetPosition();
-        var objectType = nextStep.itemType == ItemType.VegetableProducer
-            ? PoolableTypes.Producer
-            : PoolableTypes.BaseTile;
+        var objectType = Utilities.GetPoolableType(nextStep.itemType);
         ReturnPoolableToPool(selectedTile);
         ReturnPoolableToPool(targetTile);
         var spawned = itemFactory.SpawnItemByConfig(nextStep, targetPos, objectType);

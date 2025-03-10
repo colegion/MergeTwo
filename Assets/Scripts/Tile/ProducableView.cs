@@ -20,7 +20,7 @@ namespace Tile
 
         public void ShakeOnInvalid()
         {
-            transform.DOShakeScale(.25f, 1.7f).SetEase(Ease.OutBounce);
+            transform.DOShakeScale(.12f, .8f).SetEase(Ease.OutBack);
         }
     }
 }
