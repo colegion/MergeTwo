@@ -46,6 +46,9 @@ namespace Helpers
         SpecialTile,
         Chest,
         TrailObject,
+        TileSpawnParticle,
+        TileMergeParticle,
+        ReadyToProduceParticle
     }
 
     [Serializable]

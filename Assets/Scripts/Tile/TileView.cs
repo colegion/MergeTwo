@@ -9,7 +9,6 @@ namespace Tile
     {
         [SerializeField] private GameObject visuals;
         [SerializeField] private SpriteRenderer tileRenderer;
-        [SerializeField] private TileParticleHelper particleHelper;
 
         public void ConfigureSelf(BaseStepConfig config)
         {

@@ -12,6 +12,7 @@ using Grid = GridSystem.Grid;
 
 public class ItemFactory : MonoBehaviour, IInjectable
 {
+    [SerializeField] private ParticleHelper particleHelper;
     [SerializeField] private int itemSpawnCount;
     
     private Grid _grid;
@@ -45,13 +46,14 @@ public class ItemFactory : MonoBehaviour, IInjectable
         }
     }
 
-    public BaseTile SpawnItemByConfig(BaseItemConfig itemConfig, Vector2Int? specificPosition = null, PoolableTypes type = PoolableTypes.BaseTile)
+    public BaseTile SpawnItemByConfig(BaseItemConfig itemConfig, Vector2Int? specificPosition = null, PoolableTypes type = PoolableTypes.BaseTile, ParticleType particleType = ParticleType.TileSpawn)
     {
         var pooledTile = _poolController.GetPooledObject(type);
         var position = specificPosition ?? _grid.GetAvailableRandomCell().GetPosition();
         var tile = pooledTile.GetGameObject().GetComponent<BaseTile>();
         tile.ConfigureSelf(itemConfig, position.x, position.y);
         _orderController.OnNewItemCreated();
+        particleHelper.PlayParticleByType(particleType, position);
         return tile;
     }
     

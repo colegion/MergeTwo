@@ -112,7 +112,7 @@ public class GameController : MonoBehaviour
         var objectType = Utilities.GetPoolableType(nextStep.itemType);
         ReturnPoolableToPool(selectedTile);
         ReturnPoolableToPool(targetTile);
-        var spawned = itemFactory.SpawnItemByConfig(nextStep, targetPos, objectType);
+        var spawned = itemFactory.SpawnItemByConfig(nextStep, targetPos, objectType, ParticleType.TileMerge);
         OnTapPerformed(spawned);
     }
 

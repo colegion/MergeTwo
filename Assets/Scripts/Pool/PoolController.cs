@@ -1,12 +1,14 @@
 using System;
 using Helpers;
 using Interfaces;
+using ScriptableObjects.Pool;
 using UnityEngine;
 
 namespace Pool
 {
     public class PoolController : MonoBehaviour
     {
+        [SerializeField] private PoolConfig poolConfig;
         private const int DefaultPoolAmount = 100;
         private GamePool _gamePool;
 
@@ -18,23 +20,23 @@ namespace Pool
 
         private void InitializePool()
         {
-            foreach (PoolableTypes type in Enum.GetValues(typeof(PoolableTypes)))
+            foreach (var config in poolConfig.poolConfigs)
             {
-                var prefab = Resources.Load<GameObject>($"Prefabs/{type}");
+                var prefab = Resources.Load<GameObject>($"Prefabs/{config.poolItemType}");
                 if (prefab == null)
                 {
-                    Debug.LogError($"Prefab for {type} not found in Resources/Prefabs!");
+                    Debug.LogError($"Prefab for {config.poolItemType} not found in Resources/Prefabs!");
                     continue;
                 }
 
                 var poolable = prefab.GetComponent<IPoolable>();
                 if (poolable == null)
                 {
-                    Debug.LogError($"Prefab for {type} does not implement IPoolable!");
+                    Debug.LogError($"Prefab for {config.poolItemType} does not implement IPoolable!");
                     continue;
                 }
 
-                _gamePool.PoolObjects(type, poolable, DefaultPoolAmount, transform);
+                _gamePool.PoolObjects(config.poolItemType, poolable, config.poolCount, transform);
             }
         }
 
