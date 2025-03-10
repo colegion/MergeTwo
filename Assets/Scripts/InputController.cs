@@ -138,8 +138,21 @@ public class InputController : MonoBehaviour
                     int nearestGridY = Mathf.FloorToInt(clampedZ + (GameController.Instance.GridHeight / 2f));
 
                     Debug.Log($"Nearest Grid Position: ({nearestGridX}, {nearestGridY})");
+                    cell = GameController.Instance.GetCell(nearestGridX, nearestGridY);
+                    if (cell != null)
+                    {
+                        var tempTile = cell.GetTile(0);
+                        if (tempTile != null)
+                        {
+                            GameController.Instance.OnSwipeReleased(_selectedTile, tempTile);
+                        }
+                        else
+                        {
+                            GameController.Instance.OnSwipeReleased(_selectedTile, new Vector2Int(nearestGridX, nearestGridY));
+                        }
+                    }
 
-                    GameController.Instance.OnSwipeReleased(_selectedTile, new Vector2Int(nearestGridX, nearestGridY));
+                    //GameController.Instance.OnSwipeReleased(_selectedTile, new Vector2Int(nearestGridX, nearestGridY));
                 }
             }
             else
