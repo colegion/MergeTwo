@@ -67,6 +67,11 @@ namespace Helpers
         public int yCoord;
         public ItemType itemType;
         public int itemLevel;
+
+        public bool IsIdentical(TileData data)
+        {
+            return xCoord == data.xCoord && data.yCoord == yCoord && itemType == data.itemType && itemLevel == data.itemLevel;
+        }
     }
 
     [Serializable]

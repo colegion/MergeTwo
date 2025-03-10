@@ -19,7 +19,6 @@ namespace Tile
     
         public override void OnTap()
         {
-            Debug.Log("special tile on tap");
             OnCurrencyGathered?.Invoke(_config.itemType, _config.rewardAmount);
             PlayerInventory.Instance.IncreaseCurrency(_config.itemType, _config.rewardAmount);
             GameController.Instance.ReturnPoolableToPool(this);

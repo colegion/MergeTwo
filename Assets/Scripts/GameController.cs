@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 using GridSystem;
 using Helpers;
@@ -167,8 +168,14 @@ public class GameController : MonoBehaviour
 
     public void RemoveDataFromLevelTiles(TileData data)
     {
-        Debug.Log("chest data: " + data + _levelTiles.Contains(data));
-        _levelTiles.Remove(data);
+
+        for (int i = _levelTiles.Count - 1; i >= 0; i--)
+        {
+            if (_levelTiles[i].IsIdentical(data))
+            {
+                _levelTiles.Remove(_levelTiles[i]);
+            }    
+        }
     }
 
     private void OnDestroy()
