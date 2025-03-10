@@ -8,6 +8,7 @@ namespace Tile
 {
     public class Producer : BaseTile
     {
+        [SerializeField] private Particle readyToProduce;
         private ProducerItemConfig _config;
         private RewardHelper _rewardHelper;
         private ItemFactory _itemFactory;
@@ -17,6 +18,7 @@ namespace Tile
 
         private ProducableView _producableView;
         private ParticleHelper _particleHelper;
+        private Particle _activeParticle;
         public override void ConfigureSelf(BaseItemConfig config, int x, int y)
         {
             base.ConfigureSelf(config, x, y);
@@ -30,7 +32,7 @@ namespace Tile
             if (_config.canProduce)
                 _producableView.ToggleEnergyBottle(true);
             
-            _particleHelper.PlayParticleByType(ParticleType.ReadyToProduce, _position);
+            readyToProduce.Play();
         }
     
         public override void OnTap()
@@ -71,12 +73,14 @@ namespace Tile
         private IEnumerator EnterCoolDown()
         {
             _producableView.ToggleClock(true);
+            readyToProduce.Stop();
             _cooldownActive = true;
             yield return new WaitForSeconds(_config.durationForRecharge);
             _cooldownActive = false;
             _producableView.ToggleClock(false);
             _rewardHelper.PopulateCapacities();
             _cooldownRoutine = null;
+            readyToProduce.Play();
         }
     
         protected override void ResetSelf()

@@ -48,7 +48,6 @@ namespace Helpers
         TrailObject,
         TileSpawnParticle,
         TileMergeParticle,
-        ReadyToProduceParticle
     }
 
     [Serializable]

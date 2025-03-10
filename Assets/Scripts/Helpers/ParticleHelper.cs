@@ -15,8 +15,9 @@ namespace Helpers
         public void PlayParticleByType(ParticleType particleType, Vector2Int target)
         {
             var particle = _poolController.GetPooledObject(GetPoolableByType(particleType));
-            particle.GetGameObject().transform.position = new Vector3(target.x, 0.25f, target.y);
+            particle.GetGameObject().transform.position = GameController.Instance.GetCell(target.x, target.y).GetTarget().position + Vector3.down * 0.25f;
             particle.GetGameObject().SetActive(true);
+            particle.GetGameObject().GetComponent<Particle>().Play();
         }
 
         private PoolableTypes GetPoolableByType(ParticleType type)
@@ -27,8 +28,6 @@ namespace Helpers
                     return PoolableTypes.TileMergeParticle;
                 case ParticleType.TileSpawn:
                     return PoolableTypes.TileSpawnParticle;
-                case ParticleType.ReadyToProduce:
-                    return PoolableTypes.ReadyToProduceParticle;
             }
 
             return PoolableTypes.TileSpawnParticle;
@@ -39,6 +38,5 @@ namespace Helpers
     {
         TileSpawn,
         TileMerge,
-        ReadyToProduce,
     }
 }

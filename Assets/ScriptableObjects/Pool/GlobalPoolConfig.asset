@@ -27,5 +27,3 @@ MonoBehaviour:
     poolCount: 30
   - poolItemType: 6
     poolCount: 30
-  - poolItemType: 7
-    poolCount: 30

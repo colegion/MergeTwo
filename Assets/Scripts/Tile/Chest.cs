@@ -1,4 +1,5 @@
 using System.Collections;
+using DG.Tweening;
 using Helpers;
 using ScriptableObjects;
 using ScriptableObjects.Items;
@@ -8,6 +9,8 @@ namespace Tile
 {
     public class Chest : BaseTile
     {
+        [SerializeField] private ParticleSystem readyToProduce;
+        [SerializeField] private ParticleSystem chestCleared;
         private ChestItemConfig _config;
         private RewardHelper _rewardHelper;
 
@@ -55,7 +58,11 @@ namespace Tile
 
             if (_rewardHelper.IsEmpty())
             {
-                GameController.Instance.ReturnPoolableToPool(this);
+                chestCleared.Play();
+                DOVirtual.DelayedCall(0.5f, ()=>
+                {
+                    GameController.Instance.ReturnPoolableToPool(this);
+                });
             }
         }
 
@@ -67,6 +74,7 @@ namespace Tile
             _producableView.ToggleClock(false);
             tileView.UpdateSprite(_config.unlockedSprite);
             _unlockRoutine = null;
+            readyToProduce.Play();
         }
 
         protected override void ResetSelf()

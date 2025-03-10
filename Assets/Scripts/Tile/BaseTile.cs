@@ -120,11 +120,6 @@ namespace Tile
                 itemType = _stepConfig.step.ItemType
             };
         }
-        
-        public TileData GetTileData()
-        {
-            return _tileData;
-        }
 
         public void OnPooled()
         {

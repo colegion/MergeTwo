@@ -24,6 +24,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private CameraController cameraController;
     [SerializeField] private ItemFactory itemFactory;
     [SerializeField] private OrderController orderController;
+    [SerializeField] private ParticleHelper particleHelper;
     [SerializeField] private GameObject selectionOutline;
     
     private LevelManager _levelManager;
@@ -112,7 +113,9 @@ public class GameController : MonoBehaviour
         var objectType = Utilities.GetPoolableType(nextStep.itemType);
         ReturnPoolableToPool(selectedTile);
         ReturnPoolableToPool(targetTile);
-        var spawned = itemFactory.SpawnItemByConfig(nextStep, targetPos, objectType, ParticleType.TileMerge);
+        var spawned = itemFactory.SpawnItemByConfig(nextStep, targetPos, objectType);
+        particleHelper.PlayParticleByType(ParticleType.TileMerge, new Vector2Int(spawned.X, spawned.Y));
+        
         OnTapPerformed(spawned);
     }
 
@@ -152,6 +155,7 @@ public class GameController : MonoBehaviour
 
     public void RemoveDataFromLevelTiles(TileData data)
     {
+        Debug.Log("chest data: " + data + _levelTiles.Contains(data));
         _levelTiles.Remove(data);
     }
 

@@ -1094,6 +1094,11 @@ PrefabInstance:
       objectReference: {fileID: 1314575646}
     - target: {fileID: 5635402342297313647, guid: d7300a7db7c026e42ba453bdbb7de2c3,
         type: 3}
+      propertyPath: particleHelper
+      value: 
+      objectReference: {fileID: 1480337659}
+    - target: {fileID: 5635402342297313647, guid: d7300a7db7c026e42ba453bdbb7de2c3,
+        type: 3}
       propertyPath: poolController
       value: 
       objectReference: {fileID: 1014189808}
