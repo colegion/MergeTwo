@@ -25,7 +25,7 @@ namespace Tile
         protected Grid Grid;
 
         protected BaseItemConfig _stepConfig;
-        private Vector2Int _position;
+        protected Vector2Int _position;
         private TileData _tileData;
     
         public virtual void ConfigureSelf(BaseItemConfig config, int x, int y)

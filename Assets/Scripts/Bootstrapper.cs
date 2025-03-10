@@ -29,10 +29,12 @@ public class Bootstrapper : MonoBehaviour
         var poolController = FindObjectOfType<PoolController>();
         var orderController = FindObjectOfType<OrderController>();
         var itemFactory = FindObjectOfType<ItemFactory>();
+        var particleHelper = FindObjectOfType<ParticleHelper>();
 
         ServiceLocator.Register(poolController);
         ServiceLocator.Register(orderController);
         ServiceLocator.Register(itemFactory);
+        ServiceLocator.Register(particleHelper);
         
         foreach (var injectable in FindObjectsOfType<MonoBehaviour>().OfType<IInjectable>())
         {

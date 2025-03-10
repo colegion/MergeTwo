@@ -16,17 +16,21 @@ namespace Tile
         private bool _cooldownActive;
 
         private ProducableView _producableView;
+        private ParticleHelper _particleHelper;
         public override void ConfigureSelf(BaseItemConfig config, int x, int y)
         {
             base.ConfigureSelf(config, x, y);
             if(_itemFactory == null) _itemFactory = ServiceLocator.Get<ItemFactory>();
             _config = (ProducerItemConfig)config;
             _rewardHelper = new RewardHelper(_config.producerCapacity.capacityConfigs);
+            if (_particleHelper == null) _particleHelper = ServiceLocator.Get<ParticleHelper>();
 
             _producableView = (ProducableView)tileView;
 
             if (_config.canProduce)
                 _producableView.ToggleEnergyBottle(true);
+            
+            _particleHelper.PlayParticleByType(ParticleType.ReadyToProduce, _position);
         }
     
         public override void OnTap()
