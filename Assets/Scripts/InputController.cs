@@ -81,89 +81,123 @@ public class InputController : MonoBehaviour
     }
 
     private void OnHoldReleased(InputAction.CallbackContext context)
+{
+    if (_selectedTile == null) return;
+    Debug.Log("Hold released");
+
+    float holdDuration = Time.time - _holdStartTime;
+
+    if (holdDuration < TapThreshold)
     {
-        if (_selectedTile == null) return;
-        Debug.Log("Hold released");
+        _selectedTile.OnTap();
+    }
+    else
+    {
+        Vector2 pointerPosition = GetPointerPosition();
+        Ray ray = mainCamera.ScreenPointToRay(pointerPosition);
 
-        float holdDuration = Time.time - _holdStartTime;
-
-        if (holdDuration < TapThreshold)
+        if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            _selectedTile.OnTap();
+            Vector3 worldPos = hit.point;
+
+            Vector2Int gridCoords = GetGridCoordinates(worldPos);
+
+            TryProcessRelease(gridCoords);
         }
         else
         {
-            Vector2 pointerPosition = GetPointerPosition();
-            Ray ray = mainCamera.ScreenPointToRay(pointerPosition);
-            if (Physics.Raycast(ray, out RaycastHit hit))
-            {
-                Vector3 worldPos = hit.point;
-
-                Vector3 gridOrigin = new Vector3(
-                    -GameController.Instance.GridWidth / 2f,
-                    0,
-                    -GameController.Instance.GridHeight / 2f
-                );
-
-                float cellSize = 1f;
-
-                int gridX = Mathf.FloorToInt((worldPos.x - gridOrigin.x) / cellSize);
-                int gridY = Mathf.FloorToInt((worldPos.z - gridOrigin.z) / cellSize);
-
-
-                BaseCell cell = GameController.Instance.GetCell(gridX, gridY);
-
-                if (cell != null)
-                {
-                    var tempTile = cell.GetTile(0);
-                    if (tempTile != null)
-                    {
-                        GameController.Instance.OnSwipeReleased(_selectedTile, tempTile);
-                    }
-                    else
-                    {
-                        GameController.Instance.OnSwipeReleased(_selectedTile, new Vector2Int(gridX, gridY));
-                    }
-                }
-                else
-                {
-                    Debug.LogWarning($"Invalid swipe. Finding nearest valid position.");
-
-                    float clampedX = Mathf.Clamp(worldPos.x, -GameController.Instance.GridWidth / 2f,
-                        GameController.Instance.GridWidth / 2f - 1);
-                    float clampedZ = Mathf.Clamp(worldPos.z, -GameController.Instance.GridHeight / 2f,
-                        GameController.Instance.GridHeight / 2f - 1);
-
-                    int nearestGridX = Mathf.FloorToInt(clampedX + (GameController.Instance.GridWidth / 2f));
-                    int nearestGridY = Mathf.FloorToInt(clampedZ + (GameController.Instance.GridHeight / 2f));
-
-                    Debug.Log($"Nearest Grid Position: ({nearestGridX}, {nearestGridY})");
-                    cell = GameController.Instance.GetCell(nearestGridX, nearestGridY);
-                    if (cell != null)
-                    {
-                        var tempTile = cell.GetTile(0);
-                        if (tempTile != null)
-                        {
-                            GameController.Instance.OnSwipeReleased(_selectedTile, tempTile);
-                        }
-                        else
-                        {
-                            GameController.Instance.OnSwipeReleased(_selectedTile, new Vector2Int(nearestGridX, nearestGridY));
-                        }
-                    }
-
-                    //GameController.Instance.OnSwipeReleased(_selectedTile, new Vector2Int(nearestGridX, nearestGridY));
-                }
-            }
-            else
-            {
-                GameController.Instance.OnSwipeReleased(_selectedTile, new Vector2Int(_selectedTile.X, _selectedTile.Y));
-            }
+            // If raycast fails, fallback to current position
+            GameController.Instance.OnSwipeReleased(_selectedTile, new Vector2Int(_selectedTile.X, _selectedTile.Y));
         }
-
-        _selectedTile = null;
-        _canSwipe = false;
     }
+
+    _selectedTile = null;
+    _canSwipe = false;
+}
+
+/// <summary>
+/// Converts world position to grid coordinates, rounding correctly.
+/// </summary>
+private Vector2Int GetGridCoordinates(Vector3 worldPos)
+{
+    float gridWidth = GameController.Instance.GridWidth;
+    float gridHeight = GameController.Instance.GridHeight;
+
+    Vector3 gridOrigin = new Vector3(
+        -gridWidth / 2f,
+        0,
+        -gridHeight / 2f
+    );
+
+    int gridX = GetGridCoordinate(worldPos.x, gridOrigin.x);
+    int gridY = GetGridCoordinate(worldPos.z, gridOrigin.z);
+
+    return new Vector2Int(gridX, gridY);
+}
+
+private int GetGridCoordinate(float worldCoord, float gridOrigin)
+{
+    float localCoord = worldCoord - gridOrigin;
+    return Mathf.FloorToInt(localCoord + 0.5f);
+}
+
+private void TryProcessRelease(Vector2Int gridCoords)
+{
+    
+    BaseCell cell = GameController.Instance.GetCell(gridCoords.x, gridCoords.y);
+    if (cell == null)
+    {
+        Debug.LogWarning("Invalid swipe. Finding nearest valid position.");
+
+        Vector2Int clampedCoords = GetClampedGridCoordinates(gridCoords);
+        cell = GameController.Instance.GetCell(clampedCoords.x, clampedCoords.y);
+
+        if (cell != null)
+        {
+            gridCoords = clampedCoords;
+        }
+        else
+        {
+            Debug.LogWarning("No valid cell found even after clamping. Resetting to original tile position.");
+            gridCoords = new Vector2Int(_selectedTile.X, _selectedTile.Y);
+            cell = GameController.Instance.GetCell(gridCoords.x, gridCoords.y);
+        }
+    }
+    
+    if (cell != null)
+    {
+        var tempTile = cell.GetTile(0);
+
+        if (tempTile != null)
+        {
+            GameController.Instance.OnSwipeReleased(_selectedTile, tempTile);
+        }
+        else
+        {
+            GameController.Instance.OnSwipeReleased(_selectedTile, gridCoords);
+        }
+    }
+    else
+    {
+        Debug.LogError("Critical: Could not resolve a valid release position.");
+        GameController.Instance.OnSwipeReleased(_selectedTile, new Vector2Int(_selectedTile.X, _selectedTile.Y));
+    }
+}
+
+
+private Vector2Int GetClampedGridCoordinates(Vector2Int gridCoords)
+{
+    int gridWidth = GameController.Instance.GridWidth;
+    int gridHeight = GameController.Instance.GridHeight;
+
+    int clampedX = Mathf.Clamp(gridCoords.x, 0, gridWidth - 1);
+    int clampedY = Mathf.Clamp(gridCoords.y, 0, gridHeight - 1);
+
+    Debug.Log($"Clamped Grid Position: ({clampedX}, {clampedY})");
+
+    return new Vector2Int(clampedX, clampedY);
+}
+
 
     private Vector2 GetPointerPosition()
     {
