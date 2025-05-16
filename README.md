@@ -1,0 +1,2 @@
+A Gossip Harbor-inspired prototype. has a save and load mechanism. Scriptable objects are often used as data containers to hold recipes in an easily comprehensible format. The user attempts to prepare orders using a predetermined order system in order to earn coins. several tile kinds, including producer, chest, and special tiles like coin stack and energy bar. SOLID concepts and design patterns are heavily used to make the game extensible. 
+🎮 [Watch Gameplay Video](gameplay.mp4)
